@@ -6,6 +6,13 @@ public class ExitController : ObjectIdentifier
 {
     public bool isOpen;
 
+    GameManager gameManager;
+
+    private void Start()
+    {
+        gameManager = GameManager.Instance;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (LayerCheck(collision.gameObject.layer))
@@ -24,6 +31,7 @@ public class ExitController : ObjectIdentifier
     {
         isOpen = true;
         Debug.Log("문 열림");
+        gameManager.GameClearCheck();
         //animator.SetBool(IsOpen, true);
         //gamemanager.Instace.IsClear();
     }

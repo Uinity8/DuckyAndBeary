@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -9,7 +10,9 @@ public class GameManager : MonoBehaviour
     ItemController[] gems;
     ExitController[] doors;
 
-    float passedTime;
+    [SerializeField] float passedTime;
+
+    int score;
 
     private void Awake()
     {
@@ -29,10 +32,20 @@ public class GameManager : MonoBehaviour
         doors = FindObjectsOfType<ExitController>();
     }
 
-    public void GameClear()
+    private void Update()
     {
-        
+        passedTime += Time.deltaTime;
     }
 
+    public void GameClearCheck()
+    {
+        bool isAllOpen = doors.All(door => door.isOpen);
 
+        Debug.Log(isAllOpen?"Game Clear" : "Not Yet");
+    }
+
+    public void AddScore(int value)
+    {
+        score += value;
+    }
 }
