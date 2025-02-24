@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.U2D;
 
 namespace Entity
 {
@@ -10,14 +11,17 @@ namespace Entity
     {
         PlayerController[] players;
         Camera mainCamera;
+        PixelPerfectCamera pixelPerfectCamera;
 
-        [Header("Ä«¸Ş¶ó ÀÌµ¿ °¡´É ¹üÀ§")]
+        [Header("ì¹´ë©”ë¼ ì´ë™ ê°€ëŠ¥ ë²”ìœ„")]
         [SerializeField] Rect boundary;
         [SerializeField] Color gizmoColor;
 
-        [Header("Ä«¸Ş¶ó ÁÜ ÀÎ&¾Æ¿ô Á¶Àı")]
+        [Header("ì¹´ë©”ë¼ ì¤Œ ì¸&ì•„ì›ƒ ì¡°ì ˆ")]
         [SerializeField] float distanceWeight;
         [SerializeField] float minValue;
+
+        
 
         private const float cameraZPosition = -10f;
 
@@ -25,6 +29,7 @@ namespace Entity
         {
             players = FindObjectsOfType<PlayerController>();
             mainCamera = GetComponent<Camera>();
+            pixelPerfectCamera = GetComponent<PixelPerfectCamera>();
         }
 
         private void Update()
@@ -79,7 +84,7 @@ namespace Entity
 
         void ZoomInOrOut(float distance)
         {
-            mainCamera.orthographicSize = minValue + distanceWeight * Mathf.Sqrt(distance);
+            pixelPerfectCamera.CorrectCinemachineOrthoSize(minValue + distanceWeight * Mathf.Sqrt(distance));
         }
     }
 }

@@ -10,7 +10,8 @@ namespace Entity.Player
         [Header("Floor Settings")] 
         [SerializeField] float floorMaxAngle = 45f;
         [SerializeField] float safeMargin = 0.08f;
-
+        [SerializeField] private LayerMask floorLayer;
+        
         [Header("Debug Options")] [SerializeField]
         bool debugRaysEnabled;
         
@@ -48,10 +49,10 @@ namespace Entity.Player
         public bool IsOnFloor()
         {
             Vector2 bottomCenter = new Vector2(_collider.bounds.center.x, _collider.bounds.min.y);
-            RaycastHit2D hit = Physics2D.Raycast(bottomCenter, Vector2.down, safeMargin);
+            RaycastHit2D hit = Physics2D.Raycast(bottomCenter, Vector2.down, safeMargin,floorLayer);
 
             // 디버그 레이 그리기 (충돌 시 빨간색, 비충돌 시 회색)
-            DrawDebugRay(bottomCenter, Vector2.down * safeMargin, hit, Color.gray, Color.red);
+            DrawDebugRay(bottomCenter, Vector2.down * safeMargin*10, hit, Color.gray, Color.red);
 
             return hit.collider != null && IsFloorWithinMaxAngle(hit.normal);
         }
