@@ -25,7 +25,7 @@ namespace Entity
         animationHandler = GetComponent<AnimationHandler>();
         statHandler = GetComponent<StatHandler>();
     }
-
+    
     void Update()
     {
         HandleAnimationUpdates();
