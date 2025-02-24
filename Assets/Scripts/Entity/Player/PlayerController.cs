@@ -6,7 +6,7 @@ namespace Entity
 {
     public class PlayerController : MonoBehaviour
 {
-    Rigidbody2D rigidbody2D;
+    Rigidbody2D _rigidbody2D;
     Platformer platformer;
     AnimationHandler animationHandler;
     StatHandler statHandler;
@@ -20,7 +20,7 @@ namespace Entity
 
     void Awake()
     {
-        rigidbody2D = GetComponent<Rigidbody2D>();
+        _rigidbody2D = GetComponent<Rigidbody2D>();
         platformer = GetComponent<Platformer>();
         animationHandler = GetComponent<AnimationHandler>();
         statHandler = GetComponent<StatHandler>();
@@ -47,21 +47,21 @@ namespace Entity
     {
         if (!platformer.IsOnFloor()) return;
 
-        rigidbody2D.AddForce(statHandler.JumpForce * Vector2.up, ForceMode2D.Impulse);
+        _rigidbody2D.AddForce(statHandler.JumpForce * Vector2.up, ForceMode2D.Impulse);
         animationHandler.Jump();
     }
 
     // 애니메이션 업데이트
     void HandleAnimationUpdates()
     {
-        animationHandler.FallOrLand(rigidbody2D.velocity.y);
+        animationHandler.FallOrLand(_rigidbody2D.velocity.y);
         animationHandler.IsGrounded(platformer.IsOnFloor());
     }
 
     // 플레이어 이동
     void MovePlayer()
     {
-        rigidbody2D.velocity = new Vector2(moveInputX * statHandler.Speed, rigidbody2D.velocity.y);
+        _rigidbody2D.velocity = new Vector2(moveInputX * statHandler.Speed, _rigidbody2D.velocity.y);
     }
 
     // 캐릭터 방향 전환
