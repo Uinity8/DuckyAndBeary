@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -15,11 +16,14 @@ public class DoorController : MonoBehaviour
 
     [Header("DoorMoveInfo")]
     [SerializeField] private float moveSpeed;
-    [SerializeField] private Vector2 prevPosition;
-    [SerializeField] private Vector2 desiredPosition;
-    
+    [SerializeField] private float desiredX;
+    [SerializeField] private float desiredY;
+
     private LeverController[] levers;
-    private ButtonController[] buttons; 
+    private ButtonController[] buttons;
+    private Vector2 prevPosition;
+    private Vector2 desiredPosition;
+
 
     private void Awake()
     {
@@ -30,7 +34,12 @@ public class DoorController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transform.position = prevPosition;
+        float moveX = transform.position.x + desiredX;
+        float moveY = transform.position.y + desiredY;
+
+        prevPosition = transform.position;
+        desiredPosition = new Vector2(moveX, moveY);
+
     }
 
     private void FixedUpdate()
@@ -69,20 +78,20 @@ public class DoorController : MonoBehaviour
         }
     }
 
-    //½ºÀ§Ä¡ È°¼ºÈ­ ½Ã ÀÌµ¿
+    //ìŠ¤ìœ„ì¹˜ í™œì„±í™” ì‹œ ì´ë™
     void DesiredPositionr()
     {
-        //½ºÀ§Ä¡ ¿Â ¸ñÇ¥ÁöÁ¡±îÁö ÀÌµ¿
+        //ìŠ¤ìœ„ì¹˜ ì˜¨ ëª©í‘œì§€ì ê¹Œì§€ ì´ë™
         transform.position = Vector2.Lerp(
             transform.position,
             desiredPosition,
             moveSpeed * Time.fixedDeltaTime);
     }
 
-    //½ºÀ§Ä¡ ºñÈ°¼ºÈ­ ½Ã ÀÌµ¿
+    //ìŠ¤ìœ„ì¹˜ ë¹„í™œì„±í™” ì‹œ ì´ë™
     void PrevPosition()
     {                
-        //½ºÀ§Ä¡ ¿ÀÇÁ ¿ø·¡ÁöÁ¡±îÁö ÀÌµ¿
+        //ìŠ¤ìœ„ì¹˜ ì˜¤í”„ ì›ë˜ì§€ì ê¹Œì§€ ì´ë™
         transform.position = Vector2.Lerp(
             transform.position,
             prevPosition,
