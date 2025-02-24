@@ -19,9 +19,5 @@ public class InteractionHandler : MonoBehaviour
 
     public virtual bool ActiveSwitch() { return false; }
 
-    private void MatchingDoorInfo
-    {
-
-    }
 
 }
