@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +11,11 @@ namespace Entity
         PlayerController[] players;
         Camera mainCamera;
 
-        [Header("Ä«¸Ş¶ó ÀÌµ¿ °¡´É ¹üÀ§")]
+        [Header("ì¹´ë©”ë¼ ì´ë™ ê°€ëŠ¥ ë²”ìœ„")]
         [SerializeField] Rect boundary;
         [SerializeField] Color gizmoColor;
 
-        [Header("Ä«¸Ş¶ó ÁÜ ÀÎ&¾Æ¿ô Á¶Àı")]
+        [Header("ì¹´ë©”ë¼ ì¤Œ ì¸&ì•„ì›ƒ ì¡°ì ˆ")]
         [SerializeField] float distanceWeight;
         [SerializeField] float minValue;
 
