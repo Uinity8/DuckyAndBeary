@@ -6,11 +6,11 @@ public class ExitController : ObjectIdentifier
 {
     public bool isOpen;
 
-    GameManager gameManager;
+    GameManager.GameClearAction OnGameClear;
 
     private void Start()
     {
-        gameManager = GameManager.Instance;
+        OnGameClear = GameManager.Instance.OnGameClear;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -31,9 +31,7 @@ public class ExitController : ObjectIdentifier
     {
         isOpen = true;
         Debug.Log("문 열림");
-        gameManager.GameClearCheck();
-        //animator.SetBool(IsOpen, true);
-        //gamemanager.Instace.IsClear();
+        OnGameClear?.Invoke();
     }
     private void DoorClose()
     {

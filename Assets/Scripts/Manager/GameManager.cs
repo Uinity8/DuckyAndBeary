@@ -13,6 +13,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] int score;
 
+    public delegate void GameClearAction();
+    public GameClearAction OnGameClear;
+
     private void Awake()
     {
         if(Instance == null)
@@ -28,6 +31,8 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         doors = FindObjectsOfType<ExitController>();
+
+        OnGameClear = GameClearCheck;
     }
 
     private void Update()
