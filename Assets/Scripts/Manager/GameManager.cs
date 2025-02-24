@@ -46,4 +46,9 @@ public class GameManager : MonoBehaviour
     {
         score += value;
     }
+
+    public void GameOver()
+    {
+        Debug.Log("GameOver");
+    }
 }
