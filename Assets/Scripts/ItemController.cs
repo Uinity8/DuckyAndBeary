@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ItemController : ObjectIdentifier
 {
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (LayerCheck(collision.gameObject.layer))
