@@ -59,6 +59,6 @@ public class GameUI : MonoBehaviour
 
     public void ExitToStageSelect()
     {
-        //  UIManager.Instance.LoadScene("StageSelectScene");
+        UIManager.Instance.LoadScene("StartScene");
     }
 }

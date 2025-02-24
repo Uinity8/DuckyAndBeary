@@ -38,7 +38,7 @@ public class MainUI : MonoBehaviour
     void OnClickStartButton()
     {
         //StageSce입력
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("Stage1");
     }
 
     void OnClickExitButton()
