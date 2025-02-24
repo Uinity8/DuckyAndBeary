@@ -242,6 +242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pausePanel: {fileID: 394656380}
+  gameOverPanel: {fileID: 1503632962}
   timerText: {fileID: 1027858547}
 --- !u!1 &185249965
 GameObject:
