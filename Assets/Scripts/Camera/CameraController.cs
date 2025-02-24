@@ -26,7 +26,7 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-        
+        MoveCamera(CalculateMiddle());
     }
 
     //카메라 이동 제한 범위 그리기
@@ -59,5 +59,20 @@ public class CameraController : MonoBehaviour
         //카메라의 z 갑을 -10으로 설정(설정하지 않으면 0이 되어 카메라에 오브젝트가 보이지 않음)
         targetPos.z = -10f;
         transform.position = targetPos;
+    }
+
+    Vector2 CalculateMiddle()
+    {
+        //전체 플레이어 오브젝트의 중점을 구함
+        float sumX = 0;
+        float sumY = 0;
+
+        foreach (PlayerController player in players)
+        {
+            sumX += player.transform.position.x;
+            sumY += player.transform.position.y;
+        }
+
+        return new Vector2(sumX / players.Length, sumY / players.Length);
     }
 }
