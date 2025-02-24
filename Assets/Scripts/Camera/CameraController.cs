@@ -21,10 +21,6 @@ namespace Entity
         [SerializeField] float distanceWeight;
         [SerializeField] float minValue;
 
-        [SerializeField] float distance;
-
-        
-
         private const float cameraZPosition = -10f;
 
         void Start()
@@ -81,14 +77,14 @@ namespace Entity
                 }
             }
 
-            distance = maxDistance;
             return maxDistance;
         }
 
         void ZoomInOrOut(float distance)
         {
             pixelPerfectCamera.CorrectCinemachineOrthoSize(0);
-            mainCamera.orthographicSize = minValue + distanceWeight * distance; ;
+
+            mainCamera.orthographicSize = minValue + distanceWeight * distance;
         }
     }
 }
