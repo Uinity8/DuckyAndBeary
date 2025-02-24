@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class ObjectIdentifier : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private LayerMask target;
+
+    protected bool LayerCheck(LayerMask _layerMask)
     {
-        
+        if (target.value==(target.value|(1<<_layerMask.value)))
+        {
+            return true;
+        }
+        return false;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

@@ -7,7 +7,7 @@ public class CameraController : MonoBehaviour
 {
     //PlayerController들을 찾아 배열로 저장
     PlayerController[] players;
-    Camera camera;
+    Camera mainCamera;
 
     [Header("카메라 이동 가능 범위")]
     [SerializeField] Rect boundary;
@@ -22,7 +22,7 @@ public class CameraController : MonoBehaviour
         //시작시 PlayerController를 가진 오브젝트를 찾아 배열에 저장
         players = FindObjectsOfType<PlayerController>();
         //Main Camera 찾기
-        camera = Camera.main;
+        mainCamera = Camera.main;
     }
 
     private void Update()
@@ -100,6 +100,6 @@ public class CameraController : MonoBehaviour
     //가중치와 최소 값을 설정할 수 있음
     void ZoomInOrOut(float distance)
     {
-        camera.orthographicSize = minValue + distanceWeight * MathF.Sqrt(distance);
+        mainCamera.orthographicSize = minValue + distanceWeight * MathF.Sqrt(distance);
     }
 }
