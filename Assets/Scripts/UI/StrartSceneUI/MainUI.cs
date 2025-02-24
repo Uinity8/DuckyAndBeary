@@ -57,6 +57,7 @@ public class MainUI : MonoBehaviour
 
     void OnClickSettingButton()
     {
-        creditUI.SetActive(true);
+        settingUI.SetActive(true);
     }
+
 }
