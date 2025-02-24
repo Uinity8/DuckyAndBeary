@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,6 +28,7 @@ public class CameraController : MonoBehaviour
     private void Update()
     {
         MoveCamera(CalculateMiddle());
+        ZoomInOrOut(CalculateDistance());
     }
 
     //카메라 이동 제한 범위 그리기
@@ -74,5 +76,30 @@ public class CameraController : MonoBehaviour
         }
 
         return new Vector2(sumX / players.Length, sumY / players.Length);
+    }
+
+    //플레이어 오브젝트 간의 최대 거리를 구함
+    float CalculateDistance()
+    {
+        float maxDistance = 0;
+
+        for (int i = 0; i < players.Length; i++)
+        {
+            for (int j = i + 1; j < players.Length; j++)
+            {
+                float tempDistance = (players[i].transform.position - players[j].transform.position).magnitude;
+
+                if (tempDistance > maxDistance)
+                    maxDistance = tempDistance;
+            }
+        }
+
+        return maxDistance;
+    }
+    //거리 값에 따라 카메라 줌 인 or 아웃을 조절
+    //가중치와 최소 값을 설정할 수 있음
+    void ZoomInOrOut(float distance)
+    {
+        camera.orthographicSize = minValue + distanceWeight * MathF.Sqrt(distance);
     }
 }
