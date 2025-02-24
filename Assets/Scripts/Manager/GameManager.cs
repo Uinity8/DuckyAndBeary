@@ -15,6 +15,9 @@ public class GameManager : MonoBehaviour
 
     public delegate void GameClearAction();
     public GameClearAction OnGameClear;
+    public delegate void GameOverAction();
+
+    public const string GameOverkey = "GameOver"; 
 
     private void Awake()
     {
@@ -33,6 +36,10 @@ public class GameManager : MonoBehaviour
         doors = FindObjectsOfType<ExitController>();
 
         OnGameClear = GameClearCheck;
+
+        GameOverAction OnGameOver;
+
+        SignalManager.Instance.ConnectSignal(GameOverkey, GameOver);
     }
 
     private void Update()
@@ -52,8 +59,10 @@ public class GameManager : MonoBehaviour
         score += value;
     }
 
-    public void GameOver()
+    public void GameOver(object[] args)
     {
         Debug.Log("GameOver");
+        SignalManager.Instance.DisconnectSignal("GameOver",GameOver);
+        SignalManager.Instance.EmitSignal(GameUI.SetGameOverKey);
     }
 }
