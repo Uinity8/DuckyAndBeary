@@ -38,6 +38,8 @@ namespace Entity
 
     void OnMove(InputValue value)
     {
+        if(UIManager.Instance.IsPaused) return;
+        
         moveInputX = value.Get<float>();
         FlipSprite(moveInputX);
         animationHandler.Move(moveInputX);
@@ -46,6 +48,7 @@ namespace Entity
     void OnJump(InputValue value)
     {
         if (!platformer.IsOnFloor()) return;
+        if(UIManager.Instance.IsPaused) return;
         
 
         _rigidbody2D.AddForce(statHandler.JumpForce * Vector2.up, ForceMode2D.Impulse);
