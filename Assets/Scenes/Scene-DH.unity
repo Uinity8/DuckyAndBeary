@@ -5516,7 +5516,7 @@ MonoBehaviour:
     width: 50
     height: 6
   gizmoColor: {r: 1, g: 0, b: 0, a: 0.5019608}
-  distanceWeight: 1
+  distanceWeight: 0.25
   minValue: 4
 --- !u!114 &874628823
 MonoBehaviour:
@@ -6655,6 +6655,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   passedTime: 0
+  score: 0
 --- !u!4 &1515807240
 Transform:
   m_ObjectHideFlags: 0

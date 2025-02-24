@@ -7,12 +7,11 @@ public class GameManager : MonoBehaviour
 {
     static public GameManager Instance;
 
-    ItemController[] gems;
     ExitController[] doors;
 
     [SerializeField] float passedTime;
 
-    int score;
+    [SerializeField] int score;
 
     private void Awake()
     {
@@ -28,7 +27,6 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        gems = FindObjectsOfType<ItemController>();
         doors = FindObjectsOfType<ExitController>();
     }
 
