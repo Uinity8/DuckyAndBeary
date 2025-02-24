@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ButtonController : InteractionHandler
 {
+    [Header("Button")]
     [SerializeField] private Transform button;
     public Transform Button { get => button; }
    

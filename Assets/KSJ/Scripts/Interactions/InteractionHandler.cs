@@ -14,6 +14,14 @@ public class InteractionHandler : MonoBehaviour
     [SerializeField] private int switchTypeID;
     public int SwitchTypeID { get => switchTypeID; }
 
+    [Header("DoorMatch")]
+    [SerializeField] private GameObject matchedDoor;
+
     public virtual bool ActiveSwitch() { return false; }
+
+    private void MatchingDoorInfo
+    {
+
+    }
 
 }
