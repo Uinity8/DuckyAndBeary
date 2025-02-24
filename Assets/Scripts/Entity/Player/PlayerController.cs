@@ -41,16 +41,15 @@ namespace Entity
         moveInputX = value.Get<float>();
         FlipSprite(moveInputX);
         animationHandler.Move(moveInputX);
-            Debug.Log("이동");
     }
 
     void OnJump(InputValue value)
     {
         if (!platformer.IsOnFloor()) return;
+        
 
         _rigidbody2D.AddForce(statHandler.JumpForce * Vector2.up, ForceMode2D.Impulse);
         animationHandler.Jump();
-            Debug.Log("점프");
     }
 
     // 애니메이션 업데이트
