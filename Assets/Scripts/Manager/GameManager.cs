@@ -13,6 +13,12 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] int score;
 
+    public delegate void GameClearAction();
+    public GameClearAction OnGameClear;
+    public delegate void GameOverAction();
+
+    public const string GameOverkey = "GameOver"; 
+
     private void Awake()
     {
         if(Instance == null)
@@ -28,6 +34,12 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         doors = FindObjectsOfType<ExitController>();
+
+        OnGameClear = GameClearCheck;
+
+        GameOverAction OnGameOver;
+
+        SignalManager.Instance.ConnectSignal(GameOverkey, GameOver);
     }
 
     private void Update()
@@ -45,5 +57,12 @@ public class GameManager : MonoBehaviour
     public void AddScore(int value)
     {
         score += value;
+    }
+
+    public void GameOver(object[] args)
+    {
+        Debug.Log("GameOver");
+        SignalManager.Instance.DisconnectSignal("GameOver",GameOver);
+        SignalManager.Instance.EmitSignal(GameUI.SetGameOverKey);
     }
 }

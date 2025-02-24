@@ -11,14 +11,16 @@ public class GameUI : MonoBehaviour
     public TMP_Text timerText;
     private float timeElapsed;
     private bool isGameOver;
-    
 
+    public const string SetGameOverKey = "SetGameOver";
 
     private void Start()
     {
         pausePanel.SetActive(false);
         gameOverPanel.SetActive(false);
         isGameOver = false;
+        SignalManager.Instance.ConnectSignal(SetGameOverKey, SetGameOver);
+
     }
 
     void Update()
@@ -43,10 +45,11 @@ public class GameUI : MonoBehaviour
         pausePanel.SetActive(isPaused);
     }
 
-    public void GameOver()
+    public void SetGameOver(object[] args)
     {
         gameOverPanel.SetActive(true);
         isGameOver = true;
+        SignalManager.Instance.DisconnectSignal(SetGameOverKey, SetGameOver);
     }
     
     public void Restart()
