@@ -9,7 +9,7 @@ public class ItemController : ObjectIdentifier
     {
         if (LayerCheck(collision.gameObject.layer))
         {
-            Debug.Log("Á¡¼ö È¹µæ");
+            Debug.Log("ì ìˆ˜ íšë“");
             //gameManager.AddScore();
             Destroy(this.gameObject);
         }
