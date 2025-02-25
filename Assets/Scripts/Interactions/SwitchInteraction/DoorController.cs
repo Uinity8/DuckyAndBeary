@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -6,95 +7,37 @@ using UnityEngine;
 
 public class DoorController : MonoBehaviour
 {
-    [Header("DoorInfo")]
-    //(Red : 0 , Blue : 1)
-    [SerializeField] private int doorColorID;
-
-    //(Lever : 0 / Button : 1)
-    [SerializeField] private int doorTypeID;
-
-
-    [Header("DoorMoveInfo")]
+    [Header("DoorInfo")] 
+    [SerializeField] Transform targetTransform;
     [SerializeField] private float moveSpeed;
-    [SerializeField] private float desiredX;
-    [SerializeField] private float desiredY;
 
-    private LeverController[] levers;
-    private ButtonController[] buttons;
-    private Vector2 prevPosition;
+    private Vector2 intialPosition;
     private Vector2 desiredPosition;
-
-
-    private void Awake()
+    
+    private void Start()
     {
-        levers = FindObjectsOfType<LeverController>();
-        buttons = FindObjectsOfType<ButtonController>();
+        intialPosition = transform.position;
+        desiredPosition = transform.position;
     }
 
     // Start is called before the first frame update
-    void Start()
-    {
-        float moveX = transform.position.x + desiredX;
-        float moveY = transform.position.y + desiredY;
-
-        prevPosition = transform.position;
-        desiredPosition = new Vector2(moveX, moveY);
-
-    }
-
     private void FixedUpdate()
     {
-        CheckMatchSwitch();
+        transform.position = Vector2.MoveTowards(transform.position, desiredPosition, moveSpeed * Time.fixedDeltaTime);
     }
 
-    void CheckMatchSwitch()
+
+    public void SetActive(bool isActive)
     {
-        for (int i = 0; i < levers.Length; i++)
+        Debug.Log("Door Active");
+
+        if (isActive)
         {
-            if (levers[i].ActiveSwitch() && 
-                levers[i].SwitchTypeID == doorTypeID && 
-                levers[i].SwitchColorID == doorColorID)
-            {
-                DesiredPositionr();
-            }
-            else
-            {
-                PrevPosition();
-            }
+            desiredPosition = targetTransform.position;
         }
-
-        for (int i = 0; i < buttons.Length; i++)
+        else
         {
-            if (buttons[i].ActiveSwitch() &&
-                buttons[i].SwitchTypeID == doorTypeID &&
-                buttons[i].SwitchColorID == doorColorID)
-            {
-                DesiredPositionr();
-            }
-            else
-            {
-                PrevPosition();
-            }
+            desiredPosition = intialPosition;
         }
-    }
-
-    //스위치 활성화 시 이동
-    void DesiredPositionr()
-    {
-        //스위치 온 목표지점까지 이동
-        transform.position = Vector2.Lerp(
-            transform.position,
-            desiredPosition,
-            moveSpeed * Time.fixedDeltaTime);
-    }
-
-    //스위치 비활성화 시 이동
-    void PrevPosition()
-    {                
-        //스위치 오프 원래지점까지 이동
-        transform.position = Vector2.Lerp(
-            transform.position,
-            prevPosition,
-            moveSpeed * Time.fixedDeltaTime);
     }
 }
