@@ -1,27 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class StageSelectController : MonoBehaviour
 {
 
-    public Button stage1Button;
-    public Button stage2Button;
-    public Button stage3Button;
+    [SerializeField] private Button stage1Button;
+    [SerializeField] private Button stage2Button;
+    [SerializeField] private Button stage3Button;
 
-    void Start()
+    [SerializeField] private Button mainButton;
+
+    void Awake()
     {
         UpdateStageButton(stage1Button, 1);
         UpdateStageButton(stage2Button, 2);
         UpdateStageButton(stage3Button, 3);
+
+        mainButton.onClick.AddListener(OnClickMainButton);
     }
 
-    void UpdateStageButton(Button button, int stageNumber)
+    //스테이지버튼 초기화
+    private void UpdateStageButton(Button button, int stageNumber)
     {
-        StageState state = StageManager.GetStageState(stageNumber);
+        StageState state = StageStateHandeler.GetStageState(stageNumber);
         Color buttonColor;
 
+        //스테이지 클리어 상태에 따른 버튼 색 변화 및 활성화
         switch (state)
         {
             case StageState.NotOpen:
@@ -46,6 +53,11 @@ public class StageSelectController : MonoBehaviour
         }
 
         button.GetComponent<Image>().color = buttonColor;
-        button.onClick.AddListener(() => StageManager.LoadStage(stageNumber));
+        button.onClick.AddListener(() => StageStateHandeler.LoadStage(stageNumber));
+    }
+
+    private void OnClickMainButton()
+    {
+        SceneManager.LoadScene("StartScene");
     }
 }
