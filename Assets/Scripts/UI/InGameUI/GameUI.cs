@@ -1,5 +1,7 @@
 using System;
+using System.Linq;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -8,19 +10,36 @@ public class GameUI : MonoBehaviour
 {
     public GameObject pausePanel;
     public GameObject gameOverPanel;
+
+    public GameObject gameClearPanel;
     public TMP_Text timerText;
     private float timeElapsed;
     private bool isGameOver;
+    private int totalGem;
+    ItemController[] Gems;
+
+    [SerializeField] private float missionTime;
+    [SerializeField] private TextMeshProUGUI clearNum;
+    [SerializeField] private TextMeshProUGUI gemNum;
+    [SerializeField] private TextMeshProUGUI timeNum;
+    [SerializeField] private TextMeshProUGUI clearCheck;
+    [SerializeField] private TextMeshProUGUI gemCheck;
+    [SerializeField] private TextMeshProUGUI timeCheck;
+
 
     public const string SetGameOverKey = "SetGameOver";
+    public const string SetGameClearKey = "SetGameClear";
 
     private void Start()
     {
+        Gems = FindObjectsOfType<ItemController>();
+        totalGem = Gems.Length;
         pausePanel.SetActive(false);
         gameOverPanel.SetActive(false);
+        gameClearPanel.SetActive(false);
         isGameOver = false;
         SignalManager.Instance.ConnectSignal(SetGameOverKey, SetGameOver);
-
+        SignalManager.Instance.ConnectSignal(SetGameClearKey, SetGameClear);
     }
 
     void Update()
@@ -38,6 +57,41 @@ public class GameUI : MonoBehaviour
         return string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
+
+    public bool GemCheck(int collectedGem, int totalGem)
+    {
+        gemNum.text = ($"{collectedGem}/{totalGem}");
+        if (collectedGem < totalGem)
+        {
+            Debug.Log("너무 적습니다.");
+            gemCheck.text = ($"Failed");
+            return false;
+        }
+        else
+        {
+            Debug.Log("딱 적당히 모았습니다.");
+            gemCheck.text = ($"Success");
+            return true;
+        }
+    }
+    public bool TimeCheck(float usedTime, float missionTime)
+    {
+        string textTime = usedTime.ToString("F2");
+        timeNum.text = ($"{textTime}/{missionTime}");
+        if (usedTime <= missionTime)
+        {
+            Debug.Log("적당히 빨랐습니다.");
+            timeCheck.text = ($"Success");
+            return true;
+        }
+        else
+        {
+            Debug.Log("느렸습니다.");
+            timeCheck.text = ($"Failed");
+            return false;
+        }
+    }
+
     public void TogglePause()
     {
         UIManager.Instance.PauseGame();
@@ -52,6 +106,15 @@ public class GameUI : MonoBehaviour
         SignalManager.Instance.DisconnectSignal(SetGameOverKey, SetGameOver);
     }
     
+    public void SetGameClear(object[]args)
+    {
+        GemCheck(GameManager.Instance.Score, totalGem);
+        TimeCheck(GameManager.Instance.PassedTIme, missionTime);
+        gameClearPanel.SetActive(true);
+        isGameOver = true;
+        SignalManager.Instance.DisconnectSignal(SetGameClearKey, SetGameClear);
+    }
+
     public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);

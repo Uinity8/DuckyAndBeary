@@ -10,18 +10,23 @@ public class GameManager : MonoBehaviour
     ExitController[] doors;
 
     [SerializeField] float passedTime;
+    public float PassedTIme { get {  return passedTime; } }
 
     [SerializeField] int score;
+    public int Score { get { return score; } }
 
     public delegate void GameClearAction();
     public GameClearAction OnGameClear;
     public delegate void GameOverAction();
 
-    public const string GameOverkey = "GameOver"; 
+    public const string GameOverkey = "GameOver";
+    public const string GameClearKey = "GameClear";
 
     private void Awake()
     {
-        if(Instance == null)
+        OnGameClear = GameClearCheck;
+
+        if (Instance == null)
         {
             Instance = this;
         }
@@ -35,11 +40,11 @@ public class GameManager : MonoBehaviour
     {
         doors = FindObjectsOfType<ExitController>();
 
-        OnGameClear = GameClearCheck;
 
         GameOverAction OnGameOver;
 
         SignalManager.Instance.ConnectSignal(GameOverkey, GameOver);
+        SignalManager.Instance.ConnectSignal(GameClearKey, GameClear);
     }
 
     private void Update()
@@ -52,6 +57,10 @@ public class GameManager : MonoBehaviour
         bool isAllOpen = doors.All(door => door.isOpen);
 
         Debug.Log(isAllOpen?"Game Clear" : "Not Yet");
+        if (isAllOpen)
+        {
+            SignalManager.Instance.EmitSignal(GameClearKey);
+        }
     }
 
     public void AddScore(int value)
@@ -65,4 +74,11 @@ public class GameManager : MonoBehaviour
         SignalManager.Instance.DisconnectSignal("GameOver",GameOver);
         SignalManager.Instance.EmitSignal(GameUI.SetGameOverKey);
     }
+
+    public void GameClear(object[] args)
+    {
+        SignalManager.Instance.DisconnectSignal("GameClear", GameClear);
+        SignalManager.Instance.EmitSignal(GameUI.SetGameClearKey);
+    }
+
 }
