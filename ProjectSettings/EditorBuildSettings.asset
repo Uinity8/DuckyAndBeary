@@ -5,16 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/AltScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
     path: Assets/Scenes/StartScene.unity
     guid: bf6ace439709b9e4fa370efff307a631
-  - enabled: 0
-    path: Assets/Scenes/Etc/AltScene.unity
-    guid: bd6e33328d1c02b48bf159693e617db6
   - enabled: 1
     path: Assets/Scenes/Stage1.unity
     guid: 8343739e0da15fe4c9a67a549b95b1ae
+  - enabled: 1
+    path: Assets/Scenes/StageSelect.unity
+    guid: 3615e81495353734892addbf914422bd
   m_configObjects: {}
