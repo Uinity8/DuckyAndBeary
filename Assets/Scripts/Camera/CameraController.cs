@@ -15,65 +15,95 @@ namespace Entity
 
         [Header("카메라 이동 가능 범위")]
         [SerializeField] Rect boundary;
-        [SerializeField] Color gizmoColor;
+        [SerializeField] Color boundaryColor;
 
         [Header("카메라 줌 인&아웃 조절")]
         [SerializeField] float cameraMargin;
         [SerializeField] float minValue;
 
+        [Header("시작시 카메라 위치, 크기, 지속 시간")]
+        [SerializeField] Rect startCameraArea;
+        [SerializeField] private float duration;
+        [SerializeField] Color startAreaColor;
+
+        [Header("Gizmo 레이어 바꾸기 [1] 카메라 이동 범위 [2] 카메라 시작 영역")]
+        [SerializeField] int gizmoLayer;
+
+        private float startCameraSize;
+        private Vector3 startCameraPos;
+        private Vector3 readyPos;
+        private bool isStarted = true;
+        private float t = 0f;
+
         private const float cameraZPosition = -10f;
-
-        [SerializeField] float startCameraSize;
-        [SerializeField] Vector3 startCameraPos;
-        Vector3 readyPos = new Vector3(0f, 1f, -15f);
-        float readySize = 6;
-
-        float t = 0f;
-
-        bool isOnX;
 
         void Start()
         {
             players = FindObjectsOfType<PlayerController>();
             mainCamera = GetComponent<Camera>();
             pixelPerfectCamera = GetComponent<PixelPerfectCamera>();
+            readyPos = CalculatePlayersCenter();
 
-            //mainCamera.orthographicSize = startCameraSize;
-            //mainCamera.transform.position = startCameraPos;
+            // 초기 카메라 설정
+            pixelPerfectCamera.CorrectCinemachineOrthoSize(0);
+            startCameraPos = new Vector3(startCameraArea.x + startCameraArea.width / 2, startCameraArea.y + startCameraArea.height / 2);
+            startCameraSize = startCameraArea.width/3f;
         }
 
         private void Update()
         {
-            //StartAnimation();
-            UpdateCamera();
-
-            //Invoke("UpdateCamera", 3f);
+            if (isStarted)
+            {
+                HandleStartCamera();
+            }
+            else
+            {
+                HandleUpdateCamera();
+            }
         }
 
-        void StartAnimation()
+        private void HandleStartCamera()
         {
             t += Time.deltaTime;
-            transform.position = Vector3.Lerp(startCameraPos, readyPos, t / 1f);
-            mainCamera.orthographicSize = Mathf.Lerp(startCameraSize, readySize, t / 1f);
+            readyPos = CalculatePlayersCenter();
+            MoveCamera(Vector3.Lerp(startCameraPos, readyPos, t / duration));
+            mainCamera.orthographicSize = Mathf.Lerp(startCameraSize, minValue, t / duration);
 
+            if (t / duration >= 1f)
+            {
+                t = 0f;
+                isStarted = false;
+            }
         }
 
-        void UpdateCamera()
+        private void HandleUpdateCamera()
         {
             Vector2 middlePoint = CalculatePlayersCenter();
             MoveCamera(middlePoint);
-            ZoomInOrOut(CalculateMaxPlayerDistance(out isOnX),isOnX);
-
+            ZoomInOrOut(CalculateMaxPlayerDistance(out bool isOnX), isOnX);
         }
 
         void OnDrawGizmosSelected()
         {
-            if (boundary == default) return;
+            switch(gizmoLayer)
+            {
+                case 1:
+                    if (boundary == default) return;
 
-            Gizmos.color = gizmoColor;
-            Vector3 center = new Vector3(boundary.x + boundary.width / 2, boundary.y + boundary.height / 2);
-            Vector3 size = new Vector3(boundary.width, boundary.height);
-            Gizmos.DrawCube(center, size);
+                    Gizmos.color = boundaryColor;
+                    Vector3 center = new Vector3(boundary.x + boundary.width / 2, boundary.y + boundary.height / 2);
+                    Vector3 size = new Vector3(boundary.width, boundary.height);
+                    Gizmos.DrawCube(center, size);
+                    break;
+
+                case 2:
+                    if (startCameraArea == default) return;
+                    Gizmos.color = startAreaColor;
+                    center = new Vector3(startCameraArea.x + startCameraArea.width / 2, startCameraArea.y + startCameraArea.height / 2);
+                    size = new Vector3(startCameraArea.width, startCameraArea.height);
+                    Gizmos.DrawCube(center, size);
+                    break;
+            }            
         }
 
         void MoveCamera(Vector2 middlePoint)
