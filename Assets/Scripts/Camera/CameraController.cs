@@ -9,25 +9,29 @@ namespace Entity
 {
     public class CameraController : MonoBehaviour
     {
+        //플레이어 위치 확인을 위한 PlayerController 배열
         PlayerController[] players;
+
         Camera mainCamera;
         PixelPerfectCamera pixelPerfectCamera;
+
+        enum GizmoLayer
+        {
+            카메라_이동_범위,
+            카메라_시작_영역
+        }
+        //에디터 상에서 표현될 Gizmo 바꾸기
+        [Header("Gizmo 레이어 바꾸기")]
+        [SerializeField] GizmoLayer gizmoLayer;
 
         [Header("카메라 이동 가능 범위")]
         [SerializeField] Rect boundary;
         [SerializeField] Color boundaryColor;
 
-        [Header("카메라 줌 인&아웃 조절")]
-        [SerializeField] float cameraMargin;
-        [SerializeField] float minValue;
-
         [Header("시작시 카메라 위치, 크기, 지속 시간")]
         [SerializeField] Rect startCameraArea;
         [SerializeField] private float duration;
         [SerializeField] Color startAreaColor;
-
-        [Header("Gizmo 레이어 바꾸기 [1] 카메라 이동 범위 [2] 카메라 시작 영역")]
-        [SerializeField] int gizmoLayer;
 
         private float startCameraSize;
         private Vector3 startCameraPos;
@@ -35,6 +39,13 @@ namespace Entity
         private bool isStarted = true;
         private float t = 0f;
 
+        [Header("카메라 줌 인&아웃 조절")]
+        [SerializeField] float cameraMargin;
+        [SerializeField] float minValue;
+        [SerializeField] float zoomSpeed = 2f; // 변환 속도
+
+        private float targetOrthographicSize; // 목표 orthographicSize
+        
         private const float cameraZPosition = -10f;
 
         void Start()
@@ -65,6 +76,8 @@ namespace Entity
         private void HandleStartCamera()
         {
             t += Time.deltaTime;
+            //시작시 카메라가 맵 중앙에서 플레이어를 향해 이동
+            //맵 전체를 비추고 이후 플레이어를 향해 줌 인
             readyPos = CalculatePlayersCenter();
             MoveCamera(Vector3.Lerp(startCameraPos, readyPos, t / duration));
             mainCamera.orthographicSize = Mathf.Lerp(startCameraSize, minValue, t / duration);
@@ -72,14 +85,18 @@ namespace Entity
             if (t / duration >= 1f)
             {
                 t = 0f;
+                //duration이 지나면 HandleUpdateCamera()를 실행
                 isStarted = false;
             }
         }
 
         private void HandleUpdateCamera()
         {
+            //플레이어들 간의 중점을 계산
             Vector2 middlePoint = CalculatePlayersCenter();
+            //해당 중점으로 카메라를 이동(이동 제한 영역에 따라 제한)
             MoveCamera(middlePoint);
+            //거리 값에 따라 카메라의 Size 값 조절
             ZoomInOrOut(CalculateMaxPlayerDistance(out bool isOnX), isOnX);
         }
 
@@ -87,7 +104,7 @@ namespace Entity
         {
             switch(gizmoLayer)
             {
-                case 1:
+                case GizmoLayer.카메라_이동_범위:
                     if (boundary == default)
                     {
                         Debug.LogError("Camera Boundary가 설정되지 않았습니다.");
@@ -100,7 +117,7 @@ namespace Entity
                     Gizmos.DrawCube(center, size);
                     break;
 
-                case 2:
+                case GizmoLayer.카메라_시작_영역:
                     if (startCameraArea == default)
                     {
                         Debug.LogError("Camera Start Area가 설정되지 않았습니다.");
@@ -116,6 +133,7 @@ namespace Entity
 
         void MoveCamera(Vector2 middlePoint)
         {
+            //지정된 제한 영역에 따라 카메라 이동 범위를 제한
             Vector3 targetPos = new Vector3(
                 Mathf.Clamp(middlePoint.x, boundary.xMin, boundary.xMax),
                 Mathf.Clamp(middlePoint.y, boundary.yMin, boundary.yMax),
@@ -127,6 +145,7 @@ namespace Entity
 
         Vector2 CalculatePlayersCenter()
         {
+            //플레이어들의 중점을 계산
             Vector2 center = players.Aggregate(Vector2.zero, (sum, player) => sum + (Vector2)player.transform.position);
             return center / players.Length;
         }
@@ -145,17 +164,17 @@ namespace Entity
                     if (tempDistance > maxDistance)
                     {
                         maxDistance = tempDistance;
-                        // 벡터를 사용하여 각도를 구합니다.
+                        // 벡터를 사용하여 각도를 구함
                         Vector2 direction = players[j].transform.position - players[i].transform.position;
                         angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg; // 라디안에서 도로 변환
                     }
                 }
             }
-
+            //플레이어 간 거리에서 x 성분과 y 성분을 각각 구함
             float distanceX = Mathf.Abs(Mathf.Cos(angle * Mathf.Deg2Rad) * maxDistance);
             float distanceY = Mathf.Abs(Mathf.Sin(angle * Mathf.Deg2Rad) * maxDistance);
 
-            // 비율을 계산합니다.
+            // 화면 해상도에 따른 비율을 계산
             float ratio = (float) pixelPerfectCamera.refResolutionY / pixelPerfectCamera.refResolutionY;
             float tanValue = Mathf.Tan(ratio);
 
@@ -186,7 +205,10 @@ namespace Entity
                 value = Mathf.Max(0, distance - (minValue - cameraMargin * 2)) / 2f;
             }
 
-            mainCamera.orthographicSize = minValue + value;
+            targetOrthographicSize = minValue + value;
+
+            // 매 프레임마다 카메라 크기를 부드럽게 변화
+            mainCamera.orthographicSize = Mathf.Lerp(mainCamera.orthographicSize, targetOrthographicSize, Time.deltaTime * zoomSpeed);
         }
     }
 }
