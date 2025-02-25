@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
 
     public delegate void GameClearAction();
     public GameClearAction OnGameClear;
+
     public delegate void GameOverAction();
 
     public const string GameOverkey = "GameOver"; 
@@ -29,13 +30,15 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+
+        OnGameClear += GameClearCheck;
     }
 
     private void Start()
     {
         doors = FindObjectsOfType<ExitController>();
 
-        OnGameClear = GameClearCheck;
+        
 
         GameOverAction OnGameOver;
 

@@ -42,12 +42,18 @@ namespace Entity
 
         private void Update()
         {
-            
-            t+= Time.deltaTime;
-            transform.position = Vector3.Lerp(startCameraPos, readyPos, t/3f);
-            mainCamera.orthographicSize = Mathf.Lerp(startCameraSize, readySize, t/3f);
+            StartAnimation();
+            //UpdateCamera();
 
             //Invoke("UpdateCamera", 3f);
+        }
+
+        void StartAnimation()
+        {
+            t += Time.deltaTime;
+            transform.position = Vector3.Lerp(startCameraPos, readyPos, t / 1f);
+            mainCamera.orthographicSize = Mathf.Lerp(startCameraSize, readySize, t / 1f);
+
         }
 
         void UpdateCamera()
