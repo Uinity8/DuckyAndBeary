@@ -118,8 +118,13 @@ public class GameUI : MonoBehaviour
         bool timeClear=TimeCheck(GameManager.Instance.PassedTIme, missionTime);
         if (gemClear&& timeClear)
         {
+            //stageinfo stageclear = new stageinfo(true, 3, n);
+        }
+        else
+        {
             //stageinfo stageclear = new stageinfo(true, 2, n);
         }
+        //signalmanager.instance.EmitSignal("StageClear", stageinfo);
         gameClearPanel.SetActive(true);
         isGameOver = true;
         SignalManager.Instance.DisconnectSignal(SetGameClearKey, SetGameClear);
