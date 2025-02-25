@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log("게임 스타트 문다시열어줘");
         isAllOpen = false;
         doors = FindObjectsOfType<ExitController>();
         OnGameClear = GameClearCheck;
@@ -82,13 +83,12 @@ public class GameManager : MonoBehaviour
     public void GameOver(object[] args)
     {
         Debug.Log("GameOver");
-        SignalManager.Instance.DisconnectSignal("GameOver",GameOver);
         SignalManager.Instance.EmitSignal(GameUI.SetGameOverKey);
     }
 
     public void GameClear(object[] args)
     {
-        SignalManager.Instance.DisconnectSignal("GameClear", GameClear);
+        Debug.Log("GameClear 신호");
         SignalManager.Instance.EmitSignal(GameUI.SetGameClearKey);
     }
 
@@ -99,4 +99,9 @@ public class GameManager : MonoBehaviour
         Debug.Log($"값 저장 완료, 저장된 값:{stageInfo[stageClear.StageIndex].StageIndex}");
     }
 
+    //public void OnDestroy()
+    //{
+    //    SignalManager.Instance.DisconnectSignal("GameOver", GameOver);
+    //    SignalManager.Instance.DisconnectSignal("GameClear", GameClear);
+    //}
 }
