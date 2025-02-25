@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scripts/UI/StageSceneUI/GameStage.cs.meta
+guid: 61af9b620a2c2394ba8c3876ca7656cd
+========
 guid: f2e3d2f66556325488f080378e91e899
+>>>>>>>> Dev:Assets/Scripts/Interactions/SwitchInteraction/Switch/Switch.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

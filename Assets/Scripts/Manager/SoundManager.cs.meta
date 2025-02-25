@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scripts/Manager/SoundManager.cs.meta
+guid: a2dec949ead9de94dad730d523e11321
+========
+guid: 61af9b620a2c2394ba8c3876ca7656cd
+>>>>>>>> Dev:Assets/Scripts/UI/StageSceneUI/GameStage.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

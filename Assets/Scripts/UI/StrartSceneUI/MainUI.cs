@@ -38,6 +38,8 @@ public class MainUI : MonoBehaviour
     private void OnClickStartButton()
     {
         //StageSce입력
+        
+        SoundManager.Instance.ChnageBackGroundMusic(SoundManager.Instance.stageClip);
         SceneManager.LoadScene("StageSelect");
     }
 
