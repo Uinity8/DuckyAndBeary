@@ -204,9 +204,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1a3028990e25dd459232fe1069b2ef2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  switchColorID: 0
-  switchTypeID: 0
-  button: {fileID: 2942478679823421028}
+  sensitivity: 0.15
+  chamber: {fileID: 2942478679823421028}
 --- !u!1 &7980347862065102248
 GameObject:
   m_ObjectHideFlags: 0
@@ -221,7 +220,7 @@ GameObject:
   - component: {fileID: 5387812184420977720}
   - component: {fileID: 7461444920075288599}
   m_Layer: 8
-  m_Name: Button
+  m_Name: Chamber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -284,7 +283,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: 500ee0433c2710346bc57fd8249c923e, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.4470588, g: 1, b: 0.92693555, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
