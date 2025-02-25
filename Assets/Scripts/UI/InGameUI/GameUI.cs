@@ -106,11 +106,12 @@ public class GameUI : MonoBehaviour
     {
         gameOverPanel.SetActive(true);
         isGameOver = true;
-        SignalManager.Instance.DisconnectSignal(SetGameOverKey, SetGameOver);
+        
     }
     
     public void SetGameClear(object[]args)
     {
+        Debug.Log("GameClear 신호 받음");
         string name=SceneManager.GetActiveScene().name;
         string num=name.Replace("Stage", "");
         Debug.Log($"{num}");
@@ -131,7 +132,7 @@ public class GameUI : MonoBehaviour
         }
         gameClearPanel.SetActive(true);
         isGameOver = true;
-        SignalManager.Instance.DisconnectSignal(SetGameClearKey, SetGameClear);
+        
     }
 
     public void Restart()
@@ -146,5 +147,11 @@ public class GameUI : MonoBehaviour
     public void ExitToStageSelect()
     {
         UIManager.Instance.LoadScene("StartScene");
+    }
+
+    private void OnDestroy()
+    {
+        SignalManager.Instance.DisconnectSignal(SetGameOverKey, SetGameOver);
+        SignalManager.Instance.DisconnectSignal(SetGameClearKey, SetGameClear);
     }
 }
