@@ -5,15 +5,11 @@ using UnityEngine;
 public class ExitController : ObjectIdentifier
 {
     public bool isOpen;
-
-    GameManager.GameClearAction OnGameClear;
+    
 
     private void Update()
     {
-        if (OnGameClear == null)
-        {
-            OnGameClear = GameManager.Instance.OnGameClear;
-        }
+   
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -33,14 +29,11 @@ public class ExitController : ObjectIdentifier
     private void DoorOpen()
     {
         isOpen = true;
-        //Debug.Log("문 열림");
-        OnGameClear?.Invoke();
+        SignalManager.Instance.EmitSignal(SignalKey.OpenDoor);
     }
     private void DoorClose()
     {
         isOpen = false;
-        //Debug.Log("문 닫힘");
-        //animator.SetBool(IsOpen,false);
-        //gamemanager.Instace.IsClear();
+        SignalManager.Instance.EmitSignal(SignalKey.CloseDoor);
     }
 }

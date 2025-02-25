@@ -4,10 +4,19 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+public enum SignalKey
+{
+    OpenDoor,
+    CloseDoor,
+    GameClear,
+    GameOver,
+}
+
+
 public class SignalManager : MonoBehaviour
 {
     static SignalManager instance;
-
+    
     public static SignalManager Instance
     {
         get
@@ -22,31 +31,31 @@ public class SignalManager : MonoBehaviour
         }
     }
 
-    private Dictionary<string, Action<object[]>> signals = new();
+    private Dictionary<SignalKey, Action<object[]>> signals = new();
 
-    public void ConnectSignal(string signalName, Action<object[]> action)
+    public void ConnectSignal(SignalKey signalKey, Action<object[]> action)
     {
-        if(!signals.TryAdd(signalName, action))
+        if(!signals.TryAdd(signalKey, action))
         {
-            signals[signalName] += action;
+            signals[signalKey] += action;
         }
     }
 
-    public void DisconnectSignal(string signalName, Action<object[]> action)
+    public void DisconnectSignal(SignalKey signalKey, Action<object[]> action)
     {
-        if (signals.ContainsKey(signalName))
+        if (signals.ContainsKey(signalKey))
         {
-            signals[signalName] -= action;
-            if(signals[signalName] == null)     //모든 리스터가 제거되면 삭제
-                signals.Remove(signalName);
+            signals[signalKey] -= action;
+            if(signals[signalKey] == null)     //모든 리스터가 제거되면 삭제
+                signals.Remove(signalKey);
         }
     }
 
-    public void EmitSignal(string signalName, params object[] args)
+    public void EmitSignal(SignalKey signalKey, params object[] args)
     {
-        if (signals.ContainsKey(signalName))
+        if (signals.ContainsKey(signalKey))
         {
-            signals[signalName].Invoke(args);
+            signals[signalKey].Invoke(args);
         }
     }
 }
