@@ -88,7 +88,11 @@ namespace Entity
             switch(gizmoLayer)
             {
                 case 1:
-                    if (boundary == default) return;
+                    if (boundary == default)
+                    {
+                        Debug.LogError("Camera Boundary가 설정되지 않았습니다.");
+                        return;
+                    }
 
                     Gizmos.color = boundaryColor;
                     Vector3 center = new Vector3(boundary.x + boundary.width / 2, boundary.y + boundary.height / 2);
@@ -97,7 +101,11 @@ namespace Entity
                     break;
 
                 case 2:
-                    if (startCameraArea == default) return;
+                    if (startCameraArea == default)
+                    {
+                        Debug.LogError("Camera Start Area가 설정되지 않았습니다.");
+                        return;
+                    }
                     Gizmos.color = startAreaColor;
                     center = new Vector3(startCameraArea.x + startCameraArea.width / 2, startCameraArea.y + startCameraArea.height / 2);
                     size = new Vector3(startCameraArea.width, startCameraArea.height);
@@ -171,11 +179,11 @@ namespace Entity
 
             if (isOnX)
             {
-                value = Mathf.Max(0, distance- (minValue-cameraMargin * 2)) / 3f;
+                value = Mathf.Max(0, distance - (minValue - cameraMargin * 2)) / 3f;
             }
             else
             {
-                value = Mathf.Max(0, distance - (minValue - cameraMargin * 2));
+                value = Mathf.Max(0, distance - (minValue - cameraMargin * 2)) / 2f;
             }
 
             mainCamera.orthographicSize = minValue + value;
