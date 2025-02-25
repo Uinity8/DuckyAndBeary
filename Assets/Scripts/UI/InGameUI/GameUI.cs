@@ -48,6 +48,9 @@ public class GameUI : MonoBehaviour
         
         timeElapsed += Time.deltaTime;
         timerText.text = FormatTime(timeElapsed);
+
+        if(gameOverPanel==null)
+        gameOverPanel=GameObject.Find("GameOver");
     }
 
     string FormatTime(float time)
@@ -108,8 +111,15 @@ public class GameUI : MonoBehaviour
     
     public void SetGameClear(object[]args)
     {
-        GemCheck(GameManager.Instance.Score, totalGem);
-        TimeCheck(GameManager.Instance.PassedTIme, missionTime);
+        string name=SceneManager.GetActiveScene().name;
+        int n = int.Parse(name.Replace("stage", ""));
+
+        bool gemClear=GemCheck(GameManager.Instance.Score, totalGem);
+        bool timeClear=TimeCheck(GameManager.Instance.PassedTIme, missionTime);
+        if (gemClear&& timeClear)
+        {
+            //stageinfo stageclear = new stageinfo(true, 2, n);
+        }
         gameClearPanel.SetActive(true);
         isGameOver = true;
         SignalManager.Instance.DisconnectSignal(SetGameClearKey, SetGameClear);
@@ -117,7 +127,11 @@ public class GameUI : MonoBehaviour
 
     public void Restart()
     {
+        bool isPaused = UIManager.Instance.IsPaused;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+        if (isPaused)
+            UIManager.Instance.PauseGame();
     }
 
     public void ExitToStageSelect()
