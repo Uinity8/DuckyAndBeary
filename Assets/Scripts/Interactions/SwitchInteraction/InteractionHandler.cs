@@ -5,14 +5,41 @@ using UnityEngine;
 
 public class InteractionHandler : MonoBehaviour
 {
-    [Header ("SwitchInfo")]
-    //(Red : 0 , Blue : 1)
-    [SerializeField] private int switchColorID;
-    public int SwitchColorID { get => switchColorID; }
+    [SerializeField] private Color glowColor = Color.yellow;
+    
+    
+    //컬러가 변경될 스프라이트가 개별 오브젝트 최상단에 위치해야함
+    [SerializeField] Switch[] switchObj;
+    [SerializeField] DoorController[] doorObj;
+    
 
-    //(Lever : 0 / Button : 1)
-    [SerializeField] private int switchTypeID;
-    public int SwitchTypeID { get => switchTypeID; }
+    // 인스펙터에서 값 변경 시 자동 적용
+    void OnValidate()
+    {
+        foreach (Switch obj in switchObj)
+        {
+            SpriteRenderer sr = obj.GetComponentInChildren<SpriteRenderer>();
+            sr.color = glowColor;
+        }
+        
+        foreach (DoorController obj in doorObj)
+        {
+            SpriteRenderer sr = obj.GetComponentInChildren<SpriteRenderer>();
+            sr.color = glowColor;
+        }
+    }
+
+    private void Awake()
+    {
+        foreach (Switch swich in switchObj)
+        {
+            foreach (DoorController door in doorObj)
+            {
+                swich.OnActive += door.SetActive;
+            }
+        }
+
+    }
 
     public virtual bool ActiveSwitch() { return false; }
 
