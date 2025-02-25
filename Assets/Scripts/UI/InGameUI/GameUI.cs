@@ -48,6 +48,9 @@ public class GameUI : MonoBehaviour
         
         timeElapsed += Time.deltaTime;
         timerText.text = FormatTime(timeElapsed);
+
+        if(gameOverPanel==null)
+        gameOverPanel=GameObject.Find("GameOver");
     }
 
     string FormatTime(float time)
@@ -108,8 +111,24 @@ public class GameUI : MonoBehaviour
     
     public void SetGameClear(object[]args)
     {
-        GemCheck(GameManager.Instance.Score, totalGem);
-        TimeCheck(GameManager.Instance.PassedTIme, missionTime);
+        string name=SceneManager.GetActiveScene().name;
+        string num=name.Replace("Stage", "");
+        Debug.Log($"{num}");
+        int n = int.Parse(num);
+
+        bool gemClear=GemCheck(GameManager.Instance.Score, totalGem);
+        bool timeClear=TimeCheck(GameManager.Instance.PassedTIme, missionTime);
+        if (gemClear&& timeClear)
+        {
+            GameStage stageclear = new GameStage(n,true, 3);
+            SignalManager.Instance.EmitSignal("StageClear", stageclear);
+            Debug.Log($"값 저장 완료, 저장된 값:{stageclear.StageIndex}");
+        }
+        else
+        {
+            GameStage stageclear = new GameStage(n,true, 2);
+            SignalManager.Instance.EmitSignal("StageClear", stageclear);
+        }
         gameClearPanel.SetActive(true);
         isGameOver = true;
         SignalManager.Instance.DisconnectSignal(SetGameClearKey, SetGameClear);
@@ -117,7 +136,11 @@ public class GameUI : MonoBehaviour
 
     public void Restart()
     {
+        bool isPaused = UIManager.Instance.IsPaused;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+        if (isPaused)
+            UIManager.Instance.PauseGame();
     }
 
     public void ExitToStageSelect()

@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameStage : MonoBehaviour
+
 {
     private const string Stage = "Stage";
 

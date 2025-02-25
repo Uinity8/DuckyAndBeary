@@ -1,12 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
+using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    static public GameManager Instance;
-
     ExitController[] doors;
 
     [SerializeField] float passedTime;
@@ -18,33 +20,42 @@ public class GameManager : MonoBehaviour
     public delegate void GameClearAction();
     public GameClearAction OnGameClear;
     public delegate void GameOverAction();
+    private bool isAllOpen;
 
     public const string GameOverkey = "GameOver";
     public const string GameClearKey = "GameClear";
+    public const string StageClear = "StageClear";
 
-    private void Awake()
+    static public GameManager instance;
+
+    public GameStage[] stageInfo = new GameStage[0];
+
+    public static GameManager Instance
     {
-        OnGameClear = GameClearCheck;
-
-        if (Instance == null)
+        get
         {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(this.gameObject);
+            if (instance == null)
+            {
+                GameObject go = new GameObject("GameManager");
+                instance = go.AddComponent<GameManager>();
+                DontDestroyOnLoad(go);
+            }
+            return instance;
         }
     }
 
     private void Start()
     {
+        isAllOpen = false;
         doors = FindObjectsOfType<ExitController>();
+        OnGameClear = GameClearCheck;
 
 
         GameOverAction OnGameOver;
 
         SignalManager.Instance.ConnectSignal(GameOverkey, GameOver);
         SignalManager.Instance.ConnectSignal(GameClearKey, GameClear);
+        //SignalManager.Instance.ConnectSignal(StageClear, Clear);
     }
 
     private void Update()
@@ -54,9 +65,9 @@ public class GameManager : MonoBehaviour
 
     public void GameClearCheck()
     {
-        bool isAllOpen = doors.All(door => door.isOpen);
+        isAllOpen = doors.All(door => door.isOpen);
 
-        Debug.Log(isAllOpen?"Game Clear" : "Not Yet");
+        Debug.Log(isAllOpen?"Game Clear" : "Not Yet");  
         if (isAllOpen)
         {
             SignalManager.Instance.EmitSignal(GameClearKey);
@@ -79,6 +90,13 @@ public class GameManager : MonoBehaviour
     {
         SignalManager.Instance.DisconnectSignal("GameClear", GameClear);
         SignalManager.Instance.EmitSignal(GameUI.SetGameClearKey);
+    }
+
+    public void Clear(GameStage stageClear)
+    {
+        stageInfo[stageClear.StageIndex] = stageClear;
+
+        Debug.Log($"값 저장 완료, 저장된 값:{stageInfo[stageClear.StageIndex].StageIndex}");
     }
 
 }

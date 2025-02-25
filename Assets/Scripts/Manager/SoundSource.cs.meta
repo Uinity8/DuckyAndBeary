@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scripts/Manager/SoundSource.cs.meta
 guid: 3b76a160ae978e443b8e42ff728846b4
+========
+guid: 4bd1db17260139644b4f359b5f8e4cab
+>>>>>>>> Dev:Assets/Scripts/UI/StageSceneUI/MainSceneLoad.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
