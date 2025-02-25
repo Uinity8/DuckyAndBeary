@@ -10,6 +10,7 @@ public class GameUI : MonoBehaviour
 {
     public GameObject pausePanel;
     public GameObject gameOverPanel;
+
     public GameObject gameClearPanel;
     public TMP_Text timerText;
     private float timeElapsed;
@@ -55,6 +56,7 @@ public class GameUI : MonoBehaviour
         int seconds = Mathf.FloorToInt(time % 60);
         return string.Format("{0:00}:{1:00}", minutes, seconds);
     }
+
 
     public bool GemCheck(int collectedGem, int totalGem)
     {
