@@ -35,13 +35,13 @@ public class MainUI : MonoBehaviour
     }
 
     // Update is called once per frame
-    void OnClickStartButton()
+    private void OnClickStartButton()
     {
         //StageSce입력
-        SceneManager.LoadScene("Stage1");
+        SceneManager.LoadScene("StageSelect");
     }
 
-    void OnClickExitButton()
+    private void OnClickExitButton()
     {
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
@@ -50,12 +50,14 @@ public class MainUI : MonoBehaviour
 #endif
     }
 
-    void OnClickCreditButton()
+    //크리팃 버튼 선택시 
+    private void OnClickCreditButton()
     {
         creditUI.SetActive(true);
     }
 
-    void OnClickSettingButton()
+    //셋팅 버튼 선택시 
+    private void OnClickSettingButton()
     {
         settingUI.SetActive(true);
     }
