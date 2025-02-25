@@ -8,9 +8,12 @@ public class ExitController : ObjectIdentifier
 
     GameManager.GameClearAction OnGameClear;
 
-    private void Start()
+    private void Update()
     {
-        OnGameClear = GameManager.Instance.OnGameClear;
+        if (OnGameClear == null)
+        {
+            OnGameClear = GameManager.Instance.OnGameClear;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

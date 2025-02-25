@@ -112,19 +112,23 @@ public class GameUI : MonoBehaviour
     public void SetGameClear(object[]args)
     {
         string name=SceneManager.GetActiveScene().name;
-        int n = int.Parse(name.Replace("stage", ""));
+        string num=name.Replace("Stage", "");
+        Debug.Log($"{num}");
+        int n = int.Parse(num);
 
         bool gemClear=GemCheck(GameManager.Instance.Score, totalGem);
         bool timeClear=TimeCheck(GameManager.Instance.PassedTIme, missionTime);
         if (gemClear&& timeClear)
         {
-            //stageinfo stageclear = new stageinfo(true, 3, n);
+            GameStage stageclear = new GameStage(n,true, 3);
+            SignalManager.Instance.EmitSignal("StageClear", stageclear);
+            Debug.Log($"값 저장 완료, 저장된 값:{stageclear.StageIndex}");
         }
         else
         {
-            //stageinfo stageclear = new stageinfo(true, 2, n);
+            GameStage stageclear = new GameStage(n,true, 2);
+            SignalManager.Instance.EmitSignal("StageClear", stageclear);
         }
-        //signalmanager.instance.EmitSignal("StageClear", stageinfo);
         gameClearPanel.SetActive(true);
         isGameOver = true;
         SignalManager.Instance.DisconnectSignal(SetGameClearKey, SetGameClear);

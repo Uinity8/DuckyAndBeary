@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
 
     static public GameManager instance;
 
-    //public GameStage[] stageInfo = new GameStage[0];
+    public GameStage[] stageInfo = new GameStage[0];
 
     public static GameManager Instance
     {
@@ -92,9 +92,11 @@ public class GameManager : MonoBehaviour
         SignalManager.Instance.EmitSignal(GameUI.SetGameClearKey);
     }
 
-    //public void Clear(stageInfo stageClear)
-    //{
-    //    stageInfo[stageClear.index] = stageClear;
-    //}
+    public void Clear(GameStage stageClear)
+    {
+        stageInfo[stageClear.StageIndex] = stageClear;
+
+        Debug.Log($"값 저장 완료, 저장된 값:{stageInfo[stageClear.StageIndex].StageIndex}");
+    }
 
 }
