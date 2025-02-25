@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameStage : MonoBehaviour
+public class GameStage
 {
     private const string Stage = "Stage";
 
