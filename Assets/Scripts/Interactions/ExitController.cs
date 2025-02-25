@@ -33,13 +33,13 @@ public class ExitController : ObjectIdentifier
     private void DoorOpen()
     {
         isOpen = true;
-        Debug.Log("문 열림");
+        //Debug.Log("문 열림");
         OnGameClear?.Invoke();
     }
     private void DoorClose()
     {
         isOpen = false;
-        Debug.Log("문 닫힘");
+        //Debug.Log("문 닫힘");
         //animator.SetBool(IsOpen,false);
         //gamemanager.Instace.IsClear();
     }
