@@ -10,12 +10,12 @@ public class Fluid : ObjectIdentifier
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision != null)
+        if (collision != null)
         {
             splashEffect.transform.position = collision.transform.position; // 충돌 위치로 이동
             splashEffect.Play(); // 물 튀기는 이펙트 실행
         }
-        
+
         if (LayerCheck(collision.gameObject.layer))
         {
             StatHandler bear = collision.GetComponent<StatHandler>();
