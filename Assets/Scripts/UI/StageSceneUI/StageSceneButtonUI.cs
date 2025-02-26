@@ -15,15 +15,12 @@ public class StageSceneButtonUI : MonoBehaviour
     [SerializeField] private RectTransform stage;
     [SerializeField] private float moveDistance;
     [SerializeField] private float moveDuration;
-    [SerializeField] private float scaleFactor = 1.5f;
 
-    private Vector2 targetPosition;
-    private RectTransform[] stagePostions;
+    public Vector2 targetPosition;
 
     private void Awake()
     {
         targetPosition = stage.anchoredPosition;
-        stagePostions = stage.GetComponentsInChildren<RectTransform>();
 
         maintButton.onClick.AddListener(LoadMainScene);
         prevButton.onClick.AddListener(()=>MoveStage(true));
@@ -38,6 +35,10 @@ public class StageSceneButtonUI : MonoBehaviour
     private void MoveStage(bool isLeft)
     {
         int direction = isLeft ? -1 : 1;
+
+        if (!isLeft && targetPosition.x > 50) return;
+
+        if (isLeft && targetPosition.x < -50) return;
 
         targetPosition += new Vector2(direction * moveDistance, 0);
 

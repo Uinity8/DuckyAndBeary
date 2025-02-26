@@ -55,6 +55,6 @@ public class GameStage : MonoBehaviour
         else score =0;
 
         currentScore.text = score.ToString();
-        stageText.text = "Stage" + stageIndex.ToString();
+        stageText.text = "STAGE" + stageIndex.ToString();
     }
 }
