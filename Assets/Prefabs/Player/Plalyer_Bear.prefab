@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4480105825718708735}
   - component: {fileID: 3643473310226286474}
   - component: {fileID: 3320667012437829089}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: MainSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,7 +122,7 @@ GameObject:
   - component: {fileID: 214185510674662334}
   - component: {fileID: 7528598192339513736}
   - component: {fileID: 7377945983540438659}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Plalyer_Bear
   m_TagString: Beary
   m_Icon: {fileID: 0}
@@ -138,7 +138,7 @@ Transform:
   m_GameObject: {fileID: 3868081757375413803}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -261,7 +261,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upDirection: {x: 0, y: 1}
   floorMaxAngle: 45
-  safeMargin: 0.08
+  safeMargin: 0.5
+  floorLayer:
+    serializedVersion: 2
+    m_Bits: 1288
   debugRaysEnabled: 1
 --- !u!114 &7377945983540438659
 MonoBehaviour:

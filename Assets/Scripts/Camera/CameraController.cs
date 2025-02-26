@@ -32,7 +32,7 @@ namespace Entity
         [SerializeField] Rect startCameraArea;
         [SerializeField] private float duration;
         [SerializeField] Color startAreaColor;
-
+        //설정한 범위를 통해 시작 위치와 크기를 계산
         private float startCameraSize;
         private Vector3 startCameraPos;
         private Vector3 readyPos;
@@ -43,10 +43,13 @@ namespace Entity
         [SerializeField] float cameraMargin;
         [SerializeField] float minValue;
         [SerializeField] float zoomSpeed = 2f; // 변환 속도
-
         private float targetOrthographicSize; // 목표 orthographicSize
         
         private const float cameraZPosition = -10f;
+
+        [Header("배경 이미지 크기 조절")]
+        [SerializeField] float imageRatio;
+        Transform backgroundImage;
 
         void Start()
         {
@@ -54,6 +57,7 @@ namespace Entity
             mainCamera = GetComponent<Camera>();
             pixelPerfectCamera = GetComponent<PixelPerfectCamera>();
             readyPos = CalculatePlayersCenter();
+            backgroundImage = transform.GetChild(0);
 
             // 초기 카메라 설정
             pixelPerfectCamera.CorrectCinemachineOrthoSize(0);
@@ -71,6 +75,8 @@ namespace Entity
             {
                 HandleUpdateCamera();
             }
+
+            BackgroundImageControl();
         }
 
         private void HandleStartCamera()
@@ -209,6 +215,11 @@ namespace Entity
 
             // 매 프레임마다 카메라 크기를 부드럽게 변화
             mainCamera.orthographicSize = Mathf.Lerp(mainCamera.orthographicSize, targetOrthographicSize, Time.deltaTime * zoomSpeed);
+        }
+
+        void BackgroundImageControl()
+        {
+            backgroundImage.localScale = Vector3.one * (mainCamera.orthographicSize / imageRatio);
         }
     }
 }

@@ -16,8 +16,8 @@ TagManager:
   - Ducky
   - Beary
   - Button
-  - 
-  - 
+  - BackGround
+  - Soap
   - 
   - 
   - 
@@ -42,4 +42,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Fog
+    uniqueID: 4203512431
     locked: 0
