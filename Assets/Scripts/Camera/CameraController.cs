@@ -62,7 +62,7 @@ namespace Entity
             // 초기 카메라 설정
             pixelPerfectCamera.CorrectCinemachineOrthoSize(0);
             cameraCenter = new Vector3(startCameraArea.x + startCameraArea.width / 2, startCameraArea.y + startCameraArea.height / 2);
-            startCameraSize = startCameraArea.width/3f;
+            startCameraSize = startCameraArea.width/3f - 2f;
         }
 
         private void Update()
