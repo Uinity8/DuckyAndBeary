@@ -10,6 +10,8 @@ public enum SignalKey
     CloseDoor,
     GameClear,
     GameOver,
+    GamePaused,
+    GameResumed,
 }
 
 

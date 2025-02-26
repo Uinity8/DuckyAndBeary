@@ -704,7 +704,6 @@ MonoBehaviour:
   gameOverPanel: {fileID: 1503632962}
   gameClearPanel: {fileID: 695087613}
   timerText: {fileID: 1027858547}
-  missionTime: 15
   clearNum: {fileID: 1231697266}
   gemNum: {fileID: 849343563}
   timeNum: {fileID: 1333516427}
@@ -2658,7 +2657,7 @@ Tilemap:
       m_TileIndex: 0
       m_TileSpriteIndex: 5
       m_TileMatrixIndex: 1
-      m_TileColorIndex: 1
+      m_TileColorIndex: 3
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741827
@@ -3781,12 +3780,12 @@ Tilemap:
   m_TileColorArray:
   - m_RefCount: 104
     m_Data: {r: 1, g: 1, b: 1, a: 1}
-  - m_RefCount: 1
-    m_Data: {r: 0.7579395, g: 0.46629056, b: 0.5455702, a: 1}
+  - m_RefCount: 0
+    m_Data: {r: 3.723e-41, g: 3.723e-41, b: 3.723e-41, a: 3.723e-41}
   - m_RefCount: 0
     m_Data: {r: 0.81755656, g: 0.44003043, b: 0.5614925, a: 1}
-  - m_RefCount: 0
-    m_Data: {r: 0.8014823, g: 0.35540393, b: 0.44808346, a: 1}
+  - m_RefCount: 1
+    m_Data: {r: 0.7579395, g: 0.46629056, b: 0.5455702, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 0.48235294}
@@ -16227,7 +16226,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b6612b4a8337bc443a68311ae6781985, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8ff59c8e41f27b049914be7388e16153, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
