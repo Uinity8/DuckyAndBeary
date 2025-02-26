@@ -18,16 +18,7 @@ public class Fluid : ObjectIdentifier
 
         if (LayerCheck(collision.gameObject.layer))
         {
-            StatHandler bear = collision.GetComponent<StatHandler>();
-
-            if (bear != null)
-            {
-                Debug.Log($"{collision.gameObject.name}이 물에 닿았습니다.");
-
-                SignalManager.Instance.EmitSignal(GameManager.GameOverkey);
-                //bear.Death() //플레이어 컴포넌트 안에 있는 사망 메서드 호출
-                //바다에 빠진 파티클 이펙트 재생
-            }
+            SignalManager.Instance.EmitSignal(SignalKey.GameOver);
         }
     }
 }
