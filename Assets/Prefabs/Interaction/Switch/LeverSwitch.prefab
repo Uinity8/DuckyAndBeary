@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6793953268459987483}
   - component: {fileID: 7777674375539460658}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Stick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,8 +26,8 @@ Transform:
   m_GameObject: {fileID: 451437172373835515}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1.5, z: 1}
+  m_LocalPosition: {x: 0, y: 0.55, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6764204849400217062}
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b471ab8db74b6594888b8192036eccbf, type: 3}
+  m_Sprite: {fileID: 1338447025, guid: 474881a79ce2b4d1485435810f0451eb, type: 3}
   m_Color: {r: 0.4470588, g: 1, b: 0.92693555, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3592990703784608492}
   - component: {fileID: 984752455287243012}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LeverSwitch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,12 +110,12 @@ Transform:
   m_GameObject: {fileID: 5876379767223112255}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.14, y: -4.87, z: 0.011312084}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6764204849400217062}
   - {fileID: 7479893762103004124}
+  - {fileID: 6764204849400217062}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &984752455287243012
@@ -206,7 +206,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 20
-  m_Sprite: {fileID: 21300000, guid: 0d13c77fe41611e4e9dae5c2aad34405, type: 3}
+  m_Sprite: {fileID: 41805370, guid: 474881a79ce2b4d1485435810f0451eb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -276,19 +276,19 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.28}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 1, y: 0.1875}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.43, y: 0.04}
-  m_EdgeRadius: 0.33
+  m_Size: {x: 0.7, y: 0.04}
+  m_EdgeRadius: 0.15
 --- !u!1 &6227602981139054697
 GameObject:
   m_ObjectHideFlags: 0
@@ -301,7 +301,7 @@ GameObject:
   - component: {fileID: 6141679748572579254}
   - component: {fileID: 6834791303539318282}
   - component: {fileID: 8744234794795447583}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Lever
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -316,14 +316,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6227602981139054697}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.2588191, w: 0.9659258}
-  m_LocalPosition: {x: 0, y: -0.23, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6793953268459987483}
   m_Father: {fileID: 3592990703784608492}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 30}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &6141679748572579254
 Rigidbody2D:
   serializedVersion: 4
@@ -367,7 +367,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 1.3499999, y: -4.87}
+  m_ConnectedAnchor: {x: 0, y: 0}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -408,6 +408,6 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.002812418, y: 0.72342193}
-  m_Size: {x: 0.23285326, y: 1.4710224}
+  m_Offset: {x: 0.0028124154, y: 0.54433745}
+  m_Size: {x: 0.23285326, y: 1.1128534}
   m_Direction: 0
