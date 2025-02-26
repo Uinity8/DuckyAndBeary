@@ -34,7 +34,7 @@ namespace Entity
         [SerializeField] Color startAreaColor;
         //설정한 범위를 통해 시작 위치와 크기를 계산
         private float startCameraSize;
-        private Vector3 startCameraPos;
+        private Vector3 cameraCenter;
         private Vector3 readyPos;
         private bool isStarted = true;
         private float t = 0f;
@@ -61,7 +61,7 @@ namespace Entity
 
             // 초기 카메라 설정
             pixelPerfectCamera.CorrectCinemachineOrthoSize(0);
-            startCameraPos = new Vector3(startCameraArea.x + startCameraArea.width / 2, startCameraArea.y + startCameraArea.height / 2);
+            cameraCenter = new Vector3(startCameraArea.x + startCameraArea.width / 2, startCameraArea.y + startCameraArea.height / 2);
             startCameraSize = startCameraArea.width/3f;
         }
 
@@ -85,7 +85,7 @@ namespace Entity
             //시작시 카메라가 맵 중앙에서 플레이어를 향해 이동
             //맵 전체를 비추고 이후 플레이어를 향해 줌 인
             readyPos = CalculatePlayersCenter();
-            MoveCamera(Vector3.Lerp(startCameraPos, readyPos, t / duration));
+            MoveCamera(Vector3.Lerp(cameraCenter, readyPos, t / duration));
             mainCamera.orthographicSize = Mathf.Lerp(startCameraSize, minValue, t / duration);
 
             if (t / duration >= 1f)
@@ -153,7 +153,8 @@ namespace Entity
         {
             //플레이어들의 중점을 계산
             Vector2 center = players.Aggregate(Vector2.zero, (sum, player) => sum + (Vector2)player.transform.position);
-            return center / players.Length;
+            center += (Vector2)cameraCenter;
+            return center / (players.Length + 1);
         }
 
         float CalculateMaxPlayerDistance(out bool isOnX)
