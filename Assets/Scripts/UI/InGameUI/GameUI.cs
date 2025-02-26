@@ -1,16 +1,16 @@
+using Manager;
 using TMPro;
+using UI.Popup;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace UI.InGameUI
 {
-    public class GameUI : MonoBehaviour
+    public class GameHud : MonoBehaviour
     {
-        public GameObject pausePanel;
         public GameObject gameOverPanel;
 
         public GameObject gameClearPanel;
-        public TMP_Text timerText;
         private float timeElapsed;
         private bool isGameOver;
         private int totalGem;
@@ -26,10 +26,12 @@ namespace UI.InGameUI
 
 
         private SignalManager signalManager;
+        UIManager uiManager;
 
         private void Awake()
         {
             signalManager = SignalManager.Instance;
+            uiManager = UIManager.Instance;
         }
 
 
@@ -37,20 +39,11 @@ namespace UI.InGameUI
         {
             Gems = FindObjectsOfType<ItemController>();
             totalGem = Gems.Length;
-            pausePanel.SetActive(false);
             gameOverPanel.SetActive(false);
             gameClearPanel.SetActive(false);
             isGameOver = false;
             signalManager.ConnectSignal(SignalKey.GameOver, OnGameOver);
             signalManager.ConnectSignal(SignalKey.GameClear, OnGameClear);
-        }
-
-        void Update()
-        {
-            if (isGameOver) return;
-
-            timeElapsed += Time.deltaTime;
-            timerText.text = FormatTime(timeElapsed);
         }
 
         string FormatTime(float time)
@@ -84,13 +77,11 @@ namespace UI.InGameUI
             timeNum.text = ($"{textTime}/{missionTime}");
             if (usedTime <= missionTime)
             {
-                Debug.Log("적당히 빨랐습니다.");
                 timeCheck.text = ($"Success");
                 return true;
             }
             else
             {
-                Debug.Log("느렸습니다.");
                 timeCheck.text = ($"Failed");
                 return false;
             }
@@ -98,10 +89,9 @@ namespace UI.InGameUI
 
         public void TogglePause()
         {
-            UIManager.Instance.PauseGame();
-            bool isPaused = UIManager.Instance.IsPaused;
-            pausePanel.SetActive(isPaused);
+            UIManager.Instance.TogglePopup("PausePopup");
         }
+
 
         public void OnGameOver(object[] args)
         {
@@ -129,20 +119,17 @@ namespace UI.InGameUI
 
             gameClearPanel.SetActive(true);
             isGameOver = true;
+            
         }
 
         public void Restart()
         {
-            bool isPaused = UIManager.Instance.IsPaused;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-
-            if (isPaused)
-                UIManager.Instance.PauseGame();
         }
 
         public void ExitToStageSelect()
         {
-            UIManager.Instance.LoadScene("StartScene");
+            SceneManager.LoadScene("StartScene");
         }
 
         private void OnDestroy()

@@ -1,42 +1,43 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class UIManager : MonoBehaviour
+namespace Manager
 {
-    private static UIManager instance;
-    public static UIManager Instance { get { return instance; } }
-    
-    private bool isPaused = false;
-    public bool IsPaused  => isPaused;
-
-    void Awake()
+    public class UIManager : MonoBehaviour
     {
-        if (instance == null)
+        private static UIManager _instance;
+
+        public static UIManager Instance
         {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = FindObjectOfType<UIManager>();
+                    if (_instance == null)
+                    {
+                        var managerObj = new GameObject("[UIManager]");
+                        _instance = managerObj.AddComponent<UIManager>();
+                    }
+                }
+
+                return _instance;
+            }
         }
-        else
+
+        private UICanvasManager canvasManager;
+        private UIPopupManager popupManager;
+
+        private void Awake()
         {
-            Destroy(gameObject);
+            canvasManager = new UICanvasManager();
+            popupManager = new UIPopupManager(canvasManager.GetOrCreateCanvas());
         }
-    }
 
-    // 씬 전환 기능
-    public void LoadScene(string sceneName)
-    {
-        SceneManager.LoadScene(sceneName);
-    }
+        // 팝업 상태 제어는 UIPopupManager에 위임
+        public void ShowPopup(string popupName) => popupManager.ShowPopup(popupName);
 
-    public void PauseGame()
-    {
-        isPaused = !isPaused;
-        Time.timeScale = isPaused ? 0 : 1;
-    }
+        public void ClosePopup(string popupName) => popupManager.ClosePopup(popupName);
 
-    // 게임 종료 기능
-    public void QuitGame()
-    {
-        Application.Quit();
+        public void TogglePopup(string popupName) => popupManager.TogglePopup(popupName);
     }
 }

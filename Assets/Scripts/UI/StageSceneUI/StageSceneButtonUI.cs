@@ -1,14 +1,14 @@
 using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class StageSceneButtonUI : MonoBehaviour
 {
+    [FormerlySerializedAs("maintButton")]
     [Header("GetButton")]
-    [SerializeField] private Button maintButton;
+    [SerializeField] private Button mainButton;
     [SerializeField] private Button prevButton;
     [SerializeField] private Button nextButton;
     [Header("MoveStageSelect")]
@@ -25,7 +25,7 @@ public class StageSceneButtonUI : MonoBehaviour
         targetPosition = stage.anchoredPosition;
         stagePostions = stage.GetComponentsInChildren<RectTransform>();
 
-        maintButton.onClick.AddListener(LoadMainScene);
+        mainButton.onClick.AddListener(LoadMainScene);
         prevButton.onClick.AddListener(()=>MoveStage(true));
         nextButton.onClick.AddListener(() => MoveStage(false));
     }
