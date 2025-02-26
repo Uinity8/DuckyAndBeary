@@ -144,7 +144,16 @@ namespace UI.InGameUI
 
         public void ExitToStageSelect()
         {
-            UIManager.Instance.LoadScene("StartScene");
+            UIManager.Instance.LoadScene("StageSelect");
+        }
+        public void ContinueNextStage()
+        {
+            string sceneName = SceneManager.GetActiveScene().name;
+            string num = sceneName.Replace("Stage", "");
+            Debug.Log($"{num}");
+            int inum = int.Parse(num);
+            int nextStage = inum + 1;
+            UIManager.Instance.LoadScene($"Stage{nextStage}");
         }
 
         private void OnDestroy()
