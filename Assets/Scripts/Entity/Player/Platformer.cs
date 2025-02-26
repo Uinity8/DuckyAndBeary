@@ -52,7 +52,7 @@ namespace Entity.Player
             RaycastHit2D hit = Physics2D.Raycast(bottomCenter, Vector2.down, safeMargin,floorLayer);
 
             // 디버그 레이 그리기 (충돌 시 빨간색, 비충돌 시 회색)
-            DrawDebugRay(bottomCenter, Vector2.down * safeMargin*10, hit, Color.gray, Color.red);
+            DrawDebugRay(bottomCenter, Vector2.down * safeMargin, hit, Color.gray, Color.red);
 
             return hit.collider != null && IsFloorWithinMaxAngle(hit.normal);
         }
