@@ -713,7 +713,6 @@ MonoBehaviour:
   gameOverPanel: {fileID: 1503632962}
   gameClearPanel: {fileID: 695087613}
   timerText: {fileID: 1027858547}
-  missionTime: 15
   clearNum: {fileID: 1231697266}
   gemNum: {fileID: 849343563}
   timeNum: {fileID: 1333516427}
@@ -1048,37 +1047,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 219747052}
   m_CullTransparentMesh: 1
---- !u!1 &250085733
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 250085734}
-  m_Layer: 0
-  m_Name: Level
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &250085734
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 250085733}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &333688665
 GameObject:
   m_ObjectHideFlags: 0
@@ -3824,6 +3792,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b30d79422371af4c864d85e1a239849, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  missionTime: 0
   passedTime: 0
   score: 0
   stageInfo: []
@@ -19835,7 +19804,6 @@ SceneRoots:
   m_Roots:
   - {fileID: 969382630}
   - {fileID: 927100740}
-  - {fileID: 250085734}
   - {fileID: 883909244}
   - {fileID: 1785606467}
   - {fileID: 1555070173}
