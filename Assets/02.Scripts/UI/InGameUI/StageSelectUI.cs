@@ -1,15 +1,16 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StageSelectUI : MonoBehaviour
 {
     public void LoadStage(int stageIndex)
     {
         PlayerPrefs.SetInt("SelectedStage", stageIndex);
-        UIManager.Instance.LoadScene("GameScene");
+        SceneManager.LoadScene("GameScene");
     }
 
     public void GoBack()
     {
-        UIManager.Instance.LoadScene("TitleScene");
+        SceneManager.LoadScene("TitleScene");
     }
 }
