@@ -6,17 +6,23 @@ using System.Runtime.ConstrainedExecution;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private float missionTime;
+    public float MissionTime{ get { return missionTime; } }
     [SerializeField] float passedTime;
     public float PassedTIme { get {  return passedTime; } }
+    private int totalGem;
+    public int TotalGem {  get { return totalGem; } }
 
     [SerializeField] int score;
     public int Score { get { return score; } }
     private const int NumForClear = 2;
     private int OpenExitDorCount = 0;
-    
+    ItemController[] Gems;
+
 
     static public GameManager instance;
     SignalManager signalManager;
@@ -45,6 +51,9 @@ public class GameManager : MonoBehaviour
     
     private void Start()
     {
+        passedTime = 0;
+        Gems = FindObjectsOfType<ItemController>();
+        totalGem = Gems.Length;
         signalManager.ConnectSignal(SignalKey.OpenDoor, OnOpenExitDoor);
         signalManager.ConnectSignal(SignalKey.CloseDoor, OnCloseExitDoor);
     }
@@ -59,8 +68,21 @@ public class GameManager : MonoBehaviour
         score += value;
     }
 
-    public void Clear(GameStage stageClear)
+    public void Clear()
     {
+        Debug.Log("Clear 신호 받음");
+        string sceneName = SceneManager.GetActiveScene().name;
+        string num = sceneName.Replace("Stage", "");
+        Debug.Log($"{num}");
+        int n = int.Parse(num);
+
+        bool gemClear = (Score == totalGem);
+        bool timeClear = (PassedTIme <= missionTime);
+        int clearedValue = gemClear && timeClear ? 3 : 2;
+
+        GameStage stageClear = new GameStage(n, true, clearedValue);
+
+        Debug.Log($"값 생성 완료, 저장된 값:{stageClear.StageIndex}");
         stageInfo[stageClear.StageIndex] = stageClear;
         Debug.Log($"값 저장 완료, 저장된 값:{stageInfo[stageClear.StageIndex].StageIndex}");
     }
@@ -77,6 +99,7 @@ public class GameManager : MonoBehaviour
         if (OpenExitDorCount >= NumForClear)
         {
             SignalManager.Instance.EmitSignal(SignalKey.GameClear);
+            Clear();
         }
     }
     void OnCloseExitDoor(object sender)
@@ -85,6 +108,5 @@ public class GameManager : MonoBehaviour
         
         
     }
-    
-    //데이터 저장
+
 }

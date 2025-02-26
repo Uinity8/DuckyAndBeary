@@ -31,7 +31,7 @@ public class UIManager : MonoBehaviour
     public void PauseGame()
     {
         isPaused = !isPaused;
-        Time.timeScale = isPaused ? 0 : 1;
+        //Time.timeScale = isPaused ? 0 : 1;
     }
 
     // 게임 종료 기능
