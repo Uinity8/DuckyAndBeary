@@ -109,7 +109,7 @@ namespace UI.InGameUI
             isGameOver = true;
         }
 
-        public void OnGameClear(object[] args)
+        public void OnGameClear(object sender)
         {
             
             //게임 매니저로 옮겨야힘

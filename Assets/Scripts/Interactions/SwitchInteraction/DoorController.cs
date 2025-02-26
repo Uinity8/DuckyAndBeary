@@ -1,3 +1,4 @@
+using Entity.Player;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -5,7 +6,7 @@ using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class DoorController : MonoBehaviour
+public class DoorController : Platformer
 {
     [Header("DoorInfo")] 
     [SerializeField] Transform targetTransform;
@@ -13,7 +14,7 @@ public class DoorController : MonoBehaviour
 
     private Vector2 intialPosition;
     private Vector2 desiredPosition;
-    
+
     private void Start()
     {
         intialPosition = transform.position;
@@ -23,7 +24,8 @@ public class DoorController : MonoBehaviour
     // Start is called before the first frame update
     private void FixedUpdate()
     {
-        transform.position = Vector2.MoveTowards(transform.position, desiredPosition, moveSpeed * Time.fixedDeltaTime);
+        if(!IsOnFloor())
+            transform.position = Vector2.MoveTowards(transform.position, desiredPosition, moveSpeed * Time.fixedDeltaTime);
     }
 
 
