@@ -1,22 +1,19 @@
-using Manager;
 using TMPro;
-using UI.Popup;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace UI.InGameUI
 {
-    public class GameHud : MonoBehaviour
+    public class GameUI : MonoBehaviour
     {
+        public GameObject pausePanel;
         public GameObject gameOverPanel;
 
         public GameObject gameClearPanel;
+        public TMP_Text timerText;
         private float timeElapsed;
         private bool isGameOver;
-        private int totalGem;
-        ItemController[] Gems;
 
-        [SerializeField] private float missionTime;
         [SerializeField] private TextMeshProUGUI clearNum;
         [SerializeField] private TextMeshProUGUI gemNum;
         [SerializeField] private TextMeshProUGUI timeNum;
@@ -26,24 +23,29 @@ namespace UI.InGameUI
 
 
         private SignalManager signalManager;
-        UIManager uiManager;
 
         private void Awake()
         {
             signalManager = SignalManager.Instance;
-            uiManager = UIManager.Instance;
         }
 
 
         private void Start()
         {
-            Gems = FindObjectsOfType<ItemController>();
-            totalGem = Gems.Length;
+            pausePanel.SetActive(false);
             gameOverPanel.SetActive(false);
             gameClearPanel.SetActive(false);
             isGameOver = false;
             signalManager.ConnectSignal(SignalKey.GameOver, OnGameOver);
             signalManager.ConnectSignal(SignalKey.GameClear, OnGameClear);
+        }
+
+        void Update()
+        {
+            if (isGameOver) return;
+
+            timeElapsed += Time.deltaTime;
+            timerText.text = FormatTime(timeElapsed);
         }
 
         string FormatTime(float time)
@@ -74,62 +76,84 @@ namespace UI.InGameUI
         public bool TimeCheck(float usedTime)
         {
             string textTime = usedTime.ToString("F2");
-            timeNum.text = ($"{textTime}/{missionTime}");
-            if (usedTime <= missionTime)
+            timeNum.text = ($"{textTime}/{GameManager.Instance.MissionTime}");
+            if (usedTime <= GameManager.Instance.MissionTime)
             {
+                Debug.Log("적당히 빨랐습니다.");
                 timeCheck.text = ($"Success");
                 return true;
             }
             else
             {
+                Debug.Log("느렸습니다.");
                 timeCheck.text = ($"Failed");
                 return false;
             }
         }
 
-        public void TogglePause()
+        public bool PauseCheck()
         {
-            UIManager.Instance.TogglePopup("PausePopup");
+            UIManager.Instance.PauseGame();
+            bool isPaused = UIManager.Instance.IsPaused;
+            if(isPaused)
+            {
+                signalManager.EmitSignal(SignalKey.GamePaused);
+            }
+            else
+            {
+                signalManager.EmitSignal(SignalKey.GameResumed);
+            }
+            return isPaused;
         }
 
+        public void TogglePause()
+        {
+            pausePanel.SetActive(PauseCheck());
+        }
 
         public void OnGameOver(object[] args)
         {
+            PauseCheck();
             gameOverPanel.SetActive(true);
             isGameOver = true;
         }
 
         public void OnGameClear(object sender)
         {
-            
-            //게임 매니저로 옮겨야힘
-            // Debug.Log("GameClear 신호 받음");
-            // string sceneName = SceneManager.GetActiveScene().name;
-            // string num = sceneName.Replace("Stage", "");
-            // Debug.Log($"{num}");
-            // int n = int.Parse(num);
-            //
-            // bool gemClear = GemCheck(GameManager.Instance.Score, totalGem);
-            // bool timeClear = TimeCheck(GameManager.Instance.PassedTIme);
-            //
-            // GameStage stageclear = new GameStage(n, true, 3);
-            //
-            // Debug.Log($"값 저장 완료, 저장된 값:{stageclear.StageIndex}");
-            //
+            Debug.Log("OnGameClear 신호 받음");
+            string sceneName = SceneManager.GetActiveScene().name;
+            string num = sceneName.Replace("Stage", "");
+            Debug.Log($"{num}");
+            int n = int.Parse(num);
+
+            GemCheck(GameManager.Instance.Score, GameManager.Instance.TotalGem);
+            TimeCheck(GameManager.Instance.PassedTIme);
 
             gameClearPanel.SetActive(true);
             isGameOver = true;
-            
         }
 
         public void Restart()
         {
+            bool isPaused = UIManager.Instance.IsPaused;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+            if (isPaused)
+                UIManager.Instance.PauseGame();
         }
 
         public void ExitToStageSelect()
         {
-            SceneManager.LoadScene("StartScene");
+            UIManager.Instance.LoadScene("StageSelect");
+        }
+        public void ContinueNextStage()
+        {
+            string sceneName = SceneManager.GetActiveScene().name;
+            string num = sceneName.Replace("Stage", "");
+            Debug.Log($"{num}");
+            int inum = int.Parse(num);
+            int nextStage = inum + 1;
+            UIManager.Instance.LoadScene($"Stage{nextStage}");
         }
 
         private void OnDestroy()
