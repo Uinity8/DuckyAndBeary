@@ -55,7 +55,7 @@ namespace Entity
             mainCamera = GetComponent<Camera>();
             pixelPerfectCamera = GetComponent<PixelPerfectCamera>();
             readyPos = CalculatePlayersCenter();
-            //backgroundImage = GetComponentInChildren<Transform>();
+            backgroundImage = transform.GetChild(0);
 
             // 초기 카메라 설정
             pixelPerfectCamera.CorrectCinemachineOrthoSize(0);
