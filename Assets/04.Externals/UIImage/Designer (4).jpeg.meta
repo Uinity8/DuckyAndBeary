@@ -1,9 +1,9 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/04.Externals/UIImage/Sound_Off.png.meta
-guid: 5a5239c5ed2b2d54a859e4f1b7dc3195
+<<<<<<<< HEAD:Assets/04.Externals/UIImage/Designer (4).jpeg.meta
+guid: 0f3176083f798de468bd3993282f9e21
 ========
-guid: 24f92affab7e8724789ff8c0e8c61381
->>>>>>>> Dev:Assets/04.Externals/UIImage/MUSIC-OFF-1.png.meta
+guid: 288e562610e121b4b99e79928c9cabca
+>>>>>>>> Dev:Assets/04.Externals/UIImage/Sound.png.meta
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -67,7 +67,7 @@ TextureImporter:
   compressionQualitySet: 0
   textureFormatSet: 0
   ignorePngGamma: 0
-  applyGammaDecoding: 1
+  applyGammaDecoding: 0
   swizzle: 50462976
   cookieLightType: 1
   platformSettings:
@@ -76,8 +76,6 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-<<<<<<<< HEAD:Assets/04.Externals/UIImage/Sound_Off.png.meta
-========
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
@@ -85,21 +83,7 @@ TextureImporter:
     overridden: 0
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
-  - serializedVersion: 3
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
->>>>>>>> Dev:Assets/04.Externals/UIImage/MUSIC-OFF-1.png.meta
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
     maxTextureSize: 2048
@@ -112,7 +96,7 @@ TextureImporter:
     overridden: 0
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Android
     maxTextureSize: 2048
@@ -125,7 +109,7 @@ TextureImporter:
     overridden: 0
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 1
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: WebGL
     maxTextureSize: 2048
@@ -138,7 +122,6 @@ TextureImporter:
     overridden: 0
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
-<<<<<<<< HEAD:Assets/04.Externals/UIImage/Sound_Off.png.meta
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Server
@@ -153,9 +136,6 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-========
-    forceMaximumCompressionQuality_BC6H_BC7: 1
->>>>>>>> Dev:Assets/04.Externals/UIImage/MUSIC-OFF-1.png.meta
   spriteSheet:
     serializedVersion: 2
     sprites: []

@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/04.Externals/Object.meta
+guid: 7b0eca85b3f71f14182889e8ef888c2a
+========
 guid: 4484f1d783d6e4b3ca95e02862cc41cc
+>>>>>>>> Dev:Assets/03.Prefabs/HUD.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

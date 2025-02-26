@@ -15,7 +15,7 @@ namespace Manager
                     _instance = FindObjectOfType<UIManager>();
                     if (_instance == null)
                     {
-                        var managerObj = new GameObject("[UIManager]");
+                        var managerObj = new GameObject("UIManager");
                         _instance = managerObj.AddComponent<UIManager>();
                     }
                 }
@@ -24,13 +24,11 @@ namespace Manager
             }
         }
 
-        private UICanvasManager canvasManager;
         private UIPopupManager popupManager;
 
         private void Awake()
         {
-            canvasManager = new UICanvasManager();
-            popupManager = new UIPopupManager(canvasManager.GetOrCreateCanvas());
+            popupManager = new UIPopupManager();
         }
 
         // 팝업 상태 제어는 UIPopupManager에 위임
