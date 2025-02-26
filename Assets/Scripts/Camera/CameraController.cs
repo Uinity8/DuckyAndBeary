@@ -53,8 +53,8 @@ namespace Entity
         [SerializeField] float imageRatio;
         Transform backgroundImage;
 
-        [SerializeField] float testValue;
-        float centerWeight;
+        //[SerializeField] float testValue;
+        //float centerWeight;
 
         void Start()
         {
@@ -161,7 +161,6 @@ namespace Entity
 
 
             //centerWeight = testValue * Mathf.Pow(mainCamera.orthographicSize - minValue,2);
-            //centerWeight = Mathf.Max(1, mainCamera.orthographicSize - minValue);
             //center += (Vector2)cameraCenter * centerWeight;
             //return center / (players.Length + centerWeight);
             
