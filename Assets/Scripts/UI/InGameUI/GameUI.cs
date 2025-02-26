@@ -13,10 +13,7 @@ namespace UI.InGameUI
         public TMP_Text timerText;
         private float timeElapsed;
         private bool isGameOver;
-        private int totalGem;
-        ItemController[] Gems;
 
-        [SerializeField] private float missionTime;
         [SerializeField] private TextMeshProUGUI clearNum;
         [SerializeField] private TextMeshProUGUI gemNum;
         [SerializeField] private TextMeshProUGUI timeNum;
@@ -35,8 +32,6 @@ namespace UI.InGameUI
 
         private void Start()
         {
-            Gems = FindObjectsOfType<ItemController>();
-            totalGem = Gems.Length;
             pausePanel.SetActive(false);
             gameOverPanel.SetActive(false);
             gameClearPanel.SetActive(false);
@@ -81,8 +76,8 @@ namespace UI.InGameUI
         public bool TimeCheck(float usedTime)
         {
             string textTime = usedTime.ToString("F2");
-            timeNum.text = ($"{textTime}/{missionTime}");
-            if (usedTime <= missionTime)
+            timeNum.text = ($"{textTime}/{GameManager.Instance.MissionTime}");
+            if (usedTime <= GameManager.Instance.MissionTime)
             {
                 Debug.Log("적당히 빨랐습니다.");
                 timeCheck.text = ($"Success");
@@ -96,36 +91,43 @@ namespace UI.InGameUI
             }
         }
 
-        public void TogglePause()
+        public bool PauseCheck()
         {
             UIManager.Instance.PauseGame();
             bool isPaused = UIManager.Instance.IsPaused;
-            pausePanel.SetActive(isPaused);
+            if(isPaused)
+            {
+                signalManager.EmitSignal(SignalKey.GamePaused);
+            }
+            else
+            {
+                signalManager.EmitSignal(SignalKey.GameResumed);
+            }
+            return isPaused;
+        }
+
+        public void TogglePause()
+        {
+            pausePanel.SetActive(PauseCheck());
         }
 
         public void OnGameOver(object[] args)
         {
+            PauseCheck();
             gameOverPanel.SetActive(true);
             isGameOver = true;
         }
 
         public void OnGameClear(object sender)
         {
-            
-            //게임 매니저로 옮겨야힘
-            // Debug.Log("GameClear 신호 받음");
-            // string sceneName = SceneManager.GetActiveScene().name;
-            // string num = sceneName.Replace("Stage", "");
-            // Debug.Log($"{num}");
-            // int n = int.Parse(num);
-            //
-            // bool gemClear = GemCheck(GameManager.Instance.Score, totalGem);
-            // bool timeClear = TimeCheck(GameManager.Instance.PassedTIme);
-            //
-            // GameStage stageclear = new GameStage(n, true, 3);
-            //
-            // Debug.Log($"값 저장 완료, 저장된 값:{stageclear.StageIndex}");
-            //
+            Debug.Log("OnGameClear 신호 받음");
+            string sceneName = SceneManager.GetActiveScene().name;
+            string num = sceneName.Replace("Stage", "");
+            Debug.Log($"{num}");
+            int n = int.Parse(num);
+
+            GemCheck(GameManager.Instance.Score, GameManager.Instance.TotalGem);
+            TimeCheck(GameManager.Instance.PassedTIme);
 
             gameClearPanel.SetActive(true);
             isGameOver = true;
