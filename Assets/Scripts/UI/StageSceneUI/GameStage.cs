@@ -20,7 +20,7 @@ public class GameStage : MonoBehaviour
     //스테이지 정보값
     [SerializeField] private int stageIndex;
     public int StageIndex { get => stageIndex;}
-    private bool isClear = false;
+    public bool isClear = false;
     private int score;
 
     public GameStage(int _stageIndex, bool _isClear, int _score)
@@ -32,8 +32,9 @@ public class GameStage : MonoBehaviour
 
     private void Awake()
     {
-        if (isClear || stageIndex == 1) stageSelectButton.interactable = true;
-        else stageSelectButton.interactable = false;
+        //if (isClear || stageIndex == 1) 
+            stageSelectButton.interactable = true;
+        //else stageSelectButton.interactable = false;
 
         SetStageUI();
         stageSelectButton.onClick.AddListener(LoadScene);
