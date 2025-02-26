@@ -170,7 +170,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -21, y: -11}
+  m_AnchoredPosition: {x: -53, y: -11}
   m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3202962654519394232
@@ -201,7 +201,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -856018164, guid: 474881a79ce2b4d1485435810f0451eb, type: 3}
+  m_Sprite: {fileID: 1938623079, guid: 474881a79ce2b4d1485435810f0451eb, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -415,7 +415,7 @@ RectTransform:
   m_GameObject: {fileID: 6586056489198250335}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.2, y: 1.2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8323523358686452273}
@@ -442,7 +442,7 @@ MonoBehaviour:
   stageSelectButton: {fileID: 6896711241423858596}
   currentScore: {fileID: 763861079091764029}
   stageText: {fileID: 4809398999532526103}
-  stageIndex: 3
+  stageIndex: 1
   isClear: 0
 --- !u!1 &6637573737713243839
 GameObject:
@@ -478,7 +478,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 22, y: -108}
+  m_AnchoredPosition: {x: 309, y: 93}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8024544579189536178
@@ -515,7 +515,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 10, y: 190}
+  m_AnchoredPosition: {x: 281, y: 82}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8597845529147054281
