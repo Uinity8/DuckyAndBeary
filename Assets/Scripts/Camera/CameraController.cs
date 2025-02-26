@@ -44,12 +44,17 @@ namespace Entity
         [SerializeField] float minValue;
         [SerializeField] float zoomSpeed = 2f; // 변환 속도
         private float targetOrthographicSize; // 목표 orthographicSize
-        
+
         private const float cameraZPosition = -10f;
+        private const float widthToHalfHeight = 1 / 3f;
+        private const float halfHeight = 1 / 2f;
 
         [Header("배경 이미지 크기 조절")]
         [SerializeField] float imageRatio;
         Transform backgroundImage;
+
+        [SerializeField] float testValue;
+        float centerWeight;
 
         void Start()
         {
@@ -62,7 +67,7 @@ namespace Entity
             // 초기 카메라 설정
             pixelPerfectCamera.CorrectCinemachineOrthoSize(0);
             cameraCenter = new Vector3(startCameraArea.x + startCameraArea.width / 2, startCameraArea.y + startCameraArea.height / 2);
-            startCameraSize = startCameraArea.width/3f - 2f;
+            startCameraSize = startCameraArea.width * widthToHalfHeight - 2f;
         }
 
         private void Update()
@@ -108,7 +113,7 @@ namespace Entity
 
         void OnDrawGizmosSelected()
         {
-            switch(gizmoLayer)
+            switch (gizmoLayer)
             {
                 case GizmoLayer.카메라_이동_범위:
                     if (boundary == default)
@@ -134,7 +139,7 @@ namespace Entity
                     size = new Vector3(startCameraArea.width, startCameraArea.height);
                     Gizmos.DrawCube(center, size);
                     break;
-            }            
+            }
         }
 
         void MoveCamera(Vector2 middlePoint)
@@ -153,8 +158,14 @@ namespace Entity
         {
             //플레이어들의 중점을 계산
             Vector2 center = players.Aggregate(Vector2.zero, (sum, player) => sum + (Vector2)player.transform.position);
-            center += (Vector2)cameraCenter;
-            return center / (players.Length + 1);
+
+
+            //centerWeight = testValue * Mathf.Pow(mainCamera.orthographicSize - minValue,2);
+            //centerWeight = Mathf.Max(1, mainCamera.orthographicSize - minValue);
+            //center += (Vector2)cameraCenter * centerWeight;
+            //return center / (players.Length + centerWeight);
+            
+            return center / players.Length;
         }
 
         float CalculateMaxPlayerDistance(out bool isOnX)
@@ -182,7 +193,7 @@ namespace Entity
             float distanceY = Mathf.Abs(Mathf.Sin(angle * Mathf.Deg2Rad) * maxDistance);
 
             // 화면 해상도에 따른 비율을 계산
-            float ratio = (float) pixelPerfectCamera.refResolutionY / pixelPerfectCamera.refResolutionY;
+            float ratio = (float)pixelPerfectCamera.refResolutionY / pixelPerfectCamera.refResolutionY;
             float tanValue = Mathf.Tan(ratio);
 
             if (distanceX > distanceY * tanValue)
@@ -205,11 +216,11 @@ namespace Entity
 
             if (isOnX)
             {
-                value = Mathf.Max(0, distance - (minValue - cameraMargin * 2)) / 3f;
+                value = Mathf.Max(0, distance - (minValue - cameraMargin * 2)) * widthToHalfHeight;
             }
             else
             {
-                value = Mathf.Max(0, distance - (minValue - cameraMargin * 2)) / 2f;
+                value = Mathf.Max(0, distance - (minValue - cameraMargin * 2)) * halfHeight;
             }
 
             targetOrthographicSize = minValue + value;

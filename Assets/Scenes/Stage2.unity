@@ -3941,6 +3941,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6606398710340992287, guid: e84aee55fb4e74b49b4cf44da5738e69, type: 3}
+      propertyPath: cameraMargin
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6606398710340992287, guid: e84aee55fb4e74b49b4cf44da5738e69, type: 3}
       propertyPath: boundary.width
       value: 20.6
       objectReference: {fileID: 0}
