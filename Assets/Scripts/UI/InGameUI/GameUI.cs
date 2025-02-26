@@ -75,8 +75,9 @@ namespace UI.InGameUI
 
         public bool TimeCheck(float usedTime)
         {
-            string textTime = usedTime.ToString("F2");
-            timeNum.text = ($"{textTime}/{GameManager.Instance.MissionTime}");
+            string tUsedTime = FormatTime(usedTime);
+            string tMissionTime = FormatTime(GameManager.Instance.MissionTime);
+            timeNum.text = ($"{tUsedTime}/{tMissionTime}");
             if (usedTime <= GameManager.Instance.MissionTime)
             {
                 Debug.Log("적당히 빨랐습니다.");
