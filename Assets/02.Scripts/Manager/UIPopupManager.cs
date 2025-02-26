@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UI;
 using UI.Popup;
 using UnityEngine;
 
@@ -7,12 +8,11 @@ namespace Manager
     public class UIPopupManager
     {
         private Dictionary<string, UIPopup> popupPool;
-        private readonly Transform canvasTransform;
+        //private readonly Transform canvasTransform;
 
-        public UIPopupManager(Canvas canvas)
+        public UIPopupManager()
         {
             popupPool = new Dictionary<string, UIPopup>();
-            canvasTransform = canvas.transform;
         }
 
         public void ShowPopup(string popupName)
@@ -33,9 +33,11 @@ namespace Manager
                 Debug.LogError($"Popup prefab {popupName} not found in Resources/Popups");
                 return;
             }
-
-            GameObject popupObj = Object.Instantiate(popupPrefab, canvasTransform);
+   
+            GameObject popupObj = Object.Instantiate(popupPrefab);
             popupObj.name = popupName;
+            Transform canvasTransform = GameObject.FindObjectOfType<Canvas>().transform;
+            popupObj.transform.SetParent(canvasTransform,false);   
 
             UIPopup popup = popupObj.GetComponent<UIPopup>();
             if (popup != null)
