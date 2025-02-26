@@ -543,7 +543,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &165666338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3753,7 +3753,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3c6fe53f333bd74c9c1fbc9e91553c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gizmoLayer: 1
+  gizmoLayer: 0
   boundary:
     serializedVersion: 2
     x: -11.36
@@ -3804,7 +3804,7 @@ GameObject:
   - component: {fileID: 883680003}
   - component: {fileID: 883680002}
   m_Layer: 0
-  m_Name: Sprite Mask
+  m_Name: BackgroundMask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
