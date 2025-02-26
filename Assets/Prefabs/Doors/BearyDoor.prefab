@@ -231,7 +231,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 0
   isOpen: 0
 --- !u!1 &5306600523721092612
 GameObject:
