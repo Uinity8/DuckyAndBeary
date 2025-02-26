@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/04.Externals/UIImage/Sound.png.meta
 guid: 288e562610e121b4b99e79928c9cabca
+========
+guid: 5a5239c5ed2b2d54a859e4f1b7dc3195
+>>>>>>>> Dev:Assets/04.Externals/UIImage/Sound_Off.png.meta
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
