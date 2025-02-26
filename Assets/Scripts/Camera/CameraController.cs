@@ -47,7 +47,9 @@ namespace Entity
         
         private const float cameraZPosition = -10f;
 
-        [SerializeField] Transform backgroundImage;
+        [Header("배경 이미지 크기 조절")]
+        [SerializeField] float imageRatio;
+        Transform backgroundImage;
 
         void Start()
         {
@@ -217,7 +219,7 @@ namespace Entity
 
         void BackgroundImageControl()
         {
-            backgroundImage.localScale = Vector3.one * (mainCamera.orthographicSize / 3f);
+            backgroundImage.localScale = Vector3.one * (mainCamera.orthographicSize / imageRatio);
         }
     }
 }

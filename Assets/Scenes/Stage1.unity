@@ -3772,7 +3772,7 @@ MonoBehaviour:
   cameraMargin: 1
   minValue: 6
   zoomSpeed: 2
-  backgroundImage: {fileID: 1165445810}
+  imageRatio: 3
 --- !u!114 &874628823
 MonoBehaviour:
   m_ObjectHideFlags: 0
