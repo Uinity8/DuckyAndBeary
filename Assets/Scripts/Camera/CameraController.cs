@@ -34,7 +34,7 @@ namespace Entity
         [SerializeField] Color startAreaColor;
         //설정한 범위를 통해 시작 위치와 크기를 계산
         private float startCameraSize;
-        private Vector3 startCameraPos;
+        private Vector3 cameraCenter;
         private Vector3 readyPos;
         private bool isStarted = true;
         private float t = 0f;
@@ -44,12 +44,17 @@ namespace Entity
         [SerializeField] float minValue;
         [SerializeField] float zoomSpeed = 2f; // 변환 속도
         private float targetOrthographicSize; // 목표 orthographicSize
-        
+
         private const float cameraZPosition = -10f;
+        private const float widthToHalfHeight = 1 / 3f;
+        private const float halfHeight = 1 / 2f;
 
         [Header("배경 이미지 크기 조절")]
         [SerializeField] float imageRatio;
         Transform backgroundImage;
+
+        //[SerializeField] float testValue;
+        //float centerWeight;
 
         void Start()
         {
@@ -61,8 +66,8 @@ namespace Entity
 
             // 초기 카메라 설정
             pixelPerfectCamera.CorrectCinemachineOrthoSize(0);
-            startCameraPos = new Vector3(startCameraArea.x + startCameraArea.width / 2, startCameraArea.y + startCameraArea.height / 2);
-            startCameraSize = startCameraArea.width/3f;
+            cameraCenter = new Vector3(startCameraArea.x + startCameraArea.width / 2, startCameraArea.y + startCameraArea.height / 2);
+            startCameraSize = startCameraArea.width * widthToHalfHeight - 2f;
         }
 
         private void Update()
@@ -85,7 +90,7 @@ namespace Entity
             //시작시 카메라가 맵 중앙에서 플레이어를 향해 이동
             //맵 전체를 비추고 이후 플레이어를 향해 줌 인
             readyPos = CalculatePlayersCenter();
-            MoveCamera(Vector3.Lerp(startCameraPos, readyPos, t / duration));
+            MoveCamera(Vector3.Lerp(cameraCenter, readyPos, t / duration));
             mainCamera.orthographicSize = Mathf.Lerp(startCameraSize, minValue, t / duration);
 
             if (t / duration >= 1f)
@@ -108,7 +113,7 @@ namespace Entity
 
         void OnDrawGizmosSelected()
         {
-            switch(gizmoLayer)
+            switch (gizmoLayer)
             {
                 case GizmoLayer.카메라_이동_범위:
                     if (boundary == default)
@@ -134,7 +139,7 @@ namespace Entity
                     size = new Vector3(startCameraArea.width, startCameraArea.height);
                     Gizmos.DrawCube(center, size);
                     break;
-            }            
+            }
         }
 
         void MoveCamera(Vector2 middlePoint)
@@ -153,6 +158,12 @@ namespace Entity
         {
             //플레이어들의 중점을 계산
             Vector2 center = players.Aggregate(Vector2.zero, (sum, player) => sum + (Vector2)player.transform.position);
+
+
+            //centerWeight = testValue * Mathf.Pow(mainCamera.orthographicSize - minValue,2);
+            //center += (Vector2)cameraCenter * centerWeight;
+            //return center / (players.Length + centerWeight);
+            
             return center / players.Length;
         }
 
@@ -181,7 +192,7 @@ namespace Entity
             float distanceY = Mathf.Abs(Mathf.Sin(angle * Mathf.Deg2Rad) * maxDistance);
 
             // 화면 해상도에 따른 비율을 계산
-            float ratio = (float) pixelPerfectCamera.refResolutionY / pixelPerfectCamera.refResolutionY;
+            float ratio = (float)pixelPerfectCamera.refResolutionY / pixelPerfectCamera.refResolutionY;
             float tanValue = Mathf.Tan(ratio);
 
             if (distanceX > distanceY * tanValue)
@@ -204,11 +215,11 @@ namespace Entity
 
             if (isOnX)
             {
-                value = Mathf.Max(0, distance - (minValue - cameraMargin * 2)) / 3f;
+                value = Mathf.Max(0, distance - (minValue - cameraMargin * 2)) * widthToHalfHeight;
             }
             else
             {
-                value = Mathf.Max(0, distance - (minValue - cameraMargin * 2)) / 2f;
+                value = Mathf.Max(0, distance - (minValue - cameraMargin * 2)) * halfHeight;
             }
 
             targetOrthographicSize = minValue + value;
