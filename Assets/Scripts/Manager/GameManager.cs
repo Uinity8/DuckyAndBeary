@@ -82,5 +82,9 @@ public class GameManager : MonoBehaviour
     void OnCloseExitDoor(object sender)
     {
         OpenExitDorCount--;
+        
+        
     }
+    
+    //데이터 저장
 }
