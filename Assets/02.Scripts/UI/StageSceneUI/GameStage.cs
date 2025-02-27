@@ -1,61 +1,26 @@
-using Manager;
-using System.Collections;
-using System.Collections.Generic;
-using System.Net.Sockets;
-using TMPro;
-using Unity.VisualScripting;
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-
-public class GameStage : MonoBehaviour
-
+namespace Scripts.UI.StageSceneUI
 {
-    private const string Stage = "Stage";
+    public class GameStage
 
-    //UI 설정값
-    [SerializeField] private Button stageSelectButton;
-    [SerializeField] private TextMeshProUGUI currentScore;
-    [SerializeField] private TextMeshProUGUI stageText;
-
-    //스테이지 정보값
-    [SerializeField] private int stageIndex;
-    public int StageIndex { get => stageIndex;}
-    public bool isClear = false;
-    private int score;
-
-    public GameStage(int _stageIndex, bool _isClear, int _score)
     {
-        stageIndex = _stageIndex;
-        isClear = _isClear;
-        score = _score;
-    }
+        //스테이지 정보값
+        public string StageName;       // 스테이지 이름 또는 고유 키
+        public int StageIndex;        // 스테이지의 고유 인덱스
+        public bool IsCleared;        // 스테이지 클리어 여부
+        public int RequiredGems;      // 목표 Gem 수
+        public float ClearTime;       // 목표 클리어 시간
+        public int Score;             // 스테이지 점수
 
-    private void Awake()
-    {
-        //if (isClear || stageIndex == 1) 
-            stageSelectButton.interactable = true;
-        //else stageSelectButton.interactable = false;
 
-        SetStageUI();
-        stageSelectButton.onClick.AddListener(LoadScene);
-        
-    }
-
-    //스테이지 index 확인 후 로드씬
-    private void LoadScene()
-    {
-        SceneManager.LoadScene(Stage + stageIndex);
-    }
-
-    //스코어 저장
-    private void SetStageUI()
-    {
-        // 게임 매니저에서 점수 가져오기
-        if (GameManager.Instance != null) score = GameManager.Instance.Score;
-        else score =0;
-
-        currentScore.text = score.ToString();
-        stageText.text = "STAGE" + stageIndex.ToString();
+        public GameStage(string stageName, int stageIndex, int requiredGems, float clearTime)
+        {
+            this.StageName = stageName;
+            this.StageIndex = stageIndex;
+            IsCleared = false;
+            this.RequiredGems = requiredGems;
+            this.ClearTime = clearTime;
+            Score = 0; // 초기 점수는 0으로 시작
+        }
+    
     }
 }
