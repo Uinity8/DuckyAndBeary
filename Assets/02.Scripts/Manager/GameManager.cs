@@ -1,49 +1,64 @@
+using Scripts.UI.StageSceneUI;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Manager
 {
     public class GameManager : MonoBehaviour
     {
-        [SerializeField] float timer;
-        public float Timer => timer;
-
-        [SerializeField] int score;
-        public int Score { get { return score; } }
-        private const int NumForClear = 2;
-        private int OpenExitDorCount = 0;
-
-
-        static public GameManager instance;
+        
+        private static GameManager _instance;
         SignalManager signalManager;
-
-        public GameStage[] stageInfo = new GameStage[0];
 
         public static GameManager Instance
         {
             get
             {
-                if (instance == null)
+                if (_instance == null)
                 {
                     GameObject go = new GameObject("GameManager");
-                    Instantiate(go);
-                    instance = go.AddComponent<GameManager>();
+                    _instance = go.AddComponent<GameManager>();
                     DontDestroyOnLoad(go);
                 }
 
-                return instance;
+                return _instance;
             }
         }
+        
+        float timer;
+        public float Timer => timer;
+        private int numberOfGem;
+        
+        const int NumForClear = 2;
+        int openExitDoorCount;
+
+
+        private readonly Dictionary<string, GameStage> stageInfo = new Dictionary<string, GameStage>();
 
         private void Awake()
         {
             signalManager = SignalManager.Instance;
+            
+            // 스테이지 데이터를 초기화
+            InitializeStages();
+        }
+        
+        private void InitializeStages()
+        {
+            // 딕셔너리로 스테이지 초기화 (씬 이름을 키로 사용)
+            stageInfo.Add("Stage1", new GameStage("Stage1", 0, 6, 130f));
+            stageInfo.Add("Stage2", new GameStage("Stage2", 1, 6, 150f));
+            stageInfo.Add("Stage2", new GameStage("Stage3", 2, 6, 150f));
         }
 
         private void Start()
         {
+            timer = 0;
+            numberOfGem = 0;
+            
             signalManager.ConnectSignal(SignalKey.OpenDoor, OnOpenExitDoor);
             signalManager.ConnectSignal(SignalKey.CloseDoor, OnCloseExitDoor);
-        }
+        } 
 
         private void Update()
         {
@@ -52,35 +67,45 @@ namespace Manager
 
         public void AddScore(int value)
         {
-            score += value;
+            numberOfGem += value;
         }
-
-        public void Clear(GameStage stageClear)
+        
+        public GameStage GetCurrentStageInfo()
         {
-            stageInfo[stageClear.StageIndex] = stageClear;
-            Debug.Log($"값 저장 완료, 저장된 값:{stageInfo[stageClear.StageIndex].StageIndex}");
+            // 현재 씬의 이름을 키로 스테이지 데이터 반환
+            string currentSceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+            if (stageInfo.TryGetValue(currentSceneName, out GameStage currentStage))
+            {
+                return currentStage;
+            }
+            Debug.LogError($"씬 이름 {currentSceneName}에 해당하는 스테이지 정보를 찾을 수 없습니다!");
+            return null;
         }
-
-        public void OnDestroy()
+        
+        private GameStage ClearStage(GameStage currentStage, int scoreAchieved)
         {
-            signalManager.DisconnectSignal(SignalKey.OpenDoor, OnOpenExitDoor);
-            signalManager.DisconnectSignal(SignalKey.CloseDoor, OnCloseExitDoor);
+            currentStage.IsCleared = true; // 클리어 여부 업데이트
+            currentStage.Score = scoreAchieved; // 점수 업데이트
+
+            Debug.Log($"{currentStage.StageName} 완료! 점수: {currentStage.Score}");
+            
+            return currentStage;
         }
 
         void OnOpenExitDoor(object sender)
         {
-            OpenExitDorCount++;
-            if (OpenExitDorCount >= NumForClear)
+            openExitDoorCount++;
+            if (openExitDoorCount >= NumForClear)
             {
-                SignalManager.Instance.EmitSignal(SignalKey.GameClear);
+                GameStage clearStage = ClearStage(GetCurrentStageInfo(), numberOfGem);
+                SignalManager.Instance.EmitSignal(SignalKey.GameClear, clearStage);
             }
         }
-
+        
         void OnCloseExitDoor(object sender)
         {
-            OpenExitDorCount--;
+            openExitDoorCount--;
         }
-
-        //데이터 저장
-    }
+        
+     }
 }
