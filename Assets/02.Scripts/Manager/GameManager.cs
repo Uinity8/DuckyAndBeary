@@ -47,6 +47,7 @@ namespace Manager
             
             // 스테이지 데이터를 초기화
             InitializeStages();
+            Debug.Log("스테이지 초기화");
         }
         
         private void InitializeStages()
