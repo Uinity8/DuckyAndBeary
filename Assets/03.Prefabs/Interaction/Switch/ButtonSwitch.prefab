@@ -204,7 +204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1a3028990e25dd459232fe1069b2ef2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  switchOn: {fileID: 8300000, guid: 224605bdd871ff34f933df1e2dd7a4eb, type: 3}
+  switchOn: {fileID: 8300000, guid: 29f073b34260c0b489fe7d682e571e99, type: 3}
   sensitivity: 0.15
   chamber: {fileID: 2942478679823421028}
 --- !u!1 &7980347862065102248
