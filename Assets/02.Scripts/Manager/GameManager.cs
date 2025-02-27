@@ -33,6 +33,7 @@ namespace Manager
         float timer;
         public float Timer => timer;
         private int numberOfGem;
+        public int NumberOfGem => numberOfGem;
         
         const int NumForClear = 2;
         int openExitDoorCount;
@@ -81,22 +82,27 @@ namespace Manager
         {
             // 현재 씬의 이름을 키로 스테이지 데이터 반환
             string currentSceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+
             if (stageInfo.TryGetValue(currentSceneName, out GameStage currentStage))
             {
+                
+                StageStatus currentStageStatus = StageStatus.Cleared;
+
+                int stageClearLevel = 1;
+                stageClearLevel += numberOfGem >= currentStage.RequiredGems ? 1 : 0;
+                stageClearLevel += Timer >= currentStage.ClearTime ? 1 : 0;
+
+                if (stageClearLevel == 3)
+                    currentStageStatus = StageStatus.PerfectlyCleared;
+                else
+                    currentStageStatus = StageStatus.Cleared;
+
+                SetStageResult(new GameResult(currentStage.StageName, timer, numberOfGem, currentStageStatus));
+                
                 return currentStage;
             }
             Debug.LogError($"씬 이름 {currentSceneName}에 해당하는 스테이지 정보를 찾을 수 없습니다!");
             return null;
-        }
-        
-        private GameStage ClearStage(GameStage currentStage, int scoreAchieved)
-        {
-            currentStage.IsCleared = true; // 클리어 여부 업데이트
-            currentStage.Score = scoreAchieved; // 점수 업데이트
-
-            Debug.Log($"{currentStage.StageName} 완료! 점수: {currentStage.Score}");
-            
-            return currentStage;
         }
 
         void OnOpenExitDoor(object sender)
@@ -104,8 +110,7 @@ namespace Manager
             openExitDoorCount++;
             if (openExitDoorCount >= NumForClear)
             {
-                GameStage clearStage = ClearStage(GetCurrentStageInfo(), numberOfGem);
-                SignalManager.Instance.EmitSignal(SignalKey.GameClear, clearStage);
+                SignalManager.Instance.EmitSignal(SignalKey.GameClear);
             }
         }
         
@@ -134,6 +139,8 @@ namespace Manager
                 Debug.Log("결과 저장");
                 Debug.Log($"{stageResultInfo[result.stageName].stageName} {stageResultInfo[result.stageName].passedTime}");
             }
+
+            
 
         }
 

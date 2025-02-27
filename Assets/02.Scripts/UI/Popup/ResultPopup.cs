@@ -19,8 +19,6 @@ namespace UI.Popup
 
         [SerializeField] Button nextStageButton;
 
-        StageStatus currentStageStatus;
-
         public override void Initialize()
         {
             base.Initialize();
@@ -34,7 +32,8 @@ namespace UI.Popup
 
         void ShowStageResult()
         {
-            gemNumCheck[0].SetActive(clearInfo.Score >= clearInfo.RequiredGems);
+            //clearInfo 값에 따라 UI 설정
+            gemNumCheck[0].SetActive(GameManager.Instance.NumberOfGem >= clearInfo.RequiredGems);
             gemNumCheck[1].SetActive(!gemNumCheck[0].activeSelf);
             timeText.text = FormatTime(GameManager.Instance.Timer);
             timeCheck[0].SetActive(GameManager.Instance.Timer >= clearInfo.ClearTime);
@@ -43,28 +42,19 @@ namespace UI.Popup
             ClearStarCheck();
 
             nextStageButton.gameObject.SetActive(SceneManager.sceneCountInBuildSettings > SceneManager.GetActiveScene().buildIndex + 1);
-
-            GameManager.Instance.SetStageResult(new GameResult(
-                clearInfo.StageName, GameManager.Instance.Timer, clearInfo.Score, currentStageStatus
-                ));
         }
 
         void ClearStarCheck()
         {
-            stageClearLevel += clearInfo.Score >= clearInfo.RequiredGems ? 1 : 0;
-            stageClearLevel += GameManager.Instance.Timer >= clearInfo.ClearTime ? 1 : 0;
-
-            if (stageClearLevel == 3)
-                currentStageStatus = StageStatus.PerfectlyCleared;
-            else
-                currentStageStatus = StageStatus.Cleared;
+            stageClearLevel += gemNumCheck[0].activeSelf ? 1 : 0;
+            stageClearLevel += timeCheck[0].activeSelf ? 1 : 0;
 
             for(int i = 0; i < stageClearLevel; i++)
             {
                 stars[i].SetActive(true);
             }
 
-            Debug.Log(stageClearLevel);
+            Debug.Log("별 개수 : " + stageClearLevel);
         }
 
         /// <summary>

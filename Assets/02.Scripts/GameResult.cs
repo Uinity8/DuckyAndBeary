@@ -17,7 +17,7 @@ public class GameResult
     public int score;
     public StageStatus stageStatus;
 
-    public GameResult(string stageName, float passedTime, int score, StageStatus stageStatus    )
+    public GameResult(string stageName, float passedTime, int score, StageStatus stageStatus)
     {
         this.stageName = stageName;
         this.passedTime = passedTime;
