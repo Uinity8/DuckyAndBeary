@@ -1,3 +1,4 @@
+using Manager;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -59,7 +60,7 @@ public class MainUI : MonoBehaviour
     //셋팅 버튼 선택시 
     private void OnClickSettingButton()
     {
-        settingUI.SetActive(true);
+        UIManager.Instance.ShowPopup("SettingPopup");
     }
 
 }
