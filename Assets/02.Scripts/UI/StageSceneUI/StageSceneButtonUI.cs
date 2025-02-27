@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
@@ -14,25 +15,37 @@ public class StageSceneButtonUI : MonoBehaviour
     [SerializeField] private RectTransform stage;
     [SerializeField] private float moveDistance;
     [SerializeField] private float moveDuration;
+    [SerializeField] private AudioClip buttonClip;
 
     private Vector2 targetPosition;
 
     private void Awake()
     {
+        LoadAudio();
         targetPosition = stage.anchoredPosition;
 
         mainButton.onClick.AddListener(LoadMainScene);
         prevButton.onClick.AddListener(() => MoveStage(true));
         nextButton.onClick.AddListener(() => MoveStage(false));
     }
+    private void LoadAudio()
+    {
+        buttonClip = Resources.Load<AudioClip>("_PopupButton");
+        if (buttonClip == null)
+        {
+            Debug.LogError("클릭 사운드가 없습니다.");
+        }
+    }
 
     private void LoadMainScene()
     {    
         SceneManager.LoadScene("StartScene");
+        SoundManager.PlayClip(buttonClip);
     }
 
     private void MoveStage(bool isLeft)
     {
+        SoundManager.PlayClip(buttonClip);
         int direction = isLeft ? -1 : 1;
 
         if (!isLeft && targetPosition.x > 50) return;

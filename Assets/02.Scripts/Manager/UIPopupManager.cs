@@ -19,6 +19,8 @@ namespace Manager
         {
             if (popupPool.TryGetValue(popupName, out UIPopup existingPopup))
             {
+                AudioClip buttonClip = existingPopup.buttonClick;
+                SoundManager.PlayClip(buttonClip);
                 if (!existingPopup.gameObject.activeSelf)
                 {
                     existingPopup.gameObject.SetActive(true);

@@ -31,6 +31,7 @@ namespace UI.Popup
 
         void ShowStageResult()
         {
+            SoundManager.PlayClip(clearClip);
             //clearInfo 값에 따라 UI 설정
             gemNumCheck[0].SetActive(GameManager.Instance.NumberOfGem >= clearInfo.RequiredGems);
             gemNumCheck[1].SetActive(!gemNumCheck[0].activeSelf);
@@ -61,6 +62,7 @@ namespace UI.Popup
         /// </summary>
         public void NextStage()
         {
+            SoundManager.PlayClip(buttonClick);
             Close();
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }

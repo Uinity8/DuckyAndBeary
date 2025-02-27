@@ -13,10 +13,12 @@ public class MainUI : MonoBehaviour
 
     [SerializeField] private GameObject creditUI;
     [SerializeField] private GameObject settingUI;
+    [SerializeField] private AudioClip buttonClip;
     // Start is called before the first frame update
     void Awake()
 
     {
+        LoadAudio();
         startButton = transform.Find("StartButton").GetComponent<Button>();
         exitButton = transform.Find("ExitButton").GetComponent<Button>();
         creditButton = transform.Find("CreditButton").GetComponent<Button>();
@@ -26,6 +28,14 @@ public class MainUI : MonoBehaviour
         exitButton.onClick.AddListener(OnClickExitButton);
         creditButton.onClick.AddListener(OnClickCreditButton);
         settingButton.onClick.AddListener(OnClickSettingButton);
+    }
+    private void LoadAudio()
+    {
+        buttonClip = Resources.Load<AudioClip>("_PopupButton");
+        if (buttonClip == null)
+        {
+            Debug.LogError("클릭 사운드가 없습니다.");
+        }
     }
 
     private void Start()
@@ -53,12 +63,14 @@ public class MainUI : MonoBehaviour
     //크리팃 버튼 선택시 
     private void OnClickCreditButton()
     {
+        SoundManager.PlayClip(buttonClip);
         creditUI.SetActive(true);
     }
 
     //셋팅 버튼 선택시 
     private void OnClickSettingButton()
     {
+        SoundManager.PlayClip(buttonClip);
         settingUI.SetActive(true);
     }
 
