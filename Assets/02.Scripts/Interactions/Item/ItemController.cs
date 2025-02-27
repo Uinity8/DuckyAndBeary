@@ -6,6 +6,7 @@ using UnityEngine;
 public class ItemController : ObjectIdentifier
 {
     GameManager gameManager;
+    public AudioClip getScore;
 
     private void Start()
     {
@@ -16,6 +17,7 @@ public class ItemController : ObjectIdentifier
     {
         if (LayerCheck(collision.gameObject.layer))
         {
+            SoundManager.PlayClip(getScore);
             Debug.Log("점수 획득");
             gameManager.AddScore(1);
             Destroy(this.gameObject);

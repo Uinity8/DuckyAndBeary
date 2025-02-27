@@ -6,7 +6,6 @@ namespace Manager
 {
     public class GameManager : MonoBehaviour
     {
-        
         private static GameManager _instance;
         SignalManager signalManager;
 
@@ -20,7 +19,7 @@ namespace Manager
 
                     if (_instance == null)
                     {
-                        GameObject go = new GameObject("GameManager");
+                        GameObject go = new GameObject("GameManager");  
                         _instance = go.AddComponent<GameManager>();
                         //DontDestroyOnLoad(go);
                     }
@@ -34,12 +33,14 @@ namespace Manager
         float timer;
         public float Timer => timer;
         private int numberOfGem;
+        public int NumberOfGem => numberOfGem;
         
         const int NumForClear = 2;
         int openExitDoorCount;
 
 
         private readonly Dictionary<string, GameStage> stageInfo = new Dictionary<string, GameStage>();
+        static private readonly Dictionary<string, GameResult> stageResultInfo = new Dictionary<string, GameResult>();
 
         private void Awake()
         {
@@ -47,6 +48,7 @@ namespace Manager
             
             // 스테이지 데이터를 초기화
             InitializeStages();
+            Debug.Log("스테이지 정보 초기화");
         }
         
         private void InitializeStages()
@@ -80,22 +82,27 @@ namespace Manager
         {
             // 현재 씬의 이름을 키로 스테이지 데이터 반환
             string currentSceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+
             if (stageInfo.TryGetValue(currentSceneName, out GameStage currentStage))
             {
+                
+                StageStatus currentStageStatus = StageStatus.Cleared;
+
+                int stageClearLevel = 1;
+                stageClearLevel += numberOfGem >= currentStage.RequiredGems ? 1 : 0;
+                stageClearLevel += Timer >= currentStage.ClearTime ? 1 : 0;
+
+                if (stageClearLevel == 3)
+                    currentStageStatus = StageStatus.PerfectlyCleared;
+                else
+                    currentStageStatus = StageStatus.Cleared;
+
+                SetStageResult(new GameResult(currentStage.StageName, timer, numberOfGem, currentStageStatus));
+                
                 return currentStage;
             }
             Debug.LogError($"씬 이름 {currentSceneName}에 해당하는 스테이지 정보를 찾을 수 없습니다!");
             return null;
-        }
-        
-        private GameStage ClearStage(GameStage currentStage, int scoreAchieved)
-        {
-            currentStage.IsCleared = true; // 클리어 여부 업데이트
-            currentStage.Score = scoreAchieved; // 점수 업데이트
-
-            Debug.Log($"{currentStage.StageName} 완료! 점수: {currentStage.Score}");
-            
-            return currentStage;
         }
 
         void OnOpenExitDoor(object sender)
@@ -103,14 +110,53 @@ namespace Manager
             openExitDoorCount++;
             if (openExitDoorCount >= NumForClear)
             {
-                GameStage clearStage = ClearStage(GetCurrentStageInfo(), numberOfGem);
-                SignalManager.Instance.EmitSignal(SignalKey.GameClear, clearStage);
+                SignalManager.Instance.EmitSignal(SignalKey.GameClear);
             }
         }
         
         void OnCloseExitDoor(object sender)
         {
             openExitDoorCount--;
+        }
+
+        public void SetStageResult(GameResult result)
+        {
+            GameResult tempResult;
+
+            if(stageResultInfo.TryGetValue(result.stageName, out tempResult))
+            {
+                if(tempResult.passedTime < result.passedTime || tempResult.score < result.score)
+                {
+                    stageResultInfo[result.stageName] = result;
+                    Debug.Log("결과 갱신");
+                }
+
+            }
+            else
+            {
+                //처음 결과를 저장할 때
+                stageResultInfo.Add(result.stageName, result);
+                Debug.Log("결과 저장");
+                Debug.Log($"{stageResultInfo[result.stageName].stageName} {stageResultInfo[result.stageName].passedTime}");
+            }
+
+
+        }
+
+        public GameResult GetStageResult(string stageName)
+        {
+            GameResult tempResult;
+
+            if(stageResultInfo.TryGetValue(stageName, out tempResult))
+            {
+                return tempResult;
+            }
+
+            else
+            {
+                Debug.LogWarning(stageName + "is not found");
+                return new GameResult(stageName,0,0,StageStatus.Locked);
+            }
         }
         
      }

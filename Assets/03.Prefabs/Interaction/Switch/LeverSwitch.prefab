@@ -130,6 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52e397b2fa4055e4695c16b6dc1f932f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  switchOn: {fileID: 8300000, guid: 29f073b34260c0b489fe7d682e571e99, type: 3}
   lever: {fileID: 6764204849400217062}
 --- !u!1 &5960362552604205522
 GameObject:

@@ -38,7 +38,7 @@ namespace UI
         }
         void ShowResultPopup()
         {
-            UIManager.Instance.ShowPopup("ResultPopup");
+            UIManager.Instance.ShowPopup("LevelCompletePopup");
         }
         
 

@@ -9,7 +9,7 @@ public abstract class Switch : MonoBehaviour
     bool preIsActive;
 
     public Action<bool> OnActive;
-
+    public AudioClip switchOn;
 
     void Update()
     {
@@ -22,6 +22,7 @@ public abstract class Switch : MonoBehaviour
         
         if (preIsActive != isActive)
         {
+            SoundManager.PlayClip(switchOn);
             Debug.Log(isActive);
             preIsActive = isActive;
             OnActive?.Invoke(isActive);
