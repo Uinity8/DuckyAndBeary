@@ -32,11 +32,11 @@ namespace UI.Popup
         void ShowStageResult()
         {
             //clearInfo 값에 따라 UI 설정
-            limitTime.text = FormatTime(clearInfo.ClearTime);
+            limitTime.text = clearInfo.ClearTime.FormatTime();
 
             gemNumCheck[0].SetActive(GameManager.Instance.NumberOfGem >= clearInfo.RequiredGems);
             gemNumCheck[1].SetActive(!gemNumCheck[0].activeSelf);
-            timeText.text = FormatTime(GameManager.Instance.Timer);
+            timeText.text = GameManager.Instance.Timer.FormatTime();
             timeCheck[0].SetActive(GameManager.Instance.Timer <= clearInfo.ClearTime);
             timeCheck[1].SetActive(!timeCheck[0].activeSelf);
 
@@ -44,12 +44,9 @@ namespace UI.Popup
 
             nextStageButton.gameObject.SetActive(SceneManager.sceneCountInBuildSettings > SceneManager.GetActiveScene().buildIndex + 1);
 
-            //if (SceneManager.sceneCountInBuildSettings > SceneManager.GetActiveScene().buildIndex + 1)
-            //    //다음 스테이지 Unlock
-            //    GameManager.Instance.SetStageResult(new GameResult(
-            //        SceneManager.GetSceneByBuildIndex(SceneManager.GetActiveScene().buildIndex + 1).name,
-            //        0, 0, StageStatus.Unlocked)
-            //        );
+            if (GetNextStageName() != null)
+                //다음 스테이지 Unlock
+                GameManager.Instance.SetStageResult(new GameResult(GetNextStageName(),0, 0, StageStatus.Unlocked));
 
         }
 
@@ -76,11 +73,23 @@ namespace UI.Popup
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
 
-        public string FormatTime(float time)
+        public string GetNextStageName()
         {
-            int minutes = Mathf.FloorToInt(time / 60);
-            int seconds = Mathf.FloorToInt(time % 60);
-            return $"{minutes:00}:{seconds:00}";
+            int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+            int nextSceneIndex = currentSceneIndex + 1;
+
+            Debug.Log($"currentSceneIndex : {currentSceneIndex}");
+
+            if (SceneManager.sceneCountInBuildSettings > nextSceneIndex)
+            {
+                return "Stage" + (nextSceneIndex - 1).ToString();
+
+            }
+            else
+            {
+                return null;
+            }
+
         }
     }
 }

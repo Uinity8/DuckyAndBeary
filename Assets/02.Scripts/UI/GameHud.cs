@@ -24,7 +24,7 @@ namespace UI
 
         void UpdateTimer()
         {
-            timerText.text = FormatTime(GameManager.Instance.Timer);
+            timerText.text = GameManager.Instance.Timer.FormatTime();
         }
 
         public void TogglePause()
@@ -41,13 +41,6 @@ namespace UI
             UIManager.Instance.ShowPopup("LevelCompletePopup");
         }
         
-
-        public string FormatTime(float time)
-        {
-            int minutes = Mathf.FloorToInt(time / 60);
-            int seconds = Mathf.FloorToInt(time % 60);
-            return $"{minutes:00}:{seconds:00}";
-        }
         
     }
 }

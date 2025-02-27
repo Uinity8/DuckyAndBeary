@@ -125,7 +125,7 @@ namespace Manager
 
             if(stageResultInfo.TryGetValue(result.stageName, out tempResult))
             {
-                if(tempResult.passedTime < result.passedTime || tempResult.score < result.score)
+                if(tempResult.score < result.score)
                 {
                     stageResultInfo[result.stageName] = result;
                     Debug.Log("결과 갱신");
