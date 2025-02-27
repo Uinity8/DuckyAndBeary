@@ -1,4 +1,5 @@
 using Manager;
+using Scripts.UI.StageSceneUI;
 using System;
 using TMPro;
 using UnityEngine;
@@ -13,7 +14,7 @@ namespace UI
         private void Start()
         {
             SignalManager.Instance.ConnectSignal(SignalKey.GameOver, _=>ShowGameOverPopup());
-            SignalManager.Instance.ConnectSignal(SignalKey.GameClear, _=>ShowResultPopup());
+            SignalManager.Instance.ConnectSignal(SignalKey.GameClear, _ => ShowResultPopup());
         }
 
         void Update()
