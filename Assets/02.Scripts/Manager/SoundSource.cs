@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SoundSource : MonoBehaviour
@@ -19,7 +17,7 @@ public class SoundSource : MonoBehaviour
         audioSource.Play();
         audioSource.pitch = 1f + Random.Range(-soundEffectPitchVariance, soundEffectPitchVariance);
 
-        Invoke("Disable", clip.length + 2);
+        Invoke(nameof(Disable), clip.length + 2);
     }
 
     public void Disable()

@@ -14,13 +14,8 @@ public class ToggleAnimatorController : MonoBehaviour
 
     void OnToggleChanged(bool isOn)
     {
-        if(isOn)
-            animator.Play("ToggleOn");
-        else
-        {
-            animator.Play("ToggleOff");
-        }
-        
+        animator.Play(isOn ? "ToggleOn" : "ToggleOff");
+
         animator.SetBool(IsOn, isOn);
     }
 }

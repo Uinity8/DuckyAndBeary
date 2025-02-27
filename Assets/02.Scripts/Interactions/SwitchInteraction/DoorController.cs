@@ -1,15 +1,9 @@
 using Entity.Player;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class DoorController : Platformer
 {
-    [Header("DoorInfo")] 
-    [SerializeField] Transform targetTransform;
+    [Header("DoorInfo")] [SerializeField] Transform targetTransform;
     [SerializeField] private float moveSpeed;
 
     private Vector2 intialPosition;
@@ -24,8 +18,9 @@ public class DoorController : Platformer
     // Start is called before the first frame update
     private void FixedUpdate()
     {
-        if(!IsOnFloor())
-            transform.position = Vector2.MoveTowards(transform.position, desiredPosition, moveSpeed * Time.fixedDeltaTime);
+        if (!IsOnFloor())
+            transform.position =
+                Vector2.MoveTowards(transform.position, desiredPosition, moveSpeed * Time.fixedDeltaTime);
     }
 
 
@@ -40,6 +35,22 @@ public class DoorController : Platformer
         else
         {
             desiredPosition = intialPosition;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Beary") | other.gameObject.CompareTag("Ducky"))
+        {
+            other.gameObject.transform.SetParent(transform);
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Beary") | other.gameObject.CompareTag("Ducky"))
+        {
+            other.gameObject.transform.SetParent(null);
         }
     }
 }

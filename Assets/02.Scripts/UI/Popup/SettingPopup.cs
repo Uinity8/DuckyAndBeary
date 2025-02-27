@@ -29,7 +29,7 @@ public class SettingPopup : UIPopup
     {
         bgmSlider.value = soundManager.audioSource.volume;
         
-        sfxSlider.value = soundManager.SFXVolume;
+        sfxSlider.value = soundManager.SfxVolume;
         prevSfxVolume = sfxSlider.value;
         
         bgmSlider.onValueChanged.AddListener(SetBgmVolume);

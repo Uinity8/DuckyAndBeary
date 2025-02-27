@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-static class Extensions
+internal static class Extensions
 {
-    static public string FormatTime(this float time)
+    public static string FormatTime(this float time)
     {
         int minutes = Mathf.FloorToInt(time / 60);
         int seconds = Mathf.FloorToInt(time % 60);

@@ -1,7 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public enum SignalKey
@@ -17,23 +15,23 @@ public enum SignalKey
 
 public class SignalManager : MonoBehaviour
 {
-    static SignalManager instance;
+    static SignalManager _instance;
     
     public static SignalManager Instance
     {
         get
         {
-            if (instance == null)
+            if (_instance == null)
             {
                 GameObject go = new GameObject("SignalManager");
-                instance = go.AddComponent<SignalManager>();
+                _instance = go.AddComponent<SignalManager>();
                 DontDestroyOnLoad(go);
             }
-            return instance;
+            return _instance;
         }
     }
 
-    private Dictionary<SignalKey, Action<object[]>> signals = new();
+    private readonly Dictionary<SignalKey, Action<object[]>> signals = new();
 
     public void ConnectSignal(SignalKey signalKey, Action<object[]> action)
     {
@@ -55,9 +53,9 @@ public class SignalManager : MonoBehaviour
 
     public void EmitSignal(SignalKey signalKey, params object[] args)
     {
-        if (signals.ContainsKey(signalKey))
+        if (signals.TryGetValue(signalKey, out Action<object[]> signal))
         {
-            signals[signalKey].Invoke(args);
+            signal.Invoke(args);
         }
     }
 }
