@@ -6,7 +6,7 @@ public class SoundSource : MonoBehaviour
 {
     private AudioSource audioSource;
 
-    public void PlaySound(AudioClip clip, float soundEffectVolume, float soundEffectPitchVariance)
+    public void PlaySound(AudioClip clip, float soundEffectVolume)
     {
         if (audioSource == null)
         {
@@ -17,14 +17,6 @@ public class SoundSource : MonoBehaviour
         audioSource.clip = clip;
         audioSource.volume = soundEffectVolume;
         audioSource.Play();
-        audioSource.pitch = 1f + Random.Range(-soundEffectPitchVariance, soundEffectPitchVariance);
 
-        Invoke("Disable", clip.length + 2);
-    }
-
-    public void Disable()
-    {
-        audioSource?.Stop();
-        Destroy(this.gameObject);
     }
 }

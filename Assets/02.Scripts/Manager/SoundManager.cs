@@ -1,13 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
     [SerializeField][Range(0f, 1f)] private float musicVolume;
     [SerializeField][Range(0f, 1f)] private float soundEffectVolume;
-    [SerializeField][Range(0f, 1f)] private float soundEffectPitchvariance;
 
     static private SoundManager instance;
     static public SoundManager Instance { get => instance; }
@@ -15,6 +13,7 @@ public class SoundManager : MonoBehaviour
     public AudioSource audioSource;
 
     public AudioClip mainClip;
+    public AudioClip stageClip;
 
     public SoundSource soundSource;
 
@@ -50,6 +49,6 @@ public class SoundManager : MonoBehaviour
     {
         SoundSource obj = Instantiate(instance.soundSource);
         SoundSource _soundSource = obj.GetComponent<SoundSource>();
-        _soundSource.PlaySound(clip, instance.soundEffectVolume, instance.soundEffectPitchvariance);
+        _soundSource.PlaySound(clip, instance.soundEffectVolume);
     }
 }

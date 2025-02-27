@@ -20,7 +20,7 @@ namespace Entity
         private bool isPaused;
 
         public bool IsDuckCharacter => isDuckCharacter;
-        public AudioClip jumpClip;
+
 
         void Awake()
         {
@@ -72,7 +72,7 @@ namespace Entity
             if (isPaused) return;
             if (!platformer.IsOnFloor()) return;
 
-            SoundManager.PlayClip(jumpClip);
+
             _rigidbody2D.AddForce(statHandler.JumpForce * Vector2.up, ForceMode2D.Impulse);
             animationHandler.Jump();
         }
