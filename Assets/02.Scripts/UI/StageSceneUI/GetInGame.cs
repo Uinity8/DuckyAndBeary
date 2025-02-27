@@ -8,18 +8,15 @@ public class GetInGame : MonoBehaviour
 {
     //UI 설정값
     [SerializeField] private Button stageSelectButton;
-    [SerializeField] private TextMeshProUGUI currentScore;
     [SerializeField] private TextMeshProUGUI stageText;
     [SerializeField] private int stageIndex;
     public int StageIndex { get => stageIndex; }
-    //public bool isClear = false;
     private int score;
 
     private void Awake()
     {
         //if (isClear || stageIndex == 1) 
         stageSelectButton.interactable = true;
-        //else stageSelectButton.interactable = false;
 
         SetStageUI();
         stageSelectButton.onClick.AddListener(LoadScene);
@@ -38,7 +35,6 @@ public class GetInGame : MonoBehaviour
         //stageText.text = "STAGE" + stageIndex.ToString();
 
         GameResult result = GameManager.Instance.GetStageResult("Stage" + stageIndex);
-        currentScore.text = result.score.ToString();
         stageText.text = result.stageStatus.ToString();
     }
 }
