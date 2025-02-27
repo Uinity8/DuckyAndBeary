@@ -17,6 +17,7 @@ public class SoundManager : MonoBehaviour
     public AudioClip mainClip;
 
     public SoundSource soundSource;
+    public float SFXVolume => soundEffectVolume;
 
     private void Awake()
     {
@@ -53,11 +54,11 @@ public class SoundManager : MonoBehaviour
         _soundSource.PlaySound(clip, instance.soundEffectVolume, instance.soundEffectPitchvariance);
     }
     
-    public void SetBGMVolume(float volume)
+    public void SetBgmVolume(float volume)
     {
         musicVolume = volume;
     }
-    public void SetSFXVolume(float volume)
+    public void SetSfxVolume(float volume)
     {
         soundEffectVolume = volume;
     }

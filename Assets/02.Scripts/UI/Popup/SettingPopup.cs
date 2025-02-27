@@ -1,9 +1,11 @@
 using UI.Popup;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class SettingPopup : UIPopup
 {
-    private Slider soundSlider;
+    [SerializeField]private Slider bgmSlider;
+    [SerializeField]private Slider sfxSlider;
 
     private bool isMute = false;
     private float prevVolume;
@@ -17,22 +19,38 @@ public class SettingPopup : UIPopup
 
     private void Start()
     {
-        soundSlider.value = soundManager.audioSource.volume;
-    }
-
-    void VFXMute()
-    {
-        soundSlider.value = 0;
-        isMute = !isMute;
-        soundManager.audioSource.mute = isMute;
+        bgmSlider.value = soundManager.audioSource.volume;
+        sfxSlider.value = soundManager.SFXVolume;
     }
     
-    void SetBGMVolume(float volume)
+    public void BGMMute()
     {
-        soundManager.SetBGMVolume(volume);
+        bool isMute = soundManager.audioSource.mute;
+        if (isMute)
+        {
+            bgmSlider.value =  soundManager.audioSource.volume;
+        }
+        else
+        {
+            bgmSlider.value = 0;
+        }
+        soundManager.audioSource.mute = !isMute;   
     }
-    void SetSFXVolume(float volume)
+
+    public void SFXMute()
     {
-        soundManager.SetSFXVolume(volume);
+        
+        prevVolume = soundManager.SFXVolume;
+        sfxSlider.value = 0;
+        SetSfxVolume(0);
+    }
+    
+    public void SetBgmVolume(float volume)
+    {
+        soundManager.SetBgmVolume(volume);
+    }
+    public void SetSfxVolume(float volume)
+    {
+        soundManager.SetSfxVolume(volume);
     }
 }

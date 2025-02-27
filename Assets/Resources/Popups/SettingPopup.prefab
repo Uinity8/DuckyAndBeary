@@ -305,7 +305,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1613064067153642904}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1700112654713329987}
+        m_TargetAssemblyTypeName: UI.Popup.UIPopup, Assembly-CSharp
+        m_MethodName: Close
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1541388849886747104
 GameObject:
   m_ObjectHideFlags: 0
@@ -468,7 +480,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: VFX
+  m_text: SFX
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c8fd6728e030247b9851aac0aa105648, type: 2}
   m_sharedMaterial: {fileID: 7114017424048920938, guid: c8fd6728e030247b9851aac0aa105648, type: 2}
@@ -734,7 +746,19 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1700112654713329987}
+        m_TargetAssemblyTypeName: SettingPopup, Assembly-CSharp
+        m_MethodName: SFXMute
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 0
 --- !u!114 &2557347217117851275
 MonoBehaviour:
@@ -761,6 +785,7 @@ GameObject:
   - component: {fileID: 3172175187461345739}
   - component: {fileID: 8975135685753778228}
   - component: {fileID: 1903446351785513872}
+  - component: {fileID: 1700112654713329987}
   m_Layer: 5
   m_Name: SettingPopup
   m_TagString: Untagged
@@ -784,8 +809,8 @@ RectTransform:
   - {fileID: 2309503211847295934}
   - {fileID: 4397516757948382146}
   - {fileID: 7692647502223111975}
-  - {fileID: 7058925310198659926}
   - {fileID: 752649419762902041}
+  - {fileID: 7058925310198659926}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -831,6 +856,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1700112654713329987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2598194440328753765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c767a87d8799fe84ba6aea36c2c67a13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bgmSlider: {fileID: 762384798400536987}
+  sfxSlider: {fileID: 8690596108770219890}
 --- !u!1 &2754715143072098621
 GameObject:
   m_ObjectHideFlags: 0
@@ -920,7 +959,19 @@ MonoBehaviour:
   m_Value: 0.1
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1700112654713329987}
+        m_TargetAssemblyTypeName: SettingPopup, Assembly-CSharp
+        m_MethodName: SetSfxVolume
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3281529076808032412
 GameObject:
   m_ObjectHideFlags: 0
@@ -1251,7 +1302,19 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1700112654713329987}
+        m_TargetAssemblyTypeName: SettingPopup, Assembly-CSharp
+        m_MethodName: BGMMute
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 0
 --- !u!114 &388524121824685259
 MonoBehaviour:
@@ -1501,7 +1564,7 @@ GameObject:
   m_Component:
   - component: {fileID: 752649419762902041}
   m_Layer: 5
-  m_Name: MuteToggle_VFX
+  m_Name: MuteToggle_Bgm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1525,7 +1588,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 145, y: -176}
+  m_AnchoredPosition: {x: 145, y: -109}
   m_SizeDelta: {x: 175.8, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5045105805831333389
@@ -1538,7 +1601,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7058925310198659926}
   m_Layer: 5
-  m_Name: MuteToggle_Music
+  m_Name: MuteToggle_Sfx
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1562,7 +1625,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 145, y: -109}
+  m_AnchoredPosition: {x: 145, y: -176}
   m_SizeDelta: {x: 175.8, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5164394307890906091
