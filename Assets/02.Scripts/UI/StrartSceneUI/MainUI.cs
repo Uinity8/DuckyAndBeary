@@ -1,3 +1,4 @@
+using Manager;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,12 +11,9 @@ public class MainUI : MonoBehaviour
     Button exitButton;
     Button creditButton;
     Button settingButton;
-
-    [SerializeField] private GameObject creditUI;
-    [SerializeField] private GameObject settingUI;
+    
     // Start is called before the first frame update
     void Awake()
-
     {
         startButton = transform.Find("StartButton").GetComponent<Button>();
         exitButton = transform.Find("ExitButton").GetComponent<Button>();
@@ -24,17 +22,11 @@ public class MainUI : MonoBehaviour
 
         startButton.onClick.AddListener(OnClickStartButton);
         exitButton.onClick.AddListener(OnClickExitButton);
-        creditButton.onClick.AddListener(OnClickCreditButton);
+        //creditButton.onClick.AddListener(OnClickCreditButton);
         settingButton.onClick.AddListener(OnClickSettingButton);
     }
+    
 
-    private void Start()
-    {
-        creditUI.SetActive(false);
-        settingUI.SetActive(false);
-    }
-
-    // Update is called once per frame
     private void OnClickStartButton()
     {
         //StageSce입력     
@@ -49,17 +41,11 @@ public class MainUI : MonoBehaviour
         Application.Quit();
 #endif
     }
-
-    //크리팃 버튼 선택시 
-    private void OnClickCreditButton()
-    {
-        creditUI.SetActive(true);
-    }
-
+    
     //셋팅 버튼 선택시 
     private void OnClickSettingButton()
     {
-        settingUI.SetActive(true);
+        UIManager.Instance.ShowPopup("SettingPopup");
     }
 
 }
