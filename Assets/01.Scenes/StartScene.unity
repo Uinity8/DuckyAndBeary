@@ -267,9 +267,8 @@ MonoBehaviour:
   musicVolume: 1
   soundEffectVolume: 1
   audioSource: {fileID: 0}
-  mainClip: {fileID: 8300000, guid: 7b8795cdd5c073940b562dcbe07aca34, type: 3}
-  stageClip: {fileID: 8300000, guid: 31446c38e62a4cb4cb7aeb59aef18b0e, type: 3}
-  inGameClip: {fileID: 8300000, guid: 7b8795cdd5c073940b562dcbe07aca34, type: 3}
+  mainClip: {fileID: 8300000, guid: cf45beab60af4b44c88fb85bae39a40e, type: 3}
+  stageClip: {fileID: 8300000, guid: cf45beab60af4b44c88fb85bae39a40e, type: 3}
   soundSource: {fileID: 3525272814755153311, guid: bcc302cab0e7396479e9b650ee8ac990, type: 3}
 --- !u!1 &55835154
 GameObject:

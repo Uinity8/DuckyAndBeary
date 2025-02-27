@@ -28,10 +28,8 @@ public class StageSceneButtonUI : MonoBehaviour
     }
 
     private void LoadMainScene()
-    {
-        
+    {    
         SceneManager.LoadScene("StartScene");
-        SoundManager.Instance.ChnageBackGroundMusic(SoundManager.Instance.mainClip);
     }
 
     private void MoveStage(bool isLeft)
