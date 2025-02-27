@@ -178,7 +178,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &125825476
 RectTransform:
   m_ObjectHideFlags: 0
@@ -462,7 +462,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &601068129
 RectTransform:
   m_ObjectHideFlags: 0
@@ -657,8 +657,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageText: {fileID: 357281444}
   stageSelectButton: {fileID: 703302575}
-  stageIndex: 3
   lockImage: {fileID: 1630352673}
+  stageIndex: 3
+  stars:
+  - {fileID: 1195950039}
+  - {fileID: 1805979400}
+  - {fileID: 601068128}
+  isLock: 1
 --- !u!1 &736050950
 GameObject:
   m_ObjectHideFlags: 0
@@ -715,7 +720,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &812490055
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1025,7 +1030,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1195950040
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1220,8 +1225,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageText: {fileID: 1794444505}
   stageSelectButton: {fileID: 1274453888}
-  stageIndex: 2
   lockImage: {fileID: 1435161467}
+  stageIndex: 2
+  stars:
+  - {fileID: 125825475}
+  - {fileID: 1916580962}
+  - {fileID: 812490054}
+  isLock: 1
 --- !u!1 &1322649736
 GameObject:
   m_ObjectHideFlags: 0
@@ -1673,7 +1683,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1805979401
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1748,7 +1758,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1916580963
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2418,7 +2428,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &4533728144525262652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2714,7 +2724,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &6230211888144770289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2932,8 +2942,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageText: {fileID: 4533728144525262652}
   stageSelectButton: {fileID: 6299350539470521238}
-  stageIndex: 1
   lockImage: {fileID: 3119488876064093342}
+  stageIndex: 1
+  stars:
+  - {fileID: 6110010418435588044}
+  - {fileID: 4499737085631828519}
+  - {fileID: 7996341104747145688}
+  isLock: 1
 --- !u!224 &7941570456760197375
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2974,7 +2989,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &8136865175987375900
 GameObject:
   m_ObjectHideFlags: 0
@@ -3032,7 +3047,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -220}
+  m_AnchoredPosition: {x: -4, y: -220}
   m_SizeDelta: {x: 317, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8518727773914256320

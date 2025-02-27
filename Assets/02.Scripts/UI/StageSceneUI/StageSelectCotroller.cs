@@ -3,22 +3,58 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Unity.Mathematics;
+using System;
 
 public class StageSelectCotroller : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI stageText;
-    [SerializeField] private Button stageSelectButton;
-    [SerializeField] private int stageIndex;
+    [SerializeField] private Button stageSelectButton;  
     [SerializeField] private GameObject lockImage;
+    [SerializeField] private int stageIndex;
+    [SerializeField] private GameObject[] stars;
 
+    GameResult gameResult;
+    private StageStatus stageStatus;
+    private int score;
+    public bool isLock = false;
     private void Awake()
     {
-        //if (isClear || stageIndex == 1) 
-        stageSelectButton.interactable = true;
-        SetStageUI();
-        SetIsLock();
-
         stageSelectButton.onClick.AddListener(LoadScene);
+
+        Init();
+          
+    }
+
+    private void Start()
+    {
+        SetStageUI();
+        SetInteract();
+        SetClearStar();
+    }
+
+    private void Init()
+    {
+        gameResult = GameManager.Instance.GetStageResult("Stage" + stageIndex);
+        score = gameResult.score;
+        stageStatus = gameResult.stageStatus;
+        if (stageIndex == 1) isLock = false;
+        else isLock = gameResult.stageStatus == StageStatus.Locked;
+    }
+        
+    private void SetInteract()
+    {
+        lockImage.SetActive(isLock);
+        if (isLock)
+        {
+            stageSelectButton.interactable = false;
+        }
+    }
+
+    private void SetStageUI()
+    {
+        gameResult = GameManager.Instance.GetStageResult("Stage" + stageIndex);
+        stageText.text = stageIndex.ToString();
     }
 
     private void LoadScene()
@@ -26,23 +62,15 @@ public class StageSelectCotroller : MonoBehaviour
         SceneManager.LoadScene("Stage" + stageIndex);
     }
 
-    private void SetStageUI()
+    private void SetClearStar()
     {
-        //currentScore.text = score.ToString();
-        //stageText.text = "STAGE" + stageIndex.ToString();
+        int starScore = gameResult.score;
 
-        GameResult result = GameManager.Instance.GetStageResult("Stage" + stageIndex);
-        stageText.text = stageIndex.ToString();
-    }
+        int maxStar = Math.Min(starScore, stars.Length);
 
-    private void SetIsLock()
-    {
-        GameResult result = GameManager.Instance.GetStageResult("Stage" + stageIndex);
-
-        if (result.stageName == "Stage1")
-            lockImage.SetActive(false);
-
-        else lockImage.SetActive(result.stageStatus == StageStatus.Locked);
-
+        for (int i = 0; i < starScore; i++)
+        {
+            stars[i].SetActive(true);
+        }
     }
 }
