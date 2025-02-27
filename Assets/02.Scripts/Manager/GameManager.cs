@@ -39,7 +39,7 @@ namespace Manager
 
 
         private readonly Dictionary<string, GameStage> stageInfo = new Dictionary<string, GameStage>();
-        private readonly Dictionary<string, GameResult> stageResultInfo = new Dictionary<string, GameResult>();
+        static private readonly Dictionary<string, GameResult> stageResultInfo = new Dictionary<string, GameResult>();
 
         private void Awake()
         {
@@ -47,7 +47,7 @@ namespace Manager
             
             // 스테이지 데이터를 초기화
             InitializeStages();
-            Debug.Log("스테이지 초기화");
+            Debug.Log("스테이지 정보 초기화");
         }
         
         private void InitializeStages()
@@ -120,7 +120,7 @@ namespace Manager
 
             if(stageResultInfo.TryGetValue(result.stageName, out tempResult))
             {
-                if(tempResult != null && tempResult != result)
+                if(tempResult.passedTime < result.passedTime || tempResult.score < result.score)
                 {
                     stageResultInfo[result.stageName] = result;
                     Debug.Log("결과 갱신");
