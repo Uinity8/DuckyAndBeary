@@ -33,17 +33,23 @@ namespace UI.Popup
         void ShowStageResult()
         {
             //clearInfo 값에 따라 UI 설정
-            limitTime.text = clearInfo.ClearTime.ToString();
+            limitTime.text = FormatTime(clearInfo.ClearTime);
 
             gemNumCheck[0].SetActive(GameManager.Instance.NumberOfGem >= clearInfo.RequiredGems);
             gemNumCheck[1].SetActive(!gemNumCheck[0].activeSelf);
             timeText.text = FormatTime(GameManager.Instance.Timer);
-            timeCheck[0].SetActive(GameManager.Instance.Timer >= clearInfo.ClearTime);
+            timeCheck[0].SetActive(GameManager.Instance.Timer <= clearInfo.ClearTime);
             timeCheck[1].SetActive(!timeCheck[0].activeSelf);
 
             ClearStarCheck();
 
             nextStageButton.gameObject.SetActive(SceneManager.sceneCountInBuildSettings > SceneManager.GetActiveScene().buildIndex + 1);
+
+            //다음 스테이지 Unlock
+            GameManager.Instance.SetStageResult(new GameResult(
+                SceneManager.GetSceneByBuildIndex(SceneManager.GetActiveScene().buildIndex + 1).name,
+                0, 0, StageStatus.Unlocked)
+                );
         }
 
         void ClearStarCheck()
