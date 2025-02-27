@@ -19,7 +19,7 @@ namespace Manager
 
                     if (_instance == null)
                     {
-                        GameObject go = new GameObject("GameManager");
+                        GameObject go = new GameObject("GameManager");  
                         _instance = go.AddComponent<GameManager>();
                         //DontDestroyOnLoad(go);
                     }
@@ -33,6 +33,7 @@ namespace Manager
         float timer;
         public float Timer => timer;
         private int numberOfGem;
+        public int NumberOfGem => numberOfGem;
         
         const int NumForClear = 2;
         int openExitDoorCount;
@@ -81,22 +82,27 @@ namespace Manager
         {
             // 현재 씬의 이름을 키로 스테이지 데이터 반환
             string currentSceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+
             if (stageInfo.TryGetValue(currentSceneName, out GameStage currentStage))
             {
+                
+                StageStatus currentStageStatus = StageStatus.Cleared;
+
+                int stageClearLevel = 1;
+                stageClearLevel += numberOfGem >= currentStage.RequiredGems ? 1 : 0;
+                stageClearLevel += Timer >= currentStage.ClearTime ? 1 : 0;
+
+                if (stageClearLevel == 3)
+                    currentStageStatus = StageStatus.PerfectlyCleared;
+                else
+                    currentStageStatus = StageStatus.Cleared;
+
+                SetStageResult(new GameResult(currentStage.StageName, timer, numberOfGem, currentStageStatus));
+                
                 return currentStage;
             }
             Debug.LogError($"씬 이름 {currentSceneName}에 해당하는 스테이지 정보를 찾을 수 없습니다!");
             return null;
-        }
-        
-        private GameStage ClearStage(GameStage currentStage, int scoreAchieved)
-        {
-            currentStage.IsCleared = true; // 클리어 여부 업데이트
-            currentStage.Score = scoreAchieved; // 점수 업데이트
-
-            Debug.Log($"{currentStage.StageName} 완료! 점수: {currentStage.Score}");
-            
-            return currentStage;
         }
 
         void OnOpenExitDoor(object sender)
@@ -104,8 +110,7 @@ namespace Manager
             openExitDoorCount++;
             if (openExitDoorCount >= NumForClear)
             {
-                GameStage clearStage = ClearStage(GetCurrentStageInfo(), numberOfGem);
-                SignalManager.Instance.EmitSignal(SignalKey.GameClear, clearStage);
+                SignalManager.Instance.EmitSignal(SignalKey.GameClear);
             }
         }
         
@@ -137,20 +142,22 @@ namespace Manager
 
 
         }
+
+        public GameResult GetStageResult(string stageName)
+        {
+            GameResult tempResult;
+
+            if(stageResultInfo.TryGetValue(stageName, out tempResult))
+            {
+                return tempResult;
+            }
+
+            else
+            {
+                Debug.LogWarning(stageName + "is not found");
+                return new GameResult(stageName,0,0,StageStatus.Locked);
+            }
+        }
         
      }
-
-    public class GameResult
-    {
-        public string stageName;
-        public float passedTime;
-        public int score;
-
-        public GameResult(string stageName, float passedTime, int score )
-        {
-            this.stageName = stageName;
-            this.passedTime = passedTime;
-            this.score = score;
-        }
-    }
 }
