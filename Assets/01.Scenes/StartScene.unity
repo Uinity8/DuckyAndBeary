@@ -266,10 +266,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicVolume: 1
   soundEffectVolume: 1
+  soundEffectPitchvariance: 0
   audioSource: {fileID: 0}
-  mainClip: {fileID: 8300000, guid: 7b8795cdd5c073940b562dcbe07aca34, type: 3}
-  stageClip: {fileID: 8300000, guid: 31446c38e62a4cb4cb7aeb59aef18b0e, type: 3}
-  inGameClip: {fileID: 8300000, guid: 7b8795cdd5c073940b562dcbe07aca34, type: 3}
+  mainClip: {fileID: 8300000, guid: cf45beab60af4b44c88fb85bae39a40e, type: 3}
   soundSource: {fileID: 3525272814755153311, guid: bcc302cab0e7396479e9b650ee8ac990, type: 3}
 --- !u!1 &55835154
 GameObject:
@@ -745,7 +744,7 @@ RectTransform:
   m_Father: {fileID: 1371465289}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1290,8 +1289,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 540529805}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1664,7 +1663,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1380477604
 RectTransform:
   m_ObjectHideFlags: 0

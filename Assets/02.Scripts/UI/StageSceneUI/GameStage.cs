@@ -6,7 +6,7 @@ namespace Scripts.UI.StageSceneUI
 
     {
         //스테이지 정보값
-        public string StageName;       // 스테이지 이름 또는 고유 키
+        public string StageName;      // 스테이지 이름 또는 고유 키
         public int StageIndex;        // 스테이지의 고유 인덱스
         public bool IsCleared;        // 스테이지 클리어 여부
         public int RequiredGems;      // 목표 Gem 수
