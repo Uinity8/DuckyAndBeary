@@ -14,6 +14,7 @@ namespace UI.Popup
         int stageClearLevel;
         [SerializeField] GameObject[] stars;
         [SerializeField] GameObject[] gemNumCheck;
+        [SerializeField] TextMeshProUGUI limitTime;
         [SerializeField] TextMeshProUGUI timeText;
         [SerializeField] GameObject[] timeCheck;
 
@@ -32,6 +33,8 @@ namespace UI.Popup
         void ShowStageResult()
         {
             //clearInfo 값에 따라 UI 설정
+            limitTime.text = clearInfo.ClearTime.ToString();
+
             gemNumCheck[0].SetActive(GameManager.Instance.NumberOfGem >= clearInfo.RequiredGems);
             gemNumCheck[1].SetActive(!gemNumCheck[0].activeSelf);
             timeText.text = FormatTime(GameManager.Instance.Timer);
