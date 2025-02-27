@@ -372,8 +372,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.00001335144, y: -80}
-  m_SizeDelta: {x: 646, y: 798}
+  m_AnchoredPosition: {x: -0.00001335144, y: -0.39453}
+  m_SizeDelta: {x: 646, y: 638.79}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &403515868
 MonoBehaviour:
@@ -532,6 +532,10 @@ PrefabInstance:
     - target: {fileID: 8323523358686452273, guid: 058ae95ec237ab94da7685af5f277b67, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -83
+      objectReference: {fileID: 0}
+    - target: {fileID: 8758005040140408298, guid: 058ae95ec237ab94da7685af5f277b67, type: 3}
+      propertyPath: stageIndex
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1118,6 +1122,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stage (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8758005040140408298, guid: 058ae95ec237ab94da7685af5f277b67, type: 3}
+      propertyPath: stageIndex
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1164,8 +1172,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -9, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -4.499878, y: 0}
+  m_SizeDelta: {x: 9.0001, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1683739125
 MonoBehaviour:
@@ -1185,7 +1193,6 @@ MonoBehaviour:
   stage: {fileID: 4569204}
   moveDistance: 70
   moveDuration: 1
-  targetPosition: {x: 0, y: 0}
 --- !u!1 &1743262984
 GameObject:
   m_ObjectHideFlags: 0

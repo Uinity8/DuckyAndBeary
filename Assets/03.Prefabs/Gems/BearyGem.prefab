@@ -101,7 +101,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 0
+  getScore: {fileID: 8300000, guid: 224605bdd871ff34f933df1e2dd7a4eb, type: 3}
 --- !u!58 &2736205496030681318
 CircleCollider2D:
   m_ObjectHideFlags: 0

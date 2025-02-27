@@ -37,9 +37,7 @@ public class MainUI : MonoBehaviour
     // Update is called once per frame
     private void OnClickStartButton()
     {
-        //StageSce입력
-        
-        SoundManager.Instance.ChnageBackGroundMusic(SoundManager.Instance.stageClip);
+        //StageSce입력     
         SceneManager.LoadScene("StageSelect");
     }
 
