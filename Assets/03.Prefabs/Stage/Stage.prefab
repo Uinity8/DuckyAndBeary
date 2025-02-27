@@ -398,7 +398,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6385434204791664490}
-  - component: {fileID: 8758005040140408298}
+  - component: {fileID: 20381307982701174}
   m_Layer: 5
   m_Name: Stage
   m_TagString: Untagged
@@ -427,7 +427,7 @@ RectTransform:
   m_AnchoredPosition: {x: -563, y: 41}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &8758005040140408298
+--- !u!114 &20381307982701174
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -436,7 +436,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6586056489198250335}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd4d91293f08bbe4c91d5262458afedc, type: 3}
+  m_Script: {fileID: 11500000, guid: 61af9b620a2c2394ba8c3876ca7656cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   stageSelectButton: {fileID: 6896711241423858596}
