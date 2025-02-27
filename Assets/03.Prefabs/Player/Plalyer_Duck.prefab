@@ -221,7 +221,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 3346921727400573444}
   isDuckCharacter: 1
-  jumpClip: {fileID: 8300000, guid: 52c9bcd13ab287e43ab964fca33664a3, type: 3}
 --- !u!114 &7121890575234981642
 MonoBehaviour:
   m_ObjectHideFlags: 0
