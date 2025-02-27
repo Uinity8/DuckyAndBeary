@@ -19,7 +19,7 @@ namespace Manager
 
                     if (_instance == null)
                     {
-                        GameObject go = new GameObject("GameManager");
+                        GameObject go = new GameObject("GameManager");  
                         _instance = go.AddComponent<GameManager>();
                         //DontDestroyOnLoad(go);
                     }
@@ -135,22 +135,25 @@ namespace Manager
                 Debug.Log($"{stageResultInfo[result.stageName].stageName} {stageResultInfo[result.stageName].passedTime}");
             }
 
+        }
 
+        public GameResult GetStageResult(string stageName)
+        {
+            GameResult tempResult;
+
+            if(stageResultInfo.TryGetValue(stageName, out tempResult))
+            {
+                return tempResult;
+            }
+
+            else
+            {
+                Debug.LogWarning(stageName + "is not found");
+                return new GameResult(stageName,0,0,StageStatus.Locked);
+            }
         }
         
      }
 
-    public class GameResult
-    {
-        public string stageName;
-        public float passedTime;
-        public int score;
-
-        public GameResult(string stageName, float passedTime, int score )
-        {
-            this.stageName = stageName;
-            this.passedTime = passedTime;
-            this.score = score;
-        }
-    }
+    
 }

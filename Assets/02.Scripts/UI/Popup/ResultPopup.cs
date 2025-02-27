@@ -19,12 +19,15 @@ namespace UI.Popup
 
         [SerializeField] Button nextStageButton;
 
+        StageStatus currentStageStatus;
+
         public override void Initialize()
         {
             base.Initialize();
             //게임 클리어 정보 불러오기
             clearInfo = GameManager.Instance.GetCurrentStageInfo();
             Debug.Log($"{clearInfo.StageName} / {clearInfo.Score} / {clearInfo.ClearTime}");
+            stageClearLevel = 1;
             ShowStageResult();
 
         }
@@ -42,23 +45,26 @@ namespace UI.Popup
             nextStageButton.gameObject.SetActive(SceneManager.sceneCountInBuildSettings > SceneManager.GetActiveScene().buildIndex + 1);
 
             GameManager.Instance.SetStageResult(new GameResult(
-                clearInfo.StageName, GameManager.Instance.Timer, clearInfo.Score
+                clearInfo.StageName, GameManager.Instance.Timer, clearInfo.Score, currentStageStatus
                 ));
         }
 
         void ClearStarCheck()
         {
-            if (clearInfo.IsCleared)
-                stageClearLevel++;
-            if (clearInfo.Score >= clearInfo.RequiredGems)
-                stageClearLevel++;
-            if (GameManager.Instance.Timer >= clearInfo.ClearTime)
-                stageClearLevel++;
+            stageClearLevel += clearInfo.Score >= clearInfo.RequiredGems ? 1 : 0;
+            stageClearLevel += GameManager.Instance.Timer >= clearInfo.ClearTime ? 1 : 0;
+
+            if (stageClearLevel == 3)
+                currentStageStatus = StageStatus.PerfectlyCleared;
+            else
+                currentStageStatus = StageStatus.Cleared;
 
             for(int i = 0; i < stageClearLevel; i++)
             {
                 stars[i].SetActive(true);
             }
+
+            Debug.Log(stageClearLevel);
         }
 
         /// <summary>

@@ -34,7 +34,11 @@ public class GetInGame : MonoBehaviour
     //스코어 저장
     private void SetStageUI()
     {
-        currentScore.text = score.ToString();
-        stageText.text = "STAGE" + stageIndex.ToString();
+        //currentScore.text = score.ToString();
+        //stageText.text = "STAGE" + stageIndex.ToString();
+
+        GameResult result = GameManager.Instance.GetStageResult("Stage" + stageIndex);
+        currentScore.text = result.score.ToString();
+        stageText.text = result.stageStatus.ToString();
     }
 }
