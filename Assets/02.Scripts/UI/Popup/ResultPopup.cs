@@ -37,7 +37,11 @@ namespace UI.Popup
             timeText.text = FormatTime(GameManager.Instance.Timer);
             timeCheck.text = GameManager.Instance.Timer >= clearInfo.ClearTime ? "Clear" : "Not Enough";
 
-            nextStageButton.gameObject.SetActive(SceneManager.sceneCountInBuildSettings >= SceneManager.GetActiveScene().buildIndex + 1);
+            nextStageButton.gameObject.SetActive(SceneManager.sceneCountInBuildSettings > SceneManager.GetActiveScene().buildIndex + 1);
+
+            GameManager.Instance.SetStageResult(new GameResult(
+                clearInfo.StageName, GameManager.Instance.Timer, clearInfo.Score
+                ));
         }
 
         /// <summary>
