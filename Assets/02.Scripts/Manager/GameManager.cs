@@ -88,16 +88,16 @@ namespace Manager
                 
                 StageStatus currentStageStatus = StageStatus.Cleared;
 
-                int stageClearLevel = 1;
-                stageClearLevel += numberOfGem >= currentStage.RequiredGems ? 1 : 0;
-                stageClearLevel += Timer >= currentStage.ClearTime ? 1 : 0;
+                int starCount = 1;
+                starCount += numberOfGem >= currentStage.RequiredGems ? 1 : 0;
+                starCount += Timer <= currentStage.ClearTime ? 1 : 0;
 
-                if (stageClearLevel == 3)
+                if (starCount == 3)
                     currentStageStatus = StageStatus.PerfectlyCleared;
                 else
                     currentStageStatus = StageStatus.Cleared;
 
-                SetStageResult(new GameResult(currentStage.StageName, timer, numberOfGem, currentStageStatus));
+                SetStageResult(new GameResult(currentStage.StageName, timer, starCount, currentStageStatus));
                 
                 return currentStage;
             }
@@ -125,7 +125,7 @@ namespace Manager
 
             if(stageResultInfo.TryGetValue(result.stageName, out tempResult))
             {
-                if(tempResult.passedTime < result.passedTime || tempResult.score < result.score)
+                if(tempResult.score < result.score)
                 {
                     stageResultInfo[result.stageName] = result;
                     Debug.Log("결과 갱신");

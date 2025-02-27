@@ -53,9 +53,6 @@ namespace Entity
         [SerializeField] float imageRatio;
         Transform backgroundImage;
 
-        //[SerializeField] float testValue;
-        //float centerWeight;
-
         void Start()
         {
             players = FindObjectsOfType<PlayerController>();
@@ -90,8 +87,8 @@ namespace Entity
             //시작시 카메라가 맵 중앙에서 플레이어를 향해 이동
             //맵 전체를 비추고 이후 플레이어를 향해 줌 인
             readyPos = CalculatePlayersCenter();
-            MoveCamera(Vector3.Lerp(cameraCenter, readyPos, t / duration));
-            mainCamera.orthographicSize = Mathf.Lerp(startCameraSize, minValue, t / duration);
+            MoveCamera(Vector3.Lerp(cameraCenter, readyPos, Mathf.SmoothStep(0, 1, t)));
+            mainCamera.orthographicSize = Mathf.Lerp(startCameraSize, minValue, Mathf.SmoothStep(0, 1, t));
 
             if (t / duration >= 1f)
             {
@@ -158,11 +155,6 @@ namespace Entity
         {
             //플레이어들의 중점을 계산
             Vector2 center = players.Aggregate(Vector2.zero, (sum, player) => sum + (Vector2)player.transform.position);
-
-
-            //centerWeight = testValue * Mathf.Pow(mainCamera.orthographicSize - minValue,2);
-            //center += (Vector2)cameraCenter * centerWeight;
-            //return center / (players.Length + centerWeight);
             
             return center / players.Length;
         }
