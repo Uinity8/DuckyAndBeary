@@ -748,6 +748,7 @@ GameObject:
   - component: {fileID: 8913812909774999683}
   - component: {fileID: 6214353167360059768}
   - component: {fileID: 248642592111634939}
+  - component: {fileID: 3745938646912247987}
   m_Layer: 5
   m_Name: LevelCompletePopup
   m_TagString: Untagged
@@ -820,6 +821,30 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3745938646912247987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2497425877263878585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9daac8435d2e14e989a8dd3ea68b7624, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stars:
+  - {fileID: 7888633096514366101}
+  - {fileID: 3160057829031939600}
+  - {fileID: 8929755358237502448}
+  gemNumCheck:
+  - {fileID: 5928578340019421698}
+  - {fileID: 3595496923598386131}
+  timeText: {fileID: 2937799066749275871}
+  timeCheck:
+  - {fileID: 182555901786756438}
+  - {fileID: 2095900850372048553}
+  nextStageButton: {fileID: 5260260094593520005}
 --- !u!1 &3160057829031939600
 GameObject:
   m_ObjectHideFlags: 0
@@ -837,7 +862,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6625868683544339940
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1837,7 +1862,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4642620834326147159
 RectTransform:
   m_ObjectHideFlags: 0

@@ -11,11 +11,11 @@ namespace UI.Popup
     public class ResultPopup : GameControlPopup
     {
         GameStage clearInfo;
-        [SerializeField] TextMeshProUGUI stageClearCheck;
-        [SerializeField] TextMeshProUGUI gemNumText;
-        [SerializeField] TextMeshProUGUI gemNumCheck;
+        int stageClearLevel;
+        [SerializeField] GameObject[] stars;
+        [SerializeField] GameObject[] gemNumCheck;
         [SerializeField] TextMeshProUGUI timeText;
-        [SerializeField] TextMeshProUGUI timeCheck;
+        [SerializeField] GameObject[] timeCheck;
 
         [SerializeField] Button nextStageButton;
 
@@ -31,17 +31,34 @@ namespace UI.Popup
 
         void ShowStageResult()
         {
-            stageClearCheck.text = "Clear";
-            gemNumText.text = clearInfo.Score.ToString();
-            gemNumCheck.text = clearInfo.Score >= clearInfo.RequiredGems ? "Clear" : "Not Enough";
+            gemNumCheck[0].SetActive(clearInfo.Score >= clearInfo.RequiredGems);
+            gemNumCheck[1].SetActive(!gemNumCheck[0].activeSelf);
             timeText.text = FormatTime(GameManager.Instance.Timer);
-            timeCheck.text = GameManager.Instance.Timer >= clearInfo.ClearTime ? "Clear" : "Not Enough";
+            timeCheck[0].SetActive(GameManager.Instance.Timer >= clearInfo.ClearTime);
+            timeCheck[1].SetActive(!timeCheck[0].activeSelf);
+
+            ClearStarCheck();
 
             nextStageButton.gameObject.SetActive(SceneManager.sceneCountInBuildSettings > SceneManager.GetActiveScene().buildIndex + 1);
 
             GameManager.Instance.SetStageResult(new GameResult(
                 clearInfo.StageName, GameManager.Instance.Timer, clearInfo.Score
                 ));
+        }
+
+        void ClearStarCheck()
+        {
+            if (clearInfo.IsCleared)
+                stageClearLevel++;
+            if (clearInfo.Score >= clearInfo.RequiredGems)
+                stageClearLevel++;
+            if (GameManager.Instance.Timer >= clearInfo.ClearTime)
+                stageClearLevel++;
+
+            for(int i = 0; i < stageClearLevel; i++)
+            {
+                stars[i].SetActive(true);
+            }
         }
 
         /// <summary>
