@@ -6,9 +6,17 @@ public class SettingPopup : UIPopup
 {
     [SerializeField]private Slider bgmSlider;
     [SerializeField]private Slider sfxSlider;
+    
+    [SerializeField]private Image bgmIcon;
+    [SerializeField]private Image sfxIcon;
+    
+    [SerializeField]Sprite[] bgmSprites;
+    [SerializeField]Sprite[] sfxSprites;
 
-    private bool isMute = false;
-    private float prevVolume;
+    public AudioClip vfxClip;
+    
+    private bool isSfxMute = false;
+    private float prevSfxVolume;
     
     SoundManager soundManager;
 
@@ -20,29 +28,37 @@ public class SettingPopup : UIPopup
     private void Start()
     {
         bgmSlider.value = soundManager.audioSource.volume;
+        
         sfxSlider.value = soundManager.SFXVolume;
+        prevSfxVolume = sfxSlider.value;
+        
+        bgmSlider.onValueChanged.AddListener(SetBgmVolume);
+        sfxSlider.onValueChanged.AddListener(SetSfxVolume);
+        
     }
     
     public void BGMMute()
     {
-        bool isMute = soundManager.audioSource.mute;
-        if (isMute)
+        bool isMute = !soundManager.audioSource.mute;
+        soundManager.audioSource.mute = isMute;  
+        
+        bgmIcon.sprite = isMute ? bgmSprites[0] : bgmSprites[1];
+
+    }
+
+    public void SfxMute()
+    {
+        isSfxMute = !isSfxMute;
+        if (isSfxMute)
         {
-            bgmSlider.value =  soundManager.audioSource.volume;
+            sfxIcon.sprite = sfxSprites[0];
+            SetSfxVolume(0);   
         }
         else
         {
-            bgmSlider.value = 0;
+            sfxIcon.sprite = sfxSprites[1];
+            SetSfxVolume(sfxSlider.value);
         }
-        soundManager.audioSource.mute = !isMute;   
-    }
-
-    public void SFXMute()
-    {
-        
-        prevVolume = soundManager.SFXVolume;
-        sfxSlider.value = 0;
-        SetSfxVolume(0);
     }
     
     public void SetBgmVolume(float volume)
@@ -52,5 +68,17 @@ public class SettingPopup : UIPopup
     public void SetSfxVolume(float volume)
     {
         soundManager.SetSfxVolume(volume);
+    }
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonUp(0))
+        {
+            if (!Mathf.Approximately(prevSfxVolume, sfxSlider.value))
+            {
+                prevSfxVolume = sfxSlider.value;
+                SoundManager.PlayClip(vfxClip);
+            }
+        }
     }
 }

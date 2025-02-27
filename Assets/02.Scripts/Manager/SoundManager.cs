@@ -56,7 +56,7 @@ public class SoundManager : MonoBehaviour
     
     public void SetBgmVolume(float volume)
     {
-        musicVolume = volume;
+        audioSource.volume = volume;
     }
     public void SetSfxVolume(float volume)
     {
