@@ -14,6 +14,7 @@ namespace UI.Popup
         int stageClearLevel;
         [SerializeField] GameObject[] stars;
         [SerializeField] GameObject[] gemNumCheck;
+        [SerializeField] TextMeshProUGUI limitTime;
         [SerializeField] TextMeshProUGUI timeText;
         [SerializeField] GameObject[] timeCheck;
 
@@ -24,7 +25,6 @@ namespace UI.Popup
             base.Initialize();
             //게임 클리어 정보 불러오기
             clearInfo = GameManager.Instance.GetCurrentStageInfo();
-            stageClearLevel = 1;
             ShowStageResult();
 
         }
@@ -32,23 +32,31 @@ namespace UI.Popup
         void ShowStageResult()
         {
             //clearInfo 값에 따라 UI 설정
+            limitTime.text = clearInfo.ClearTime.FormatTime();
+
             gemNumCheck[0].SetActive(GameManager.Instance.NumberOfGem >= clearInfo.RequiredGems);
             gemNumCheck[1].SetActive(!gemNumCheck[0].activeSelf);
-            timeText.text = FormatTime(GameManager.Instance.Timer);
-            timeCheck[0].SetActive(GameManager.Instance.Timer >= clearInfo.ClearTime);
+            timeText.text = GameManager.Instance.Timer.FormatTime();
+            timeCheck[0].SetActive(GameManager.Instance.Timer <= clearInfo.ClearTime);
             timeCheck[1].SetActive(!timeCheck[0].activeSelf);
 
             ClearStarCheck();
 
             nextStageButton.gameObject.SetActive(SceneManager.sceneCountInBuildSettings > SceneManager.GetActiveScene().buildIndex + 1);
+
+            if (GetNextStageName() != null)
+                //다음 스테이지 Unlock
+                GameManager.Instance.SetStageResult(new GameResult(GetNextStageName(),0, 0, StageStatus.Unlocked));
+
         }
 
         void ClearStarCheck()
         {
+            stageClearLevel = 1;
             stageClearLevel += gemNumCheck[0].activeSelf ? 1 : 0;
             stageClearLevel += timeCheck[0].activeSelf ? 1 : 0;
 
-            for(int i = 0; i < stageClearLevel; i++)
+            for (int i = 0; i < stageClearLevel; i++)
             {
                 stars[i].SetActive(true);
             }
@@ -65,11 +73,23 @@ namespace UI.Popup
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
 
-        public string FormatTime(float time)
+        public string GetNextStageName()
         {
-            int minutes = Mathf.FloorToInt(time / 60);
-            int seconds = Mathf.FloorToInt(time % 60);
-            return $"{minutes:00}:{seconds:00}";
+            int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+            int nextSceneIndex = currentSceneIndex + 1;
+
+            Debug.Log($"currentSceneIndex : {currentSceneIndex}");
+
+            if (SceneManager.sceneCountInBuildSettings > nextSceneIndex)
+            {
+                return "Stage" + (nextSceneIndex - 1).ToString();
+
+            }
+            else
+            {
+                return null;
+            }
+
         }
     }
 }
