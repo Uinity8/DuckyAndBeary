@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class StageSceneButtonUI : MonoBehaviour
 {
+    [FormerlySerializedAs("maintButton")]
     [Header("GetButton")]
     [SerializeField] private Button mainButton;
     [SerializeField] private Button prevButton;
@@ -22,13 +23,15 @@ public class StageSceneButtonUI : MonoBehaviour
         targetPosition = stage.anchoredPosition;
 
         mainButton.onClick.AddListener(LoadMainScene);
-        prevButton.onClick.AddListener(() => MoveStage(true));
+        prevButton.onClick.AddListener(()=>MoveStage(true));
         nextButton.onClick.AddListener(() => MoveStage(false));
     }
 
     private void LoadMainScene()
-    {    
+    {
+        
         SceneManager.LoadScene("StartScene");
+        SoundManager.Instance.ChnageBackGroundMusic(SoundManager.Instance.mainClip);
     }
 
     private void MoveStage(bool isLeft)
