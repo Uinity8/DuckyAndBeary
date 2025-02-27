@@ -12,7 +12,7 @@ public class GetInGame : MonoBehaviour
     [SerializeField] private TextMeshProUGUI stageText;
     [SerializeField] private int stageIndex;
     public int StageIndex { get => stageIndex; }
-    public bool isClear = false;
+    //public bool isClear = false;
     private int score;
 
     private void Awake()

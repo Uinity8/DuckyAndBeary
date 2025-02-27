@@ -24,7 +24,6 @@ namespace UI.Popup
             base.Initialize();
             //게임 클리어 정보 불러오기
             clearInfo = GameManager.Instance.GetCurrentStageInfo();
-            Debug.Log($"{clearInfo.StageName} / {clearInfo.Score} / {clearInfo.ClearTime}");
             stageClearLevel = 1;
             ShowStageResult();
 
