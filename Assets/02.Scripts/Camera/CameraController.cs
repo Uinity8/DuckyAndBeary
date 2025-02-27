@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.U2D;
@@ -17,8 +14,8 @@ namespace Entity
 
         enum GizmoLayer
         {
-            카메라_이동_범위,
-            카메라_시작_영역
+            카메라이동범위,
+            카메라시작영역
         }
         //에디터 상에서 표현될 Gizmo 바꾸기
         [Header("Gizmo 레이어 바꾸기")]
@@ -37,7 +34,7 @@ namespace Entity
         private Vector3 cameraCenter;
         private Vector3 readyPos;
         private bool isStarted = true;
-        private float t = 0f;
+        private float t;
 
         [Header("카메라 줌 인&아웃 조절")]
         [SerializeField] float cameraMargin;
@@ -45,9 +42,9 @@ namespace Entity
         [SerializeField] float zoomSpeed = 2f; // 변환 속도
         private float targetOrthographicSize; // 목표 orthographicSize
 
-        private const float cameraZPosition = -10f;
-        private const float widthToHalfHeight = 1 / 3f;
-        private const float halfHeight = 1 / 2f;
+        private const float CameraZPosition = -10f;
+        private const float WidthToHalfHeight = 1 / 3f;
+        private const float HalfHeight = 1 / 2f;
 
         [Header("배경 이미지 크기 조절")]
         [SerializeField] float imageRatio;
@@ -64,7 +61,7 @@ namespace Entity
             // 초기 카메라 설정
             pixelPerfectCamera.CorrectCinemachineOrthoSize(0);
             cameraCenter = new Vector3(startCameraArea.x + startCameraArea.width / 2, startCameraArea.y + startCameraArea.height / 2);
-            startCameraSize = startCameraArea.width * widthToHalfHeight - 2f;
+            startCameraSize = startCameraArea.width * WidthToHalfHeight - 2f;
         }
 
         private void Update()
@@ -112,7 +109,7 @@ namespace Entity
         {
             switch (gizmoLayer)
             {
-                case GizmoLayer.카메라_이동_범위:
+                case GizmoLayer.카메라이동범위:
                     if (boundary == default)
                     {
                         Debug.LogError("Camera Boundary가 설정되지 않았습니다.");
@@ -125,7 +122,7 @@ namespace Entity
                     Gizmos.DrawCube(center, size);
                     break;
 
-                case GizmoLayer.카메라_시작_영역:
+                case GizmoLayer.카메라시작영역:
                     if (startCameraArea == default)
                     {
                         Debug.LogError("Camera Start Area가 설정되지 않았습니다.");
@@ -145,7 +142,7 @@ namespace Entity
             Vector3 targetPos = new Vector3(
                 Mathf.Clamp(middlePoint.x, boundary.xMin, boundary.xMax),
                 Mathf.Clamp(middlePoint.y, boundary.yMin, boundary.yMax),
-                cameraZPosition
+                CameraZPosition
             );
 
             transform.position = targetPos;
@@ -207,11 +204,11 @@ namespace Entity
 
             if (isOnX)
             {
-                value = Mathf.Max(0, distance - (minValue - cameraMargin * 2)) * widthToHalfHeight;
+                value = Mathf.Max(0, distance - (minValue - cameraMargin * 2)) * WidthToHalfHeight;
             }
             else
             {
-                value = Mathf.Max(0, distance - (minValue - cameraMargin * 2)) * halfHeight;
+                value = Mathf.Max(0, distance - (minValue - cameraMargin * 2)) * HalfHeight;
             }
 
             targetOrthographicSize = minValue + value;

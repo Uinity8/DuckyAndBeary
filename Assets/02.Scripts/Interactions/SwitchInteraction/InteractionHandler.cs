@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class InteractionHandler : MonoBehaviour
@@ -31,11 +28,11 @@ public class InteractionHandler : MonoBehaviour
 
     private void Awake()
     {
-        foreach (Switch swich in switchObj)
+        foreach (Switch currentSwitch in switchObj)
         {
             foreach (DoorController door in doorObj)
             {
-                swich.OnActive += door.SetActive;
+                currentSwitch.OnActive += door.SetActive;
             }
         }
 

@@ -1,5 +1,4 @@
 using Entity.Player;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -54,10 +53,8 @@ namespace Entity
             Debug.Log("신호를 받았습니다.");
 
         }
-        public void OnResume(object sender)
-        {
-            isPaused = false;
-        }
+        public void OnResume(object sender) => isPaused = false;
+
         void OnMove(InputValue value)
         {
 

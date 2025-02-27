@@ -40,7 +40,7 @@ namespace Manager
 
 
         private readonly Dictionary<string, GameStage> stageInfo = new Dictionary<string, GameStage>();
-        static private readonly Dictionary<string, GameResult> stageResultInfo = new Dictionary<string, GameResult>();
+        private static readonly Dictionary<string, GameResult> StageResultInfo = new Dictionary<string, GameResult>();
 
         private void Awake()
         {
@@ -85,17 +85,11 @@ namespace Manager
 
             if (stageInfo.TryGetValue(currentSceneName, out GameStage currentStage))
             {
-                
-                StageStatus currentStageStatus = StageStatus.Cleared;
-
                 int starCount = 1;
                 starCount += numberOfGem >= currentStage.RequiredGems ? 1 : 0;
                 starCount += Timer <= currentStage.ClearTime ? 1 : 0;
 
-                if (starCount == 3)
-                    currentStageStatus = StageStatus.PerfectlyCleared;
-                else
-                    currentStageStatus = StageStatus.Cleared;
+                StageStatus currentStageStatus = starCount == 3 ? StageStatus.PerfectlyCleared : StageStatus.Cleared;
 
                 SetStageResult(new GameResult(currentStage.StageName, timer, starCount, currentStageStatus));
                 
@@ -121,23 +115,23 @@ namespace Manager
 
         public void SetStageResult(GameResult result)
         {
-            GameResult tempResult;
-
-            if(stageResultInfo.TryGetValue(result.stageName, out tempResult))
+            if(StageResultInfo.TryGetValue(result.stageName, out GameResult tempResult))
             {
-                if(tempResult.score < result.score)
+                if (tempResult.score >= result.score)
                 {
-                    stageResultInfo[result.stageName] = result;
-                    Debug.Log("결과 갱신");
+                    return;
                 }
+
+                StageResultInfo[result.stageName] = result;
+                Debug.Log("결과 갱신");
 
             }
             else
             {
                 //처음 결과를 저장할 때
-                stageResultInfo.Add(result.stageName, result);
+                StageResultInfo.Add(result.stageName, result);
                 Debug.Log("결과 저장");
-                Debug.Log($"{stageResultInfo[result.stageName].stageName} {stageResultInfo[result.stageName].passedTime}");
+                Debug.Log($"{StageResultInfo[result.stageName].stageName} {StageResultInfo[result.stageName].passedTime}");
             }
 
 
@@ -145,9 +139,7 @@ namespace Manager
 
         public GameResult GetStageResult(string stageName)
         {
-            GameResult tempResult;
-
-            if(stageResultInfo.TryGetValue(stageName, out tempResult))
+            if(StageResultInfo.TryGetValue(stageName, out GameResult tempResult))
             {
                 return tempResult;
             }

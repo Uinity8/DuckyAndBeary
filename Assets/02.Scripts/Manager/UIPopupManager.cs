@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UI;
 using UI.Popup;
 using UnityEngine;
 
@@ -7,7 +6,7 @@ namespace Manager
 {
     public class UIPopupManager
     {
-        private Dictionary<string, UIPopup> popupPool;
+        private readonly Dictionary<string, UIPopup> popupPool;
         //private readonly Transform canvasTransform;
 
         public UIPopupManager()
@@ -34,10 +33,10 @@ namespace Manager
                 return;
             }
    
-            GameObject popupObj = Object.Instantiate(popupPrefab);
+            Transform canvasTransform = Object.FindObjectOfType<Canvas>().transform;
+            GameObject popupObj = Object.Instantiate(popupPrefab, canvasTransform, false);
             popupObj.name = popupName;
-            Transform canvasTransform = GameObject.FindObjectOfType<Canvas>().transform;
-            popupObj.transform.SetParent(canvasTransform,false);   
+            
 
             UIPopup popup = popupObj.GetComponent<UIPopup>();
             if (popup != null)
