@@ -6,7 +6,6 @@ namespace Manager
 {
     public class GameManager : MonoBehaviour
     {
-        
         private static GameManager _instance;
         SignalManager signalManager;
 
@@ -40,6 +39,7 @@ namespace Manager
 
 
         private readonly Dictionary<string, GameStage> stageInfo = new Dictionary<string, GameStage>();
+        static private readonly Dictionary<string, GameResult> stageResultInfo = new Dictionary<string, GameResult>();
 
         private void Awake()
         {
@@ -47,6 +47,7 @@ namespace Manager
             
             // 스테이지 데이터를 초기화
             InitializeStages();
+            Debug.Log("스테이지 정보 초기화");
         }
         
         private void InitializeStages()
@@ -112,6 +113,44 @@ namespace Manager
         {
             openExitDoorCount--;
         }
+
+        public void SetStageResult(GameResult result)
+        {
+            GameResult tempResult;
+
+            if(stageResultInfo.TryGetValue(result.stageName, out tempResult))
+            {
+                if(tempResult.passedTime < result.passedTime || tempResult.score < result.score)
+                {
+                    stageResultInfo[result.stageName] = result;
+                    Debug.Log("결과 갱신");
+                }
+
+            }
+            else
+            {
+                //처음 결과를 저장할 때
+                stageResultInfo.Add(result.stageName, result);
+                Debug.Log("결과 저장");
+                Debug.Log($"{stageResultInfo[result.stageName].stageName} {stageResultInfo[result.stageName].passedTime}");
+            }
+
+
+        }
         
      }
+
+    public class GameResult
+    {
+        public string stageName;
+        public float passedTime;
+        public int score;
+
+        public GameResult(string stageName, float passedTime, int score )
+        {
+            this.stageName = stageName;
+            this.passedTime = passedTime;
+            this.score = score;
+        }
+    }
 }

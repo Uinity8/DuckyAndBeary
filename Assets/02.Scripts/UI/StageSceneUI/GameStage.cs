@@ -1,6 +1,8 @@
+using UnityEngine;
+
 namespace Scripts.UI.StageSceneUI
 {
-    public class GameStage
+    public class GameStage : MonoBehaviour
 
     {
         //스테이지 정보값
@@ -21,6 +23,6 @@ namespace Scripts.UI.StageSceneUI
             this.ClearTime = clearTime;
             Score = 0; // 초기 점수는 0으로 시작
         }
-    
+
     }
 }
