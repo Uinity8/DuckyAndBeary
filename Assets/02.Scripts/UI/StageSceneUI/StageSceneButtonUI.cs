@@ -16,7 +16,7 @@ public class StageSceneButtonUI : MonoBehaviour
     [SerializeField] private float moveDistance;
     [SerializeField] private float moveDuration;
 
-    public Vector2 targetPosition;
+    private Vector2 targetPosition;
 
     private void Awake()
     {
@@ -29,7 +29,9 @@ public class StageSceneButtonUI : MonoBehaviour
 
     private void LoadMainScene()
     {
+        
         SceneManager.LoadScene("StartScene");
+        SoundManager.Instance.ChnageBackGroundMusic(SoundManager.Instance.mainClip);
     }
 
     private void MoveStage(bool isLeft)
@@ -37,14 +39,22 @@ public class StageSceneButtonUI : MonoBehaviour
         int direction = isLeft ? -1 : 1;
 
         if (!isLeft && targetPosition.x > 50) return;
-
         if (isLeft && targetPosition.x < -50) return;
 
         targetPosition += new Vector2(direction * moveDistance, 0);
 
-        stage.DOAnchorPos(targetPosition, moveDuration).SetEase(Ease.OutQuad);
-
-
+        if (targetPosition != null)
+        {
+            stage.DOAnchorPos(targetPosition, moveDuration).SetEase(Ease.OutQuad);
+        }
     }
 
+    private void OnDestroy()
+    {
+        if (stage != null)
+        {
+            stage.DOKill();
+        }
+        DOTween.Kill(this);
+    }
 }

@@ -14,7 +14,6 @@ public class SoundManager : MonoBehaviour
 
     public AudioClip mainClip;
     public AudioClip stageClip;
-    public AudioClip inGameClip;
 
     public SoundSource soundSource;
 
