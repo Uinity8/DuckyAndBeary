@@ -35,8 +35,8 @@ public class StageSceneButtonUI : MonoBehaviour
     {
         int direction = isLeft ? -1 : 1;
 
-        if (!isLeft && targetPosition.x > 50) return;
-        if (isLeft && targetPosition.x < -50) return;
+        if (!isLeft && targetPosition.x > 30) return;
+        if (isLeft && targetPosition.x < -30) return;
 
         targetPosition += new Vector2(direction * moveDistance, 0);
 
