@@ -140,7 +140,6 @@ namespace Manager
                 Debug.Log($"{stageResultInfo[result.stageName].stageName} {stageResultInfo[result.stageName].passedTime}");
             }
 
-            
 
         }
 
@@ -161,6 +160,4 @@ namespace Manager
         }
         
      }
-
-    
 }
