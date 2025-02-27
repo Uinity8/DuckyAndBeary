@@ -97,7 +97,7 @@ namespace Manager
                 else
                     currentStageStatus = StageStatus.Cleared;
 
-                SetStageResult(new GameResult(currentStage.StageName, timer, numberOfGem, currentStageStatus));
+                SetStageResult(new GameResult(currentStage.StageName, timer, stageClearLevel, currentStageStatus));
                 
                 return currentStage;
             }
