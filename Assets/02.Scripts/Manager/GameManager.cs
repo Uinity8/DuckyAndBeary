@@ -1,6 +1,6 @@
-using Scripts.UI.StageSceneUI;
 using System.Collections.Generic;
 using UnityEngine;
+using Scripts.UI.StageSceneUI;
 
 namespace Manager
 {
@@ -16,10 +16,16 @@ namespace Manager
             {
                 if (_instance == null)
                 {
-                    GameObject go = new GameObject("GameManager");
-                    _instance = go.AddComponent<GameManager>();
-                    DontDestroyOnLoad(go);
+                    _instance = FindObjectOfType<GameManager>();
+
+                    if (_instance == null)
+                    {
+                        GameObject go = new GameObject("GameManager");
+                        _instance = go.AddComponent<GameManager>();
+                        //DontDestroyOnLoad(go);
+                    }
                 }
+                
 
                 return _instance;
             }
@@ -48,7 +54,7 @@ namespace Manager
             // 딕셔너리로 스테이지 초기화 (씬 이름을 키로 사용)
             stageInfo.Add("Stage1", new GameStage("Stage1", 0, 6, 130f));
             stageInfo.Add("Stage2", new GameStage("Stage2", 1, 6, 150f));
-            stageInfo.Add("Stage2", new GameStage("Stage3", 2, 6, 150f));
+            stageInfo.Add("Stage3", new GameStage("Stage3", 2, 6, 150f));
         }
 
         private void Start()

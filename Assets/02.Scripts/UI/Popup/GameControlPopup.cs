@@ -35,7 +35,7 @@ namespace UI.Popup
         public virtual void ExitToStageSelect()
         {
             Close();
-            SceneManager.LoadScene("StartScene");
+            SceneManager.LoadScene("StageSelect");
         }
     }
 }
