@@ -947,9 +947,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stars:
-  - {fileID: 2393026741086772552}
-  - {fileID: 7046905648630003844}
-  - {fileID: 2336344648440104382}
+  - {fileID: 7888633096514366101}
+  - {fileID: 8929755358237502448}
+  - {fileID: 3160057829031939600}
   gemNumCheck:
   - {fileID: 5928578340019421698}
   - {fileID: 3595496923598386131}

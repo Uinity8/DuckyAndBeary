@@ -90,7 +90,7 @@ namespace Manager
 
                 int starCount = 1;
                 starCount += numberOfGem >= currentStage.RequiredGems ? 1 : 0;
-                starCount += Timer >= currentStage.ClearTime ? 1 : 0;
+                starCount += Timer <= currentStage.ClearTime ? 1 : 0;
 
                 if (starCount == 3)
                     currentStageStatus = StageStatus.PerfectlyCleared;

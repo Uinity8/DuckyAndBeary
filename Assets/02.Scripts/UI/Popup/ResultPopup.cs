@@ -25,7 +25,6 @@ namespace UI.Popup
             base.Initialize();
             //게임 클리어 정보 불러오기
             clearInfo = GameManager.Instance.GetCurrentStageInfo();
-            stageClearLevel = 1;
             ShowStageResult();
 
         }
@@ -45,19 +44,22 @@ namespace UI.Popup
 
             nextStageButton.gameObject.SetActive(SceneManager.sceneCountInBuildSettings > SceneManager.GetActiveScene().buildIndex + 1);
 
-            //다음 스테이지 Unlock
-            GameManager.Instance.SetStageResult(new GameResult(
-                SceneManager.GetSceneByBuildIndex(SceneManager.GetActiveScene().buildIndex + 1).name,
-                0, 0, StageStatus.Unlocked)
-                );
+            //if (SceneManager.sceneCountInBuildSettings > SceneManager.GetActiveScene().buildIndex + 1)
+            //    //다음 스테이지 Unlock
+            //    GameManager.Instance.SetStageResult(new GameResult(
+            //        SceneManager.GetSceneByBuildIndex(SceneManager.GetActiveScene().buildIndex + 1).name,
+            //        0, 0, StageStatus.Unlocked)
+            //        );
+
         }
 
         void ClearStarCheck()
         {
+            stageClearLevel = 1;
             stageClearLevel += gemNumCheck[0].activeSelf ? 1 : 0;
             stageClearLevel += timeCheck[0].activeSelf ? 1 : 0;
 
-            for(int i = 0; i < stageClearLevel; i++)
+            for (int i = 0; i < stageClearLevel; i++)
             {
                 stars[i].SetActive(true);
             }
