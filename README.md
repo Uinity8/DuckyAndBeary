@@ -5,7 +5,7 @@
 
 [플레이영상]
 
-<video src="Images/README/PlayVideo.mov"></video>
+<video src="Images/README/PlayVideo.mp4"></video>
 
 ---
 
