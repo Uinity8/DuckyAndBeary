@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UI;
 using UI.Popup;
 using UnityEngine;
 
@@ -33,7 +34,7 @@ namespace Manager
                 return;
             }
    
-            Transform canvasTransform = Object.FindObjectOfType<Canvas>().transform;
+            Transform canvasTransform = Object.FindObjectOfType<UIHud>().transform;
             GameObject popupObj = Object.Instantiate(popupPrefab, canvasTransform, false);
             popupObj.name = popupName;
             

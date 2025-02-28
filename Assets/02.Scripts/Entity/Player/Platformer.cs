@@ -63,7 +63,7 @@ namespace Entity.Player
         public bool IsOnCeiling()
         {
             Vector2 topCenter = new Vector2(_collider.bounds.center.x, _collider.bounds.max.y);
-            RaycastHit2D hit = Physics2D.Raycast(topCenter, Vector2.up, safeMargin);
+            RaycastHit2D hit = Physics2D.Raycast(topCenter, Vector2.up, safeMargin, floorLayer);
 
             DrawDebugRay(topCenter, Vector2.up * safeMargin, hit, Color.gray, Color.cyan);
 

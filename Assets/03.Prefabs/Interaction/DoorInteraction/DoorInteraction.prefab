@@ -131,6 +131,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10b4162570afaba46a4885e57fbbf536, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  upDirection: {x: 0, y: 1}
+  floorMaxAngle: 45
+  safeMargin: 0.08
+  floorLayer:
+    serializedVersion: 2
+    m_Bits: 1216
+  debugRaysEnabled: 0
   targetTransform: {fileID: 406119567281815529}
   moveSpeed: 3
 --- !u!50 &7652882390746995497

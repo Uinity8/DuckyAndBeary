@@ -55,8 +55,8 @@ namespace Manager
         {
             // 딕셔너리로 스테이지 초기화 (씬 이름을 키로 사용)
             stageInfo.Add("Stage1", new GameStage("Stage1", 0, 6, 130f));
-            stageInfo.Add("Stage2", new GameStage("Stage2", 1, 6, 150f));
-            stageInfo.Add("Stage3", new GameStage("Stage3", 2, 6, 150f));
+            stageInfo.Add("Stage2", new GameStage("Stage2", 1, 10, 150f));
+            stageInfo.Add("Stage3", new GameStage("Stage3", 2, 14, 150f));
         }
 
         private void Start()
@@ -146,7 +146,6 @@ namespace Manager
 
             else
             {
-                Debug.LogWarning(stageName + "is not found");
                 return new GameResult(stageName,0,0,StageStatus.Locked);
             }
         }
