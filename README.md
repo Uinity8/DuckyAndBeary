@@ -9,6 +9,7 @@
 
 <video src="https://github.com/myusername/DuckyBeary/raw/main/Images/README/PlayVideo.mp4" controls></video>
 
+[![플레이영상](https://img.youtube.com/vi/비디오ID/0.jpg)]([https://www.youtube.com/watch?v=비디오ID](https://www.youtube.com/watch?v=spMOn-UkE8I))
 
 
 ---
