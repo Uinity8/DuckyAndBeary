@@ -5,7 +5,7 @@
 
 [플레이영상]
 
-<video src="Images/README/PlayVideo.mp4"></video>
+<video src="https://github.com/Uinity8/DuckyAndBeary/tree/feat-UI/Images/README/PlayVideo.mp4" controls></video>
 
 ---
 
