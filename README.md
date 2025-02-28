@@ -7,6 +7,10 @@
 
 <video src="https://github.com/Uinity8/DuckyAndBeary/tree/feat-UI/Images/README/PlayVideo.mp4" controls></video>
 
+<video src="https://github.com/myusername/DuckyBeary/raw/main/Images/README/PlayVideo.mp4" controls></video>
+
+
+
 ---
 
 ## 2. 게임 소개
